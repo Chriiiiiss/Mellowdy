@@ -1,3 +1,3 @@
-# Click'n'Cook Front-end Application
+# Mellowdy Front-end Application
 
 - Using Vite and React

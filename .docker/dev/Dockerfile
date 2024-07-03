@@ -10,4 +10,6 @@ COPY . .
 
 EXPOSE 8080
 
+# TODO: Should add env variable
+
 CMD ["npm", "run", "dev"]

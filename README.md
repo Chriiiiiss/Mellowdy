@@ -1,4 +1,4 @@
-# mellowdy_v2
+# mellowdy_v2_front
 
 
 
@@ -15,14 +15,14 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin https://gitlab.com/mt5_final/mellowdy_v2.git
+git remote add origin https://gitlab.mt.glassworks.tech/mt5_final/mellowdy_v2_front.git
 git branch -M main
 git push -uf origin main
 ```
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](https://gitlab.com/mt5_final/mellowdy_v2/-/settings/integrations)
+- [ ] [Set up project integrations](https://gitlab.mt.glassworks.tech/mt5_final/mellowdy_v2_front/-/settings/integrations)
 
 ## Collaborate with your team
 

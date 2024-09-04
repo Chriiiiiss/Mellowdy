@@ -1,4 +1,4 @@
-import { Box, Container } from '@radix-ui/themes';
+import { Container } from '@radix-ui/themes';
 
 interface MainLayoutProps {
   children: React.ReactNode;

@@ -1,3 +1,12 @@
 body {
   margin: 0;
 }
+
+.radix-themes {
+  --default-font-family: 'Montserrat', sans-serif;
+  --heading-font-family: 'Lostar';
+  --mellowdy-orange: #fc8f52;
+  --mellowdy-red: #ba0000;
+  --mellowdy-black: #2d221f;
+  --mellowdy-white: #fff5f0;
+}

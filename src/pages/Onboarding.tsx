@@ -1,12 +1,13 @@
 import { OnboardingLayout } from '../layout/OnboardingLayout';
 import { Heading } from '@radix-ui/themes';
+import styled from 'styled-components';
+import { OnboardingCard } from '../components/OnboardingCard';
+import { MainTitle } from '../components/MainTitle';
 
 export const OnboardingPage = () => {
   return (
     <OnboardingLayout>
-      <Heading align={'center'} as={'h1'} size={'9'} weight={'bold'}>
-        Mellowdy
-      </Heading>
+      <MainTitle />
     </OnboardingLayout>
   );
 };

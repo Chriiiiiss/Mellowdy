@@ -1,4 +1,5 @@
 import { Container } from '@radix-ui/themes';
+import { NavigationBar } from '../components/NavigationBar';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -6,8 +7,9 @@ interface MainLayoutProps {
 
 export const MainLayout = ({ children }: MainLayoutProps) => {
   return (
-    <Container p={'5'} size={'4'}>
+    <Container py={'8'} size={'4'}>
       {children}
+      <NavigationBar />
     </Container>
   );
 };

@@ -1,4 +1,4 @@
-import { Container } from '@radix-ui/themes';
+import { Box, Container } from '@radix-ui/themes';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -6,7 +6,7 @@ interface MainLayoutProps {
 
 export const MainLayout = ({ children }: MainLayoutProps) => {
   return (
-    <Container my={'9'} size={'4'}>
+    <Container p={'8'} size={'4'}>
       {children}
     </Container>
   );

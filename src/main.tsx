@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import '@radix-ui/themes/styles.css';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 import { routeTree } from './routeTree.gen.ts';
+import { useUserState } from './stores/useUserState.ts';
 
 const router = createRouter({ routeTree });
 
@@ -12,8 +13,14 @@ declare module '@tanstack/react-router' {
   }
 }
 
+// Workaround to access the user hook and pass it to the router context
+const InnerApp = () => {
+  const user = useUserState();
+  return <RouterProvider router={router} context={user} />;
+};
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <InnerApp />
   </React.StrictMode>
 );

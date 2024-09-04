@@ -5,7 +5,7 @@ import { DashboardPage } from '../pages/Dashboard';
 export const Route = createFileRoute('/')({
   beforeLoad: async ({ context }) => {
     const { isAuth } = context;
-    if (!isAuth === false) {
+    if (isAuth === false) {
       throw redirect({ to: '/login' });
     }
   },

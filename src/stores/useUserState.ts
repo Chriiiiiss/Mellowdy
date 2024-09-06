@@ -4,10 +4,9 @@ import { persist } from 'zustand/middleware';
 
 export type UserState = {
   user: IUser | null;
-  provider: string | null;
   isAuth: boolean;
-  login: (userData: IUser) => void;
-  logout: () => void;
+  login?: (userData: IUser) => void;
+  logout?: () => void;
 };
 
 // User state

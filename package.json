@@ -8,7 +8,7 @@
     "build": "tsc && vite build",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "prepare": "husky"
+    "prepare": "lint-staged"
   },
   "dependencies": {
     "@radix-ui/react-icons": "^1.3.0",

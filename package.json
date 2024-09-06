@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "prepare": "lint-staged"
+    "prepare": "husky",
+    "precommit": "lint-staged"
   },
   "dependencies": {
     "@radix-ui/react-icons": "^1.3.0",
@@ -38,6 +39,7 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
     "globals": "^15.2.0",
+    "lint-staged": "^15.2.10",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.9.0",
     "vite": "^5.2.11",

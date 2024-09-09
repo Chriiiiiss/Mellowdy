@@ -82,6 +82,14 @@ const PlaylistDisplay = ({
             <PlaylistName>{playlist.name}</PlaylistName>
           </PlaylistInfo>
         ))}
+        <PlaylistInfo direction={'column'} gap={'2'}>
+          <PlaylistCover
+            src={'https://placehold.co/600x400/green/green'}
+            height={'160px'}
+            width={'160px'}
+          />
+          <PlaylistName>{'Ajouter une playlist'}</PlaylistName>
+        </PlaylistInfo>
       </PlaylistContainer>
     </Flex>
   );

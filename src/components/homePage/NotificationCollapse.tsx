@@ -43,7 +43,7 @@ const CollapsibleContent = styled(Collapsible.Content)`
 `;
 
 const NotifContainer = styled(Flex)`
-  background-color: #1f1f1f;
+  background-color: rgba(108, 107, 107, 0.1);
   padding: 18px;
   border-radius: 8px;
 `;
@@ -62,7 +62,7 @@ const NotificationCollapse = () => {
       <Flex align={'center'} justify={'between'}>
         <Collapsible.Trigger asChild>
           <Flex justify={'between'} align={'center'} width={'100%'}>
-            <span style={{ color: 'white' }}>Afficher les notifications</span>
+            <span>Afficher les notifications</span>
             {open ? <ChevronUpIcon /> : <ChevronDownIcon />}
           </Flex>
         </Collapsible.Trigger>

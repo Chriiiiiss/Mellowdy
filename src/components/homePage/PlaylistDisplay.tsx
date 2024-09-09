@@ -1,16 +1,15 @@
 import { ArrowRightIcon } from '@radix-ui/react-icons';
-import { Flex, Heading } from '@radix-ui/themes';
+import { Flex, Grid, Heading } from '@radix-ui/themes';
 import styled from 'styled-components';
+import { PlaylistDisplayProps } from '../../pages/HomePage';
 
 const ListenerProfile = styled.img`
-  height: 40px;
-  width: 40px;
   border-radius: 100px;
-  margin: 0 -30px;
+  margin-left: -16px;
+  object-fit: cover;
 `;
 
 const GroupeName = styled(Heading)`
-  width: 150px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -24,11 +23,7 @@ const PlaylistContainer = styled(Flex)`
   margin: 0 -24px;
 `;
 
-const PlaylistCover = styled.img`
-  height: 150px;
-  width: 150px;
-  border-radius: 8px;
-
+const PlaylistInfo = styled(Flex)`
   &:first-of-type {
     margin-left: 24px;
   }
@@ -38,25 +33,55 @@ const PlaylistCover = styled.img`
   }
 `;
 
-const PlaylistDisplay = () => {
+const PlaylistCover = styled.img`
+  border-radius: 8px;
+  object-fit: cover;
+`;
+
+const PlaylistName = styled.span`
+  width: 160px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+`;
+
+const PlaylistDisplay = ({
+  groupeName,
+  listeners,
+  playlist,
+}: PlaylistDisplayProps) => {
   return (
     <Flex gap={'5'} direction={'column'}>
-      <Flex align={'center'} justify={'between'}>
+      <Grid columns={'70% 30%'}>
         <Flex align={'center'} gap={'2'}>
-          <GroupeName>Euro 2024 Heti</GroupeName>
+          <GroupeName>{groupeName}</GroupeName>
           <ArrowRightIcon />
         </Flex>
-        <Flex>
-          <ListenerProfile src="https://placehold.co/40x40/orange/white" />
-          <ListenerProfile src="https://placehold.co/40x40/green/white" />
-          <ListenerProfile src="https://placehold.co/40x40/red/white" />
-        </Flex>
-      </Flex>
+        {listeners && (
+          <Flex gap={'-16px'} justify={'end'}>
+            {listeners.slice(0, 3).map((listener) => (
+              <ListenerProfile
+                key={listener.name}
+                src={listener.img}
+                height={'40px'}
+                width={'40px'}
+              />
+            ))}
+          </Flex>
+        )}
+      </Grid>
       <PlaylistContainer gap={'4'}>
-        <PlaylistCover src="https://placehold.co/150x150" />
-        <PlaylistCover src="https://placehold.co/150x150" />
-        <PlaylistCover src="https://placehold.co/150x150" />
-        <PlaylistCover src="https://placehold.co/150x150" />
+        {playlist.map((playlist) => (
+          <PlaylistInfo direction={'column'} gap={'2'} key={playlist.name}>
+            <PlaylistCover
+              key={playlist.name}
+              src={playlist.cover}
+              height={'160px'}
+              width={'160px'}
+            />
+            <PlaylistName>{playlist.name}</PlaylistName>
+          </PlaylistInfo>
+        ))}
       </PlaylistContainer>
     </Flex>
   );

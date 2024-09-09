@@ -1,5 +1,10 @@
 import { Flex } from '@radix-ui/themes';
 import styled from 'styled-components';
+import { User } from '../../pages/HomePage';
+
+interface ScrollableProfileProps {
+  friends: User[];
+}
 
 const ProfilContainer = styled(Flex)`
   width: 100vw;
@@ -15,6 +20,7 @@ const ImageStyled = styled.img`
   height: 60px;
   width: 60px;
   border-radius: 100px;
+  object-fit: cover;
 
   &:first-of-type {
     margin-left: 24px;
@@ -25,21 +31,12 @@ const ImageStyled = styled.img`
   }
 `;
 
-const ScrollableProfile = () => {
+const ScrollableProfile = ({ friends }: ScrollableProfileProps) => {
   return (
     <ProfilContainer gap={'4'}>
-      <ImageStyled src="https://placehold.co/60x60" />
-      <ImageStyled src="https://placehold.co/60x60" />
-      <ImageStyled src="https://placehold.co/60x60" />
-      <ImageStyled src="https://placehold.co/60x60" />
-      <ImageStyled src="https://placehold.co/60x60" />
-      <ImageStyled src="https://placehold.co/60x60" />
-      <ImageStyled src="https://placehold.co/60x60" />
-      <ImageStyled src="https://placehold.co/60x60" />
-      <ImageStyled src="https://placehold.co/60x60" />
-      <ImageStyled src="https://placehold.co/60x60" />
-      <ImageStyled src="https://placehold.co/60x60" />
-      <ImageStyled src="https://placehold.co/60x60" />
+      {friends.map((friend) => (
+        <ImageStyled key={friend.username} src={friend.profilePicture} />
+      ))}
     </ProfilContainer>
   );
 };

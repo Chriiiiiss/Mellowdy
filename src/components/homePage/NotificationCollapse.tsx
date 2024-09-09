@@ -12,7 +12,7 @@ const CollapsibleRoot = styled(Collapsible.Root)`
 
 const CollapsibleContent = styled(Collapsible.Content)`
   padding-top: 16px;
-  height: 237px;
+  height: 225px;
   overflow: scroll;
 
   &[data-state='open'] {
@@ -44,7 +44,7 @@ const CollapsibleContent = styled(Collapsible.Content)`
 
 const NotifContainer = styled(Flex)`
   background-color: #1f1f1f;
-  padding: 24px;
+  padding: 18px;
   border-radius: 8px;
 `;
 

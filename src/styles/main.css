@@ -10,3 +10,25 @@ body {
   --mellowdy-black: #2d221f;
   --mellowdy-white: #fff5f0;
 }
+
+.fade-out {
+  opacity: 1;
+  transition: opacity 3s ease-out;
+}
+
+.fade-out.hidden {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute; /* Hide the element without removing it from the layout */
+}
+
+.fade-in {
+  opacity: 0;
+  transition: opacity 1s ease-in;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  visibility: visible;
+  position: static;
+}

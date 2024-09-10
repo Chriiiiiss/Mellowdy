@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 interface MainTitleProps {
   variant?: 'primary' | 'secondary';
+  className?: string;
 }
 
 const CustomHeading = styled(Heading)<MainTitleProps>`
@@ -25,9 +26,12 @@ const CustomHeading = styled(Heading)<MainTitleProps>`
     `}
 `;
 
-export const MainTitle = ({ variant = 'primary' }: MainTitleProps) => {
+export const MainTitle = ({
+  variant = 'primary',
+  className,
+}: MainTitleProps) => {
   return (
-    <CustomHeading as={'h1'} variant={variant}>
+    <CustomHeading as={'h1'} variant={variant} className={className}>
       Mellowdy
     </CustomHeading>
   );

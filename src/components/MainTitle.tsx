@@ -7,7 +7,7 @@ interface MainTitleProps {
 }
 
 const CustomHeading = styled(Heading)<MainTitleProps>`
-  font-family: var(--heading-font-family);
+  font-family: var(--title-font-family);
   align-self: center;
   font-size: 54px;
   font-weight: 400;

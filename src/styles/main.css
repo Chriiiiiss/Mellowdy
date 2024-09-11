@@ -4,7 +4,7 @@ body {
 
 .radix-themes {
   --default-font-family: 'Montserrat', sans-serif;
-  --heading-font-family: 'Lostar';
+  --title-font-family: 'Lostar';
   --mellowdy-orange: #fc8f52;
   --mellowdy-red: #ba0000;
   --mellowdy-black: #2d221f;

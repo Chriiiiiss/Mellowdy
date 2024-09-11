@@ -18,6 +18,7 @@ const CustomButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 export const OnboardingButton = ({

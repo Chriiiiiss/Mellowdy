@@ -7,6 +7,7 @@ import { OnboardingStep } from '../components/onboarding/Step';
 import { OnboardingButton } from '../components/onboarding/Button';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from '@tanstack/react-router';
 
 const CustomText = styled(Text)`
   font-family: var(--default-font-family);
@@ -39,14 +40,19 @@ const StepList = [
 
 export const OnboardingPage = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
-    }, 5500); // 3 seconds delay
+    }, 3200); // 3 seconds delay
 
     return () => clearTimeout(timer);
   }, []);
+
+  const handleClick = () => {
+    navigate({ to: '/login' });
+  };
 
   return (
     <OnboardingLayout>
@@ -56,7 +62,7 @@ export const OnboardingPage = () => {
             initial={{ opacity: 1 }}
             animate={{ opacity: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 5 }}
+            transition={{ duration: 3 }}
             key="mainTitle"
           >
             <MainTitle />
@@ -75,7 +81,7 @@ export const OnboardingPage = () => {
             <Box>
               <OnboardingCard>
                 <CustomText as="p">Bienvenue sur</CustomText>
-                <Container align={'center'}>
+                <Container align={'center'} minHeight={'530px'}>
                   <Grid columns={'1'} gap={'8'} justify={'center'}>
                     <CustomBox>
                       <MainTitle variant="secondary" />
@@ -91,7 +97,7 @@ export const OnboardingPage = () => {
                     ))}
                     <CustomBox>
                       <OnboardingButton
-                        onClick={() => console.log('click')}
+                        onClick={handleClick}
                         label="Commencer"
                         iconEnd="ic:round-chevron-right"
                       />

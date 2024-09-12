@@ -1,15 +1,9 @@
-import { Box, Container, Grid, Text } from '@radix-ui/themes';
+import { Box, Container, Flex, Grid, Text } from '@radix-ui/themes';
 import styled from 'styled-components';
 import { OnboardingLayout } from '../layout/OnboardingLayout';
 import { MainTitle } from '../components/MainTitle';
 import { OnboardingCard } from '../components/onboarding/Card';
 import { OnboardingButton } from '../components/onboarding/Button';
-
-const CustomBox = styled(Box)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 
 const CustomText = styled(Text)`
   font-family: var(--default-font-family);
@@ -38,18 +32,18 @@ export const LoginPage = () => {
         <OnboardingCard>
           <Container align={'center'} minHeight={'530px'}>
             <Grid columns={'1'} gap={'8'} justify={'center'}>
-              <CustomBox>
+              <Flex justify={'center'}>
                 <MainTitle variant="secondary" />
-              </CustomBox>
+              </Flex>
               <CustomText>Connectez votre appli de musique préférée</CustomText>
               {ProviderList.map((provider, index) => (
-                <CustomBox key={index}>
+                <Flex key={index} justify={'center'}>
                   <OnboardingButton
                     onClick={() => console.log(provider.label)}
                     label={provider.label}
                     iconStart={provider.icon}
                   />
-                </CustomBox>
+                </Flex>
               ))}
             </Grid>
           </Container>

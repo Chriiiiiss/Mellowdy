@@ -1,4 +1,4 @@
-import { Text } from '@radix-ui/themes';
+import { Text, Flex } from '@radix-ui/themes';
 import { Icon } from '@iconify/react';
 import styled from 'styled-components';
 
@@ -6,10 +6,6 @@ interface OnboardingStepProps {
   label: string;
   icon: 'playlist' | 'friends' | 'music';
 }
-
-const CustomContainer = styled.div`
-  display: flex;
-`;
 
 const IconContainer = styled.div`
   display: flex;
@@ -32,7 +28,7 @@ const ThickIcon = styled(Icon)`
 
 export const OnboardingStep = ({ label, icon }: OnboardingStepProps) => {
   return (
-    <CustomContainer>
+    <Flex>
       <IconContainer>
         {icon === 'playlist' && (
           <ThickIcon icon="hugeicons:playlist-02" height="36" />
@@ -43,6 +39,6 @@ export const OnboardingStep = ({ label, icon }: OnboardingStepProps) => {
         )}
       </IconContainer>
       <StepText>{label}</StepText>
-    </CustomContainer>
+    </Flex>
   );
 };

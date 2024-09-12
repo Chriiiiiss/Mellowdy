@@ -1,7 +1,7 @@
 import { OnboardingLayout } from '../layout/OnboardingLayout';
 import { OnboardingCard } from '../components/onboarding/Card';
 import { MainTitle } from '../components/MainTitle';
-import { Box, Container, Grid, Text } from '@radix-ui/themes';
+import { Box, Container, Flex, Grid, Text } from '@radix-ui/themes';
 import { styled } from 'styled-components';
 import { OnboardingStep } from '../components/onboarding/Step';
 import { OnboardingButton } from '../components/onboarding/Button';
@@ -15,12 +15,6 @@ const CustomText = styled(Text)`
   margin: 0;
   font-weight: 600;
   color: var(--mellowdy-black);
-`;
-
-const CustomBox = styled(Box)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const StepList = [
@@ -83,25 +77,25 @@ export const OnboardingPage = () => {
                 <CustomText as="p">Bienvenue sur</CustomText>
                 <Container align={'center'} minHeight={'530px'}>
                   <Grid columns={'1'} gap={'8'} justify={'center'}>
-                    <CustomBox>
+                    <Flex justify={'center'} align={'center'}>
                       <MainTitle variant="secondary" />
-                    </CustomBox>
+                    </Flex>
 
                     {StepList.map((step, index) => (
-                      <CustomBox key={index}>
+                      <Flex key={index} justify={'center'} align={'center'}>
                         <OnboardingStep
                           label={step.label}
                           icon={step.icon as 'playlist' | 'friends' | 'music'}
                         />
-                      </CustomBox>
+                      </Flex>
                     ))}
-                    <CustomBox>
+                    <Flex justify={'center'} align={'center'}>
                       <OnboardingButton
                         onClick={handleClick}
                         label="Commencer"
                         iconEnd="ic:round-chevron-right"
                       />
-                    </CustomBox>
+                    </Flex>
                   </Grid>
                 </Container>
               </OnboardingCard>

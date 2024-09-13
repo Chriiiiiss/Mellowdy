@@ -18,6 +18,7 @@ import { Route as LoginIndexImport } from './routes/login/index';
 import { Route as HomePageIndexImport } from './routes/homePage/index';
 import { Route as GroupListIndexImport } from './routes/groupList/index';
 import { Route as GroupDetailsIndexImport } from './routes/groupDetails/index';
+import { Route as PlaylistDetailsIndexImport } from './routes/PlaylistDetails/index'
 
 // Create/Update Routes
 
@@ -41,6 +42,11 @@ const LoginIndexRoute = LoginIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any);
 
+const PlaylistDetailsIndexRoute = PlaylistDetailsIndexImport.update({
+  path: '/PlaylistDetails/',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const HomePageIndexRoute = HomePageIndexImport.update({
   path: '/homePage/',
   getParentRoute: () => rootRoute,
@@ -61,6 +67,26 @@ const GroupDetailsIndexRoute = GroupDetailsIndexImport.update({
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/PlaylistDetails/': {
+      id: '/PlaylistDetails/'
+      path: '/PlaylistDetails'
+      fullPath: '/PlaylistDetails'
+      preLoaderRoute: typeof PlaylistDetailsIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/grouplist/': {
+      id: '/grouplist/'
+      path: '/grouplist'
+      fullPath: '/grouplist'
+      preLoaderRoute: typeof GrouplistIndexImport
+      parentRoute: typeof rootRoute
+    }
       id: '/';
       path: '/';
       fullPath: '/';
@@ -118,6 +144,12 @@ export const routeTree = rootRoute.addChildren({
   IndexRoute,
   GroupDetailsIndexRoute,
   GroupListIndexRoute,
+  PlaylistDetailsIndexRoute,
+  LoginIndexRoute,
+})
+export const routeTree = rootRoute.addChildren({
+  IndexRoute,
+  GrouplistIndexRoute,
   HomePageIndexRoute,
   LoginIndexRoute,
   OnboardingIndexRoute,
@@ -135,6 +167,9 @@ export const routeTree = rootRoute.addChildren({
         "/",
         "/groupDetails/",
         "/groupList/",
+        "/PlaylistDetails/",
+        "/login/"
+        "/grouplist/",
         "/homePage/",
         "/login/",
         "/onboarding/",
@@ -146,6 +181,11 @@ export const routeTree = rootRoute.addChildren({
     },
     "/groupDetails/": {
       "filePath": "groupDetails/index.tsx"
+    "/PlaylistDetails/": {
+      "filePath": "PlaylistDetails/index.tsx"
+    },
+    "/grouplist/": {
+      "filePath": "grouplist/index.tsx"
     },
     "/groupList/": {
       "filePath": "groupList/index.tsx"

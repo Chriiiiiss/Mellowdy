@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
-import { Box, Text, Flex } from '@radix-ui/themes';
+import { Box, Text, Flex, Link } from '@radix-ui/themes';
 
 interface ListAddCardProps {
   title: string;
@@ -9,10 +9,9 @@ interface ListAddCardProps {
 export const ListAddCard = ({ title, variant }: ListAddCardProps) => {
   return (
     <Box maxWidth={'104px'}>
-      <a href={'/'} style={{ textDecoration: 'none' }}>
-        <Box
+      <Link href={'/'} underline="none">
+        <Flex
           style={{
-            display: 'flex',
             objectFit: 'cover',
             width: '100%',
             height: '101px',
@@ -27,13 +26,13 @@ export const ListAddCard = ({ title, variant }: ListAddCardProps) => {
             fontSize={'50px'}
             color="var(--mellowdy-white)"
           />
-        </Box>
+        </Flex>
         <Flex align={'center'} justify={'center'} gap={'2'} maxWidth={'104px'}>
           <Text as={'p'} size={'1'} truncate>
             {title}
           </Text>
         </Flex>
-      </a>
+      </Link>
     </Box>
   );
 };

@@ -1,4 +1,4 @@
-import { Box, Flex, Inset, Text } from '@radix-ui/themes';
+import { Box, Flex, Inset, Link, Text } from '@radix-ui/themes';
 import styled from 'styled-components';
 
 interface GroupCardProps {
@@ -19,7 +19,7 @@ const StyledImg = styled.img<{ variant: 'group' | 'playlist' }>`
 export const GroupCard = ({ title, cover, link, variant }: GroupCardProps) => {
   return (
     <Box maxWidth={'104px'}>
-      <a href={link} style={{ textDecoration: 'none' }}>
+      <Link href={link} underline="none">
         <Inset clip="padding-box" side="top" pb="current">
           <StyledImg src={cover} alt={title} variant={variant} />
         </Inset>
@@ -29,7 +29,7 @@ export const GroupCard = ({ title, cover, link, variant }: GroupCardProps) => {
             {title}
           </Text>
         </Flex>
-      </a>
+      </Link>
     </Box>
   );
 };

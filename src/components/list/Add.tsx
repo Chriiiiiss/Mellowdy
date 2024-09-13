@@ -3,9 +3,10 @@ import { Box, Text, Flex } from '@radix-ui/themes';
 
 interface ListAddCardProps {
   title: string;
+  variant: 'group' | 'playlist';
 }
 
-export const ListAddCard = ({ title }: ListAddCardProps) => {
+export const ListAddCard = ({ title, variant }: ListAddCardProps) => {
   return (
     <Box maxWidth={'104px'}>
       <a href={'/'} style={{ textDecoration: 'none' }}>
@@ -15,7 +16,7 @@ export const ListAddCard = ({ title }: ListAddCardProps) => {
             objectFit: 'cover',
             width: '100%',
             height: '101px',
-            borderRadius: '100%',
+            borderRadius: `${variant === 'group' ? '100%' : '8px'}`,
             backgroundImage: `url(/images/backgrounds/AddBg.png)`,
             justifyContent: 'center',
             alignItems: 'center',

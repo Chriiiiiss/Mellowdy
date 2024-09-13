@@ -48,7 +48,7 @@ export const GroupList = () => {
                   variant="group"
                 />
               ))}
-              <ListAddCard title="Créer un groupe" />
+              <ListAddCard title="Créer un groupe" variant="group" />
             </Grid>
           </ListCard>
         </Flex>

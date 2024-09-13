@@ -97,6 +97,7 @@ export const routeTree = rootRoute.addChildren({
   OnboardingIndexRoute,
   HomePageIndexRoute,
   LoginIndexRoute,
+  OnboardingIndexRoute,
 })
 
 /* prettier-ignore-end */
@@ -108,11 +109,10 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/grouplist/",
+        "/homePage/",
+        "/grouplist",
         "/login/",
         "/onboarding/"
-        "/homePage/",
-        "/login/"
       ]
     },
     "/": {

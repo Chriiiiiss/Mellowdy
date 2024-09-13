@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Collapsible from '@radix-ui/react-collapsible';
 import styled from 'styled-components';
-import { ChevronDownIcon, Flex } from '@radix-ui/themes';
+import { Avatar, ChevronDownIcon, Flex, Text } from '@radix-ui/themes';
 import { ChevronUpIcon } from '@radix-ui/react-icons';
 
 const CollapsibleRoot = styled(Collapsible.Root)`
@@ -48,47 +48,66 @@ const NotifContainer = styled(Flex)`
   border-radius: 8px;
 `;
 
-const ImageStyled = styled.img`
-  height: 60px;
-  width: 60px;
-  border-radius: 100px;
-`;
-
 const NotificationCollapse = () => {
   const [open, setOpen] = React.useState(false);
 
   return (
     <CollapsibleRoot open={open} onOpenChange={setOpen}>
-      <Flex align={'center'} justify={'between'}>
+      <Flex align="center" justify="between">
         <Collapsible.Trigger asChild>
-          <Flex justify={'between'} align={'center'} width={'100%'}>
-            <span>Afficher les notifications</span>
+          <Flex justify="between" align="center" width="100%">
+            <Text>Afficher les notifications</Text>
             {open ? <ChevronUpIcon /> : <ChevronDownIcon />}
           </Flex>
         </Collapsible.Trigger>
       </Flex>
 
       <CollapsibleContent>
-        <Flex direction={'column'} gap={'4'}>
-          <NotifContainer align={'center'} gap={'4'}>
-            <ImageStyled src="https://placehold.co/60x60" />
-            <span>Machin Truc à été ajouté au groupe “Les collègues”</span>
+        <Flex direction="column" gap="4">
+          <NotifContainer align="center" gap="4">
+            <Avatar
+              src="https://placehold.co/60x60"
+              fallback="A"
+              radius="full"
+              size="3"
+            />
+            <Text>Machin Truc à été ajouté au groupe “Les collègues”</Text>
           </NotifContainer>
-          <NotifContainer align={'center'} gap={'4'}>
-            <ImageStyled src="https://placehold.co/60x60" />
-            <span>Machin Truc écoute le morceaux “Super Musique”</span>
+          <NotifContainer align="center" gap="4">
+            <Avatar
+              src="https://placehold.co/60x60"
+              fallback="A"
+              radius="full"
+              size="3"
+            />
+            <Text>Machin Truc écoute le morceaux “Super Musique”</Text>
           </NotifContainer>
-          <NotifContainer align={'center'} gap={'4'}>
-            <ImageStyled src="https://placehold.co/60x60" />
-            <span>Machin Truc écoute le morceaux “Super Musique”</span>
+          <NotifContainer align="center" gap="4">
+            <Avatar
+              src="https://placehold.co/60x60"
+              fallback="A"
+              radius="full"
+              size="3"
+            />
+            <Text>Machin Truc écoute le morceaux “Super Musique”</Text>
           </NotifContainer>
-          <NotifContainer align={'center'} gap={'4'}>
-            <ImageStyled src="https://placehold.co/60x60" />
-            <span>Machin Truc écoute le morceaux “Super Musique”</span>
+          <NotifContainer align="center" gap="4">
+            <Avatar
+              src="https://placehold.co/60x60"
+              fallback="A"
+              radius="full"
+              size="3"
+            />
+            <Text>Machin Truc écoute le morceaux “Super Musique”</Text>
           </NotifContainer>
-          <NotifContainer align={'center'} gap={'4'}>
-            <ImageStyled src="https://placehold.co/60x60" />
-            <span>Machin Truc écoute le morceaux “Super Musique”</span>
+          <NotifContainer align="center" gap="4">
+            <Avatar
+              src="https://placehold.co/60x60"
+              fallback="A"
+              radius="full"
+              size="3"
+            />
+            <Text>Machin Truc écoute le morceaux “Super Musique”</Text>
           </NotifContainer>
         </Flex>
       </CollapsibleContent>

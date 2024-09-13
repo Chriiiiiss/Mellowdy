@@ -34,52 +34,50 @@ const userData: User = {
     {
       username: 'Alice',
       email: 'truc',
-      profilePicture: 'https://placehold.co/60x40/blue/white',
     },
     {
       username: 'Boris',
       email: 'truc',
-      profilePicture: 'https://placehold.co/60x40/blue/white',
+      profilePicture: 'https://picsum.photos/25/25',
     },
     {
       username: 'Alice',
       email: 'truc',
-      profilePicture: 'https://placehold.co/60x40/blue/white',
+      profilePicture: 'https://picsum.photos/60/40',
     },
     {
       username: 'Boris',
       email: 'truc',
-      profilePicture: 'https://placehold.co/60x40/blue/white',
+      profilePicture: 'https://picsum.photos/55/55',
     },
     {
       username: 'Alice',
       email: 'truc',
-      profilePicture: 'https://placehold.co/60x40/blue/white',
+      profilePicture: 'https://picsum.photos/75/60',
     },
     {
       username: 'Boris',
       email: 'truc',
-      profilePicture: 'https://placehold.co/60x40/blue/white',
     },
     {
       username: 'Alice',
       email: 'truc',
-      profilePicture: 'https://placehold.co/60x40/blue/white',
+      profilePicture: 'https://picsum.photos/65/55',
     },
     {
       username: 'Boris',
       email: 'truc',
-      profilePicture: 'https://placehold.co/60x40/blue/white',
+      profilePicture: 'https://picsum.photos/72/67',
     },
     {
       username: 'Alice',
       email: 'truc',
-      profilePicture: 'https://placehold.co/60x40/blue/white',
+      profilePicture: 'https://picsum.photos/72/72',
     },
     {
       username: 'Boris',
       email: 'truc',
-      profilePicture: 'https://placehold.co/60x40/blue/white',
+      profilePicture: 'https://picsum.photos/72/65',
     },
   ],
 };
@@ -90,40 +88,40 @@ const playlistData: PlaylistDisplayProps[] = [
     listeners: [
       {
         name: 'Alice',
-        img: 'https://placehold.co/60x40/blue/white',
+        img: 'https://picsum.photos/72/65',
       },
       {
         name: 'Bob',
-        img: 'https://placehold.co/60x40/red/white',
+        img: 'https://picsum.photos/72/72',
       },
       {
         name: 'Charlie',
-        img: 'https://placehold.co/60x40/yellow/white',
+        img: 'https://picsum.photos/65/65',
       },
       {
         name: 'David',
-        img: 'https://placehold.co/60x40/green/white',
+        img: 'https://picsum.photos/70/72',
       },
       {
         name: 'Emma',
-        img: 'https://placehold.co/60x40/purple/white',
+        img: 'https://picsum.photos/70/70',
       },
     ],
     playlist: [
       {
-        cover: 'https://placehold.co/600x400/green/white',
+        cover: 'https://picsum.photos/100/100',
         name: 'Morning Relaxation',
       },
       {
-        cover: 'https://placehold.co/600x400/purple/white',
+        cover: 'https://picsum.photos/90/72',
         name: 'Evening Serenity',
       },
       {
-        cover: 'https://placehold.co/600x400/pink/white',
+        cover: 'https://picsum.photos/80/80',
         name: 'Weekend Chillout',
       },
       {
-        cover: 'https://placehold.co/600x400/yellow/white',
+        cover: 'https://picsum.photos/72/80',
         name: 'Night Calm',
       },
     ],
@@ -132,19 +130,19 @@ const playlistData: PlaylistDisplayProps[] = [
     groupeName: 'Workout Beats',
     playlist: [
       {
-        cover: 'https://placehold.co/600x400/blue/white',
+        cover: 'https://picsum.photos/150/150',
         name: 'Morning Run',
       },
       {
-        cover: 'https://placehold.co/600x400/red/white',
+        cover: 'https://picsum.photos/74/80',
         name: 'Afternoon Pump',
       },
       {
-        cover: 'https://placehold.co/600x400/yellow/white',
+        cover: 'https://picsum.photos/79/80',
         name: 'Evening Sweat',
       },
       {
-        cover: 'https://placehold.co/600x400/green/white',
+        cover: 'https://picsum.photos/87/80',
         name: 'Night Grind',
       },
     ],
@@ -153,41 +151,41 @@ const playlistData: PlaylistDisplayProps[] = [
     groupeName: 'Les collègues',
     listeners: [
       {
-        name: 'Alice',
-        img: 'https://placehold.co/60x40/blue/white',
-      },
-      {
-        name: 'Bob',
-        img: 'https://placehold.co/60x40/red/white',
-      },
-      {
-        name: 'Charlie',
-        img: 'https://placehold.co/60x40/yellow/white',
-      },
-      {
         name: 'David',
-        img: 'https://placehold.co/60x40/green/white',
+        img: 'https://picsum.photos/70/72',
       },
       {
         name: 'Emma',
-        img: 'https://placehold.co/60x40/purple/white',
+        img: 'https://picsum.photos/70/70',
+      },
+      {
+        name: 'Alice',
+        img: 'https://picsum.photos/72/65',
+      },
+      {
+        name: 'Bob',
+        img: 'https://picsum.photos/72/72',
+      },
+      {
+        name: 'Charlie',
+        img: 'https://picsum.photos/65/65',
       },
     ],
     playlist: [
       {
-        cover: 'https://placehold.co/600x400/green/white',
-        name: 'Morning Relaxation',
+        cover: 'https://picsum.photos/200/150',
+        name: 'Morning Relaxation pour se détendre et tout',
       },
       {
-        cover: 'https://placehold.co/600x400/purple/white',
+        cover: 'https://picsum.photos/139/100',
         name: 'Evening Serenity',
       },
       {
-        cover: 'https://placehold.co/600x400/pink/white',
+        cover: 'https://picsum.photos/120/120',
         name: 'Weekend Chillout',
       },
       {
-        cover: 'https://placehold.co/600x400/yellow/white',
+        cover: 'https://picsum.photos/140/140',
         name: 'Night Calm',
       },
     ],
@@ -197,16 +195,16 @@ const playlistData: PlaylistDisplayProps[] = [
 export const HomePage = () => {
   return (
     <MainLayout>
-      <Section pt={'0'} pb={'6'}>
-        <Flex gap={'5'} direction={'column'}>
+      <Section pt="0" pb="6">
+        <Flex gap="6" direction="column">
           <Heading>Bonjour {userData.username} !</Heading>
           {userData.friends && <ScrollableProfile friends={userData.friends} />}
 
           <NotificationCollapse />
         </Flex>
       </Section>
-      <Section pt={'0'} pb={'6'}>
-        <Flex gap={'5'} direction={'column'}>
+      <Section pt="0" pb="6">
+        <Flex gap="6" direction="column">
           {playlistData.slice(0, 10).map((playlistData) => (
             <PlaylistDisplay
               key={playlistData.groupeName}
@@ -216,7 +214,7 @@ export const HomePage = () => {
             />
           ))}
           {playlistData.length > 5 && (
-            <Flex justify={'center'}>
+            <Flex justify="center">
               <p>Voir plus</p>
             </Flex>
           )}

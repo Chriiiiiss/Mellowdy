@@ -5,10 +5,16 @@ body {
 .radix-themes {
   --default-font-family: 'Montserrat', sans-serif;
   --title-font-family: 'Lostar';
+
   --mellowdy-orange: #fc8f52;
   --mellowdy-red: #ba0000;
   --mellowdy-black: #2d221f;
   --mellowdy-white: #fff5f0;
+
+  --orange-9: var(--mellowdy-orange);
+  --red-9: var(--mellowdy-red);
+  --black-9: var(--mellowdy-black);
+  --white-9: var(--mellowdy-white);
 }
 
 .fade-out {

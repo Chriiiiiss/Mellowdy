@@ -14,7 +14,7 @@ export const Route = createRootRouteWithContext<IUser>()({
     return (
       <React.Fragment>
         <Theme
-          accentColor={'tomato'}
+          accentColor={'orange'}
           appearance={'light'}
           radius={'medium'}
           scaling={'100%'}

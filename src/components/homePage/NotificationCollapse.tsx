@@ -5,7 +5,7 @@ import { Avatar, ChevronDownIcon, Flex, Text } from '@radix-ui/themes';
 import { ChevronUpIcon } from '@radix-ui/react-icons';
 
 const CollapsibleRoot = styled(Collapsible.Root)`
-  border: 1px solid #333;
+  border: 1px solid var(--radix-colors-border);
   padding: 24px;
   border-radius: 8px;
 `;
@@ -43,7 +43,7 @@ const CollapsibleContent = styled(Collapsible.Content)`
 `;
 
 const NotifContainer = styled(Flex)`
-  background-color: rgba(108, 107, 107, 0.1);
+  background-color: var(--radix-colors-gray1);
   padding: 18px;
   border-radius: 8px;
 `;

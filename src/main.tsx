@@ -5,6 +5,7 @@ import { createRouter, RouterProvider } from '@tanstack/react-router';
 import { routeTree } from './routeTree.gen.ts';
 import { useUserState } from './stores/useUserState.ts';
 import './styles/main.css';
+import { ThemeProvider } from './theme.tsx';
 
 const router = createRouter({ routeTree });
 
@@ -22,6 +23,8 @@ const InnerApp = () => {
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <InnerApp />
+    <ThemeProvider>
+      <InnerApp />
+    </ThemeProvider>
   </React.StrictMode>
 );

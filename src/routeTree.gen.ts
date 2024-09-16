@@ -90,15 +90,49 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({
-  IndexRoute,
-  GrouplistIndexRoute,
-  LoginIndexRoute,
-  OnboardingIndexRoute,
-  HomePageIndexRoute,
-  LoginIndexRoute,
-  OnboardingIndexRoute,
-})
+export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
+  '/login': typeof LoginIndexRoute
+  '/onboarding': typeof OnboardingIndexRoute
+}
+
+export interface FileRoutesByTo {
+  '/': typeof IndexRoute
+  '/login': typeof LoginIndexRoute
+  '/onboarding': typeof OnboardingIndexRoute
+}
+
+export interface FileRoutesById {
+  __root__: typeof rootRoute
+  '/': typeof IndexRoute
+  '/login/': typeof LoginIndexRoute
+  '/onboarding/': typeof OnboardingIndexRoute
+}
+
+export interface FileRouteTypes {
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths: '/' | '/login' | '/onboarding'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/' | '/login' | '/onboarding'
+  id: '__root__' | '/' | '/login/' | '/onboarding/'
+  fileRoutesById: FileRoutesById
+}
+
+export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
+  LoginIndexRoute: typeof LoginIndexRoute
+  OnboardingIndexRoute: typeof OnboardingIndexRoute
+}
+
+const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
+  LoginIndexRoute: LoginIndexRoute,
+  OnboardingIndexRoute: OnboardingIndexRoute,
+}
+
+export const routeTree = rootRoute
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
 
 /* prettier-ignore-end */
 

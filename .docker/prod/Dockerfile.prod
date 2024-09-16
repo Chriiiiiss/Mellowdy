@@ -21,6 +21,7 @@ RUN npm install -g serve
 EXPOSE 8080
 
 # TODO: Should add env variable
+ENV VITE_MELLOWDY_API_URL=${VITE_MELLOWDY_API_URL}
 
 CMD ["serve", "-s",  "dist", "-l", "8080"]
 

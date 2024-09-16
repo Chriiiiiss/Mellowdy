@@ -6,7 +6,7 @@ interface MainLayoutProps {
 
 export const MainLayout = ({ children }: MainLayoutProps) => {
   return (
-    <Container p={'8'} size={'4'}>
+    <Container p={'5'} size={'4'}>
       {children}
     </Container>
   );

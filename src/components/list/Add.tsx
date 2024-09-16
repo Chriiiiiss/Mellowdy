@@ -14,11 +14,11 @@ export const ListAddCard = ({ title, variant }: ListAddCardProps) => {
           style={{
             objectFit: 'cover',
             width: '100%',
-            height: '101px',
-            borderRadius: `${variant === 'group' ? '100%' : '8px'}`,
+            borderRadius: `${variant === 'group' ? '50%' : '8px'}`,
             backgroundImage: `url(/images/backgrounds/AddBg.png)`,
             justifyContent: 'center',
             alignItems: 'center',
+            aspectRatio: '1 / 1',
           }}
         >
           <Icon
@@ -28,7 +28,7 @@ export const ListAddCard = ({ title, variant }: ListAddCardProps) => {
           />
         </Flex>
         <Flex align={'center'} justify={'center'} gap={'2'} maxWidth={'104px'}>
-          <Text as={'p'} size={'1'} truncate>
+          <Text as={'p'} size={'1'} color="gray" truncate>
             {title}
           </Text>
         </Flex>

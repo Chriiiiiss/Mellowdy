@@ -14,8 +14,8 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as OnboardingIndexImport } from './routes/onboarding/index'
 import { Route as LoginIndexImport } from './routes/login/index'
-import { Route as GrouplistIndexImport } from './routes/grouplist/index'
 import { Route as HomePageIndexImport } from './routes/homePage/index'
+import { Route as GrouplistIndexImport } from './routes/grouplist/index'
 
 // Create/Update Routes
 
@@ -34,13 +34,13 @@ const LoginIndexRoute = LoginIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const GrouplistIndexRoute = GrouplistIndexImport.update({
-  path: '/grouplist/',
+const HomePageIndexRoute = HomePageIndexImport.update({
+  path: '/homePage/',
   getParentRoute: () => rootRoute,
 } as any)
 
-const HomePageIndexRoute = HomePageIndexImport.update({
-  path: '/homePage/',
+const GrouplistIndexRoute = GrouplistIndexImport.update({
+  path: '/grouplist/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -57,18 +57,16 @@ declare module '@tanstack/react-router' {
     }
     '/grouplist/': {
       id: '/grouplist/'
+      path: '/grouplist'
+      fullPath: '/grouplist'
+      preLoaderRoute: typeof GrouplistIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/homePage/': {
       id: '/homePage/'
       path: '/homePage'
       fullPath: '/homePage'
       preLoaderRoute: typeof HomePageIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/grouplist': {
-      id: '/grouplist'
-      path: '/grouplist'
-      fullPath: '/grouplist'
-      preLoaderRoute: typeof GrouplistIndexImport
       parentRoute: typeof rootRoute
     }
     '/login/': {
@@ -93,8 +91,6 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
   GrouplistIndexRoute,
-  LoginIndexRoute,
-  OnboardingIndexRoute,
   HomePageIndexRoute,
   LoginIndexRoute,
   OnboardingIndexRoute,
@@ -109,8 +105,8 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/grouplist/",
         "/homePage/",
-        "/grouplist",
         "/login/",
         "/onboarding/"
       ]
@@ -120,9 +116,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/grouplist/": {
       "filePath": "grouplist/index.tsx"
+    },
     "/homePage/": {
       "filePath": "homePage/index.tsx"
-    },
     },
     "/login/": {
       "filePath": "login/index.tsx"

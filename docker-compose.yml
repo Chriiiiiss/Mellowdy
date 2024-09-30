@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - '3001:3001'
+    environment:
+      - VITE_MELLOWDY_API_URL=https://mellowdy-back.gravity-zero.fr
+
+  front-proxy:
+    image: nginx:alpine
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+    volumes:
+      - ./nginx/mellowdy-front-setup.conf:/etc/nginx/conf.d/:ro
+      - ./certbot/www:/var/www/certbot/:ro
+    depends_on:
+      - app
+
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw

@@ -1,14 +1,18 @@
 FROM node:20-alpine as builder
 
 WORKDIR /app
+RUN corepack enable
 
-COPY package.json .
 
-RUN npm install --omit=dev
+RUN pwd
+COPY ./package.json .
+COPY ./pnpm-lock.yaml .
+
+RUN pnpm install --frozen-lockfile
 
 COPY . .
 
-CMD ["npm", "run", "build"]
+CMD ["pnpm", "run", "build"]
 
 FROM node:20-alpine
 

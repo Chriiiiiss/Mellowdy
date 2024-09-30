@@ -60,6 +60,7 @@ deploy-job:
     - apk update && apk add openssh-client
     - ssh -i $SSH_KEY -o StrictHostKeyChecking=no $DEPLOY_USER@$VM_IP "
       docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY &&
+      docker rm temp-frontend-container || true &&
       docker run --name temp-frontend-container -d $CI_REGISTRY_IMAGE/frontend:latest tail -f /dev/null &&
       docker cp temp-frontend-container:/app /var/www/mellowdy_v2_front/frontend-static-files &&
       docker stop temp-frontend-container &&

@@ -60,9 +60,5 @@ deploy-job:
     - apk update && apk add openssh-client
     - ssh -i $SSH_KEY -o StrictHostKeyChecking=no $DEPLOY_USER@$VM_IP "
       docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY &&
-      docker network create mellowdy-network || true &&
-      docker pull $CI_REGISTRY_IMAGE/frontend:latest &&
-      docker stop frontend || true &&
-      docker rm frontend || true &&
-      docker run --name=frontend --network=mellowdy-network --restart always -d -p 3001:3001 $CI_REGISTRY_IMAGE/frontend
+      cd /var/www/mellowdy_v2_front && docker compose down && docker compose up --build -d
       "

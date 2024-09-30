@@ -9,22 +9,10 @@ COPY ./pnpm-lock.yaml .
 RUN pnpm install --frozen-lockfile
 
 COPY . .
-COPY ./nginx/mellowdy-front.conf /etc/nginx/conf.d/default.conf:ro
-COPY ./nginx/certbot/www /var/www/certbot/:ro
-COPY ./nginx/certbot/conf/ /etc/nginx/ssl/:ro
 
 RUN pnpm run build
 
+FROM alpine:latest as production
 
-FROM nginx:latest as production
-ENV NODE_ENV production
-
-
-COPY --from=builder /app/dist /usr/share/nginx/html
-COPY --from=builder /app/nginx/mellowdy-front.conf /etc/nginx/conf.d/default.conf:ro
-COPY --from=builder /app/nginx/certbot/www /var/www/certbot/:ro
-COPY --from=builder /app/nginx/certbot/conf/ /etc/nginx/ssl/:ro
-
-#EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+WORKDIR /app
+COPY --from=builder /app/dist /app

@@ -13,6 +13,9 @@ services:
       - "/var/www/mellowdy_v2_front/nginx/mellowdy-front.conf:/etc/nginx/conf.d/mellowdy.conf:ro"
       - "/var/www/mellowdy_v2_front/nginx/certbot/www:/var/www/certbot/:ro"
       - "/var/www/mellowdy_v2_front/nginx/certbot/conf/:/etc/nginx/ssl/:ro"
+      - "/var/www/mellowdy_v2_front/frontend-static-files:/usr/share/nginx/html"
+    depends_on:
+      - frontend
     networks:
       -  mellowdy-network
 
@@ -24,6 +27,19 @@ services:
       - "/var/www/mellowdy_v2_front/nginx/certbot/conf/:/etc/letsencrypt/:rw"
     networks:
       -  mellowdy-network
+
+  frontend:
+    image: registry.mt.glassworks.tech/mt5_final/mellowdy_v2_front/frontend:latest
+    container_name: frontend
+    networks:
+      - mellowdy-network
+    volumes:
+      - "/var/www/mellowdy_v2_front/frontend-static-files:/app"
+    restart: always
+    entrypoint: ["echo", "Build container - no need to run"]
+
+volumes:
+  frontend-static-files:
 
 networks:
   mellowdy-network:

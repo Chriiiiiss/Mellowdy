@@ -18,10 +18,10 @@ ENV NODE_ENV production
 
 
 COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/nginx/mellowdy-front.conf /etc/nginx/conf.d/default.conf:ro
+COPY --from=builder /app/nginx/certbot/www /var/www/certbot/:ro
+COPY --from=builder /app/nginx/certbot/conf/ /etc/nginx/ssl/:ro
 
-
-COPY nginx/mellowdy-front-setup.conf /etc/nginx/conf.d/default.conf
-
-EXPOSE 80
+#EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]

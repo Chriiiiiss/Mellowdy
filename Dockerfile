@@ -12,7 +12,7 @@ RUN pnpm install --frozen-lockfile
 
 COPY . .
 
-CMD ["pnpm", "run", "build"]
+RUN pnpm run build
 
 FROM node:20-alpine
 

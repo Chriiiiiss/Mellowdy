@@ -1,5 +1,5 @@
-import { Box, Flex, Inset, Link, Text } from '@radix-ui/themes';
 import styled from 'styled-components';
+import { Box, Link, Inset, Flex, Text } from '@radix-ui/themes';
 
 interface GroupCardProps {
   title: string;
@@ -12,11 +12,18 @@ const StyledImg = styled.img<{ variant: 'group' | 'playlist' }>`
   display: block;
   object-fit: cover;
   width: 100%;
-  height: 101px;
+  height: auto;
+  aspect-ratio: 1 / 1;
   background-color: var(--gray-5);
-  border-radius: ${(props) => (props.variant === 'group' ? '100%' : '8px')};
+  border-radius: 50%;
 `;
-export const GroupCard = ({ title, cover, link, variant }: GroupCardProps) => {
+
+export const ClickableCard = ({
+  title,
+  cover,
+  link,
+  variant,
+}: GroupCardProps) => {
   return (
     <Box maxWidth={'104px'}>
       <Link href={link} underline="none">
@@ -25,7 +32,7 @@ export const GroupCard = ({ title, cover, link, variant }: GroupCardProps) => {
         </Inset>
 
         <Flex align={'center'} justify={'center'} gap={'2'} maxWidth={'104px'}>
-          <Text as={'p'} size={'1'} truncate>
+          <Text as={'p'} size={'1'} truncate color="gray">
             {title}
           </Text>
         </Flex>

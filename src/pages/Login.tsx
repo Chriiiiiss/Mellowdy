@@ -4,6 +4,7 @@ import { OnboardingLayout } from '../layout/OnboardingLayout';
 import { MainTitle } from '../components/MainTitle';
 import { OnboardingCard } from '../components/onboarding/Card';
 import { OnboardingButton } from '../components/onboarding/Button';
+import { useNavigate } from '@tanstack/react-router';
 
 const CustomText = styled(Text)`
   font-family: var(--default-font-family);
@@ -26,6 +27,11 @@ const ProviderList = [
 ];
 
 export const LoginPage = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate({ to: '/register' });
+  };
   return (
     <OnboardingLayout>
       <Box>
@@ -39,7 +45,7 @@ export const LoginPage = () => {
               {ProviderList.map((provider, index) => (
                 <Flex key={index} justify={'center'}>
                   <OnboardingButton
-                    onClick={() => console.log(provider.label)}
+                    onClick={handleClick}
                     label={provider.label}
                     iconStart={provider.icon}
                   />

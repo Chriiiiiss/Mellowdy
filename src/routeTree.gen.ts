@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
+import { Route as RegisterIndexImport } from './routes/register/index'
 import { Route as OnboardingIndexImport } from './routes/onboarding/index'
 import { Route as LoginIndexImport } from './routes/login/index'
 import { Route as HomePageIndexImport } from './routes/homePage/index'
@@ -21,6 +22,11 @@ import { Route as GrouplistIndexImport } from './routes/grouplist/index'
 
 const IndexRoute = IndexImport.update({
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const RegisterIndexRoute = RegisterIndexImport.update({
+  path: '/register/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -83,6 +89,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OnboardingIndexImport
       parentRoute: typeof rootRoute
     }
+    '/register/': {
+      id: '/register/'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -94,6 +107,7 @@ export const routeTree = rootRoute.addChildren({
   HomePageIndexRoute,
   LoginIndexRoute,
   OnboardingIndexRoute,
+  RegisterIndexRoute,
 })
 
 /* prettier-ignore-end */
@@ -108,7 +122,8 @@ export const routeTree = rootRoute.addChildren({
         "/grouplist/",
         "/homePage/",
         "/login/",
-        "/onboarding/"
+        "/onboarding/",
+        "/register/"
       ]
     },
     "/": {
@@ -125,6 +140,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/onboarding/": {
       "filePath": "onboarding/index.tsx"
+    },
+    "/register/": {
+      "filePath": "register/index.tsx"
     }
   }
 }

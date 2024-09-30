@@ -27,17 +27,7 @@ services:
       - "/var/www/mellowdy_v2_front/nginx/certbot/conf/:/etc/letsencrypt/:rw"
     networks:
       -  mellowdy-network
-
-  frontend:
-    image: registry.mt.glassworks.tech/mt5_final/mellowdy_v2_front/frontend:latest
-    container_name: frontend
-    networks:
-      - mellowdy-network
-    volumes:
-      - "/var/www/mellowdy_v2_front/frontend-static-files:/app"
-    restart: always
-    entrypoint: ["echo", "Build container - no need to run"]
-
+      
 volumes:
   frontend-static-files:
 

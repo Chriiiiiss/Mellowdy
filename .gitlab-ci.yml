@@ -1,0 +1,68 @@
+stages:
+  - build
+  - publish
+  - deploy
+
+build-job:
+  stage: build
+  tags:
+    - general
+  only:
+    - main
+    - merge_requests
+    - production
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE/frontend:$CI_COMMIT_SHORT_SHA
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $IMAGE_TAG -f ./Dockerfile .
+    - docker push $IMAGE_TAG
+
+publish-job:
+  stage: publish
+  tags:
+    - general
+  only:
+    - production
+    - tags
+  except:
+    - master
+  image: docker:20.10.16
+  services:
+    - name: docker:20.10.16-dind
+      alias: docker
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE/frontend:$CI_COMMIT_SHORT_SHA
+    LATEST_TAG: $CI_REGISTRY_IMAGE/frontend:latest
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - echo "Retagging docker image..."
+    - docker tag $IMAGE_TAG $LATEST_TAG # Elever notre image au tag "latest"
+    - echo "Push image with latest tag..."
+    - docker push $LATEST_TAG # Envoyer l'image à notre Container Repository
+    - echo "Done."
+
+deploy-job:
+  stage: deploy
+  tags:
+    - general
+  only:
+    - production
+    - tags
+  except:
+    - master
+  image: node:20-alpine
+  script:
+    - chmod og= $SSH_KEY
+    - apk update && apk add openssh-client
+    - ssh -i $SSH_KEY -o StrictHostKeyChecking=no $DEPLOY_USER@$VM_IP "
+      docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY &&
+      docker network create mellowdy-network || true &&
+      docker pull $CI_REGISTRY_IMAGE/frontend:latest &&
+      docker stop frontend || true &&
+      docker rm frontend || true &&
+      docker run --name=frontend --network=mellowdy-network --restart always -d -p 3000:3000 $CI_REGISTRY_IMAGE/frontend
+      "

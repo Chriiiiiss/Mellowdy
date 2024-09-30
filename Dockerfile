@@ -1,14 +1,18 @@
 FROM node:20-alpine as builder
 
 WORKDIR /app
+RUN corepack enable
 
-COPY package.json .
 
-RUN npm install --omit=dev
+RUN pwd
+COPY ./package.json .
+COPY ./pnpm-lock.yaml .
+
+RUN pnpm install --frozen-lockfile
 
 COPY . .
 
-CMD ["npm", "run", "build"]
+RUN pnpm run build
 
 FROM node:20-alpine
 
@@ -18,10 +22,8 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 RUN npm install -g serve
 
-EXPOSE 8080
+EXPOSE 3000
 
-# TODO: Should add env variable
 ENV VITE_MELLOWDY_API_URL=${VITE_MELLOWDY_API_URL}
 
-CMD ["serve", "-s",  "dist", "-l", "8080"]
 

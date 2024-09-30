@@ -13,12 +13,14 @@ interface OnboardingButtonProps {
 const CustomButton = styled(Button)`
   background-color: var(--mellowdy-orange);
   color: var(--mellowdy-white);
-  padding: 20px 20px;
-  max-width: 164px;
+  padding: 22px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  min-width: 200px;
+  font-weight: 600;
+  border-radius: 8px;
 `;
 
 export const OnboardingButton = ({

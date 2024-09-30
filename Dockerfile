@@ -9,6 +9,9 @@ COPY ./pnpm-lock.yaml .
 RUN pnpm install --frozen-lockfile
 
 COPY . .
+COPY ./nginx/mellowdy-front.conf /etc/nginx/conf.d/default.conf:ro
+COPY ./nginx/certbot/www /var/www/certbot/:ro
+COPY ./nginx/certbot/conf/ /etc/nginx/ssl/:ro
 
 RUN pnpm run build
 

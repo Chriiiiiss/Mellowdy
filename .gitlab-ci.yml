@@ -63,7 +63,6 @@ deploy-job:
       docker stop temp-frontend-container || true &&
       docker rm temp-frontend-container || true &&
       docker run --name temp-frontend-container -d $CI_REGISTRY_IMAGE/frontend:latest tail -f /dev/null &&
-      chown -R deployer:deployer frontend-static-files/ &&
       docker cp temp-frontend-container:/app /var/www/mellowdy_v2_front/frontend-static-files &&
       docker stop temp-frontend-container &&
       docker rm temp-frontend-container

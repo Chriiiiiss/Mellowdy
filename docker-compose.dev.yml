@@ -1,0 +1,12 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: .docker/dev/Dockerfile.dev
+    ports:
+      - '3000:3000'
+    environment:
+      - VITE_MELLOWDY_API_URL=http://api.example.com
+    volumes:
+      - ./src:/app/src

@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+
+  front-proxy:
+    image: nginx
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+    volumes:
+      - "/var/www/mellowdy_v2_front/nginx/mellowdy-front-setup.conf:/etc/nginx/conf.d/mellowdy.conf:ro"
+      - "/var/www/mellowdy_v2_front/nginx/certbot/www:/var/www/certbot/:ro"
+      - "/var/www/mellowdy_v2_front/nginx/certbot/conf/:/etc/nginx/ssl/:ro"
+    networks:
+      -  mellowdy-network
+
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - "/var/www/mellowdy_v2_front/nginx/certbot/www/:/var/www/certbot/:rw"
+      - "/var/www/mellowdy_v2_front/nginx/certbot/conf/:/etc/letsencrypt/:rw"
+    networks:
+      -  mellowdy-network
+
+networks:
+  mellowdy-network:
+    name: mellowdy-network
+    driver: bridge

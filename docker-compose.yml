@@ -14,8 +14,6 @@ services:
       - "/var/www/mellowdy_v2_front/nginx/certbot/www:/var/www/certbot/:ro"
       - "/var/www/mellowdy_v2_front/nginx/certbot/conf/:/etc/nginx/ssl/:ro"
       - "/var/www/mellowdy_v2_front/frontend-static-files:/usr/share/nginx/html"
-    depends_on:
-      - frontend
     networks:
       -  mellowdy-network
 
@@ -27,7 +25,7 @@ services:
       - "/var/www/mellowdy_v2_front/nginx/certbot/conf/:/etc/letsencrypt/:rw"
     networks:
       -  mellowdy-network
-      
+
 volumes:
   frontend-static-files:
 

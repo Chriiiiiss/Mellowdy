@@ -6,6 +6,7 @@ import { routeTree } from './routeTree.gen.ts';
 import { useUserState } from './stores/useUserState.ts';
 import './styles/main.css';
 import { ThemeProvider } from './theme.tsx';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const router = createRouter({ routeTree });
 
@@ -17,8 +18,14 @@ declare module '@tanstack/react-router' {
 
 // Workaround to access the user hook and pass it to the router context
 const InnerApp = () => {
+  const queryClient = new QueryClient();
   const user = useUserState();
-  return <RouterProvider router={router} context={user} />;
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} context={user} />
+    </QueryClientProvider>
+  );
 };
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

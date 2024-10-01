@@ -19,10 +19,12 @@ const ProviderList = [
   {
     label: 'Spotify',
     icon: 'mdi:spotify',
+    url: `${import.meta.env.VITE_API_URL}/auth/spotify`,
   },
   {
     label: 'Apple Music',
     icon: 'simple-icons:applemusic',
+    url: `${import.meta.env.VITE_API_URL}/auth/apple`,
   },
 ];
 
@@ -32,6 +34,7 @@ export const LoginPage = () => {
   const handleClick = () => {
     navigate({ to: '/register' });
   };
+
   return (
     <OnboardingLayout>
       <Box>

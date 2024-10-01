@@ -1,8 +1,7 @@
 import { Flex, Grid, Heading, Section } from '@radix-ui/themes';
 import { MainLayout } from '../layout/MainLayout';
 import { ListCard } from '../components/list/Container';
-import { ClickableCard } from '../components/list/Card';
-import { ListAddCard } from '../components/list/Add';
+import { CoverCard } from '../components/list/CoverCard';
 
 const GroupsList = [
   {
@@ -85,7 +84,7 @@ export const GroupList = () => {
               }}
             >
               {GroupsList.map((group) => (
-                <ClickableCard
+                <CoverCard
                   key={group.title}
                   title={group.title}
                   cover={group.cover}
@@ -93,7 +92,7 @@ export const GroupList = () => {
                   variant="group"
                 />
               ))}
-              <ListAddCard title="Créer un groupe" variant="group" />
+              <CoverCard title="Créer un groupe" variant="group" link="/" add />
             </Grid>
           </ListCard>
         </Flex>
@@ -113,7 +112,7 @@ export const GroupList = () => {
               }}
             >
               {GroupsList.map((group) => (
-                <ClickableCard
+                <CoverCard
                   key={group.title}
                   title={group.title}
                   cover={group.cover}

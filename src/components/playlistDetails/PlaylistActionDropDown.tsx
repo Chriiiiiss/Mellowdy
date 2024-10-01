@@ -5,6 +5,11 @@ import {
   TrashIcon,
 } from '@radix-ui/react-icons';
 import { DropdownMenu, Flex, Text } from '@radix-ui/themes';
+import styled from 'styled-components';
+
+const DropdownMenuContent = styled(DropdownMenu.Content)`
+  padding: 8px;
+`;
 
 const PlaylistActionDropDown = () => {
   return (
@@ -12,7 +17,7 @@ const PlaylistActionDropDown = () => {
       <DropdownMenu.Trigger>
         <DotsHorizontalIcon />
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content>
+      <DropdownMenuContent>
         <Flex justify="center" gap={'3'} direction={'column'}>
           <Flex align="center" gap={'2'}>
             <Pencil1Icon />
@@ -27,7 +32,7 @@ const PlaylistActionDropDown = () => {
             <Text color={'red'}>Supprimer playlist</Text>
           </Flex>
         </Flex>
-      </DropdownMenu.Content>
+      </DropdownMenuContent>
     </DropdownMenu.Root>
   );
 };

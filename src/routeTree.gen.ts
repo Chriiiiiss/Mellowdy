@@ -17,6 +17,7 @@ import { Route as OnboardingIndexImport } from './routes/onboarding/index';
 import { Route as LoginIndexImport } from './routes/login/index';
 import { Route as HomePageIndexImport } from './routes/homePage/index';
 import { Route as GrouplistIndexImport } from './routes/grouplist/index';
+import { Route as GroupListIndexImport } from './routes/groupList/index';
 import { Route as GroupDetailsIndexImport } from './routes/groupDetails/index';
 
 // Create/Update Routes
@@ -51,6 +52,11 @@ const GrouplistIndexRoute = GrouplistIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any);
 
+const GroupListIndexRoute = GroupListIndexImport.update({
+  path: '/groupList/',
+  getParentRoute: () => rootRoute,
+} as any);
+
 const GroupDetailsIndexRoute = GroupDetailsIndexImport.update({
   path: '/groupDetails/',
   getParentRoute: () => rootRoute,
@@ -72,6 +78,13 @@ declare module '@tanstack/react-router' {
       path: '/groupDetails';
       fullPath: '/groupDetails';
       preLoaderRoute: typeof GroupDetailsIndexImport;
+      parentRoute: typeof rootRoute;
+    };
+    '/groupList/': {
+      id: '/groupList/';
+      path: '/groupList';
+      fullPath: '/groupList';
+      preLoaderRoute: typeof GroupListIndexImport;
       parentRoute: typeof rootRoute;
     };
     '/grouplist/': {
@@ -117,6 +130,7 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
   GroupDetailsIndexRoute,
+  GroupListIndexRoute,
   GrouplistIndexRoute,
   HomePageIndexRoute,
   LoginIndexRoute,
@@ -134,6 +148,7 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/",
         "/groupDetails/",
+        "/groupList/",
         "/grouplist/",
         "/homePage/",
         "/login/",
@@ -146,6 +161,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/groupDetails/": {
       "filePath": "groupDetails/index.tsx"
+    },
+    "/groupList/": {
+      "filePath": "groupList/index.tsx"
     },
     "/grouplist/": {
       "filePath": "grouplist/index.tsx"

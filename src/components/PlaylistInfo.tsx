@@ -21,36 +21,36 @@ const PlaylistOwnerAvatar = styled(Avatar)`
 const PlaylistInfo = () => {
   return (
     <PlaylistInfoContainer
-      align={'center'}
-      justify={'center'}
-      direction={'column'}
-      gap={'3'}
+      align="center"
+      justify="center"
+      direction="column"
+      gap="3"
     >
       <ImageStyled
-        src={'https://picsum.photos/160/160'}
-        width={'160px'}
-        height={'160px'}
-        alt={'Playlist'}
+        src="https://picsum.photos/160/160"
+        width="160px"
+        height="160px"
+        alt="Playlist"
       />
       <h3>Playlist Name</h3>
-      <Flex align={'center'} gap={'2'} direction={'column'} pt={'2px'}>
-        <Flex align={'center'} gap={'2'}>
+      <Flex align="center" gap="2" direction="column" pt="2px">
+        <Flex align="center" gap="2">
           <PlaylistOwnerAvatar
-            src={'https://picsum.photos/40/40'}
+            src="https://picsum.photos/40/40"
             fallback="A"
             radius="full"
-            size={'2'}
+            size="2"
           />
           <PlaylistOwnerAvatar
             fallback="AP"
             radius="full"
-            size={'2'}
+            size="2"
             variant="solid"
           />
           <PlaylistOwnerAvatar
             fallback="A"
             radius="full"
-            size={'2'}
+            size="2"
             variant="solid"
             color="orange"
           />

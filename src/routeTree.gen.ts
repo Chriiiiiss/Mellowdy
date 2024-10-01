@@ -10,92 +10,105 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as IndexImport } from './routes/index'
-import { Route as RegisterIndexImport } from './routes/register/index'
-import { Route as OnboardingIndexImport } from './routes/onboarding/index'
-import { Route as LoginIndexImport } from './routes/login/index'
-import { Route as HomePageIndexImport } from './routes/homePage/index'
-import { Route as GrouplistIndexImport } from './routes/grouplist/index'
+import { Route as rootRoute } from './routes/__root';
+import { Route as IndexImport } from './routes/index';
+import { Route as RegisterIndexImport } from './routes/register/index';
+import { Route as OnboardingIndexImport } from './routes/onboarding/index';
+import { Route as LoginIndexImport } from './routes/login/index';
+import { Route as HomePageIndexImport } from './routes/homePage/index';
+import { Route as GrouplistIndexImport } from './routes/grouplist/index';
+import { Route as GroupDetailsIndexImport } from './routes/groupDetails/index';
 
 // Create/Update Routes
 
 const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const RegisterIndexRoute = RegisterIndexImport.update({
   path: '/register/',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const OnboardingIndexRoute = OnboardingIndexImport.update({
   path: '/onboarding/',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const LoginIndexRoute = LoginIndexImport.update({
   path: '/login/',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const HomePageIndexRoute = HomePageIndexImport.update({
   path: '/homePage/',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const GrouplistIndexRoute = GrouplistIndexImport.update({
   path: '/grouplist/',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
+
+const GroupDetailsIndexRoute = GroupDetailsIndexImport.update({
+  path: '/groupDetails/',
+  getParentRoute: () => rootRoute,
+} as any);
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/';
+      path: '/';
+      fullPath: '/';
+      preLoaderRoute: typeof IndexImport;
+      parentRoute: typeof rootRoute;
+    };
+    '/groupDetails/': {
+      id: '/groupDetails/';
+      path: '/groupDetails';
+      fullPath: '/groupDetails';
+      preLoaderRoute: typeof GroupDetailsIndexImport;
+      parentRoute: typeof rootRoute;
+    };
     '/grouplist/': {
-      id: '/grouplist/'
-      path: '/grouplist'
-      fullPath: '/grouplist'
-      preLoaderRoute: typeof GrouplistIndexImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/grouplist/';
+      path: '/grouplist';
+      fullPath: '/grouplist';
+      preLoaderRoute: typeof GrouplistIndexImport;
+      parentRoute: typeof rootRoute;
+    };
     '/homePage/': {
-      id: '/homePage/'
-      path: '/homePage'
-      fullPath: '/homePage'
-      preLoaderRoute: typeof HomePageIndexImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/homePage/';
+      path: '/homePage';
+      fullPath: '/homePage';
+      preLoaderRoute: typeof HomePageIndexImport;
+      parentRoute: typeof rootRoute;
+    };
     '/login/': {
-      id: '/login/'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginIndexImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/login/';
+      path: '/login';
+      fullPath: '/login';
+      preLoaderRoute: typeof LoginIndexImport;
+      parentRoute: typeof rootRoute;
+    };
     '/onboarding/': {
-      id: '/onboarding/'
-      path: '/onboarding'
-      fullPath: '/onboarding'
-      preLoaderRoute: typeof OnboardingIndexImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/onboarding/';
+      path: '/onboarding';
+      fullPath: '/onboarding';
+      preLoaderRoute: typeof OnboardingIndexImport;
+      parentRoute: typeof rootRoute;
+    };
     '/register/': {
-      id: '/register/'
-      path: '/register'
-      fullPath: '/register'
-      preLoaderRoute: typeof RegisterIndexImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/register/';
+      path: '/register';
+      fullPath: '/register';
+      preLoaderRoute: typeof RegisterIndexImport;
+      parentRoute: typeof rootRoute;
+    };
   }
 }
 
@@ -103,12 +116,13 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
+  GroupDetailsIndexRoute,
   GrouplistIndexRoute,
   HomePageIndexRoute,
   LoginIndexRoute,
   OnboardingIndexRoute,
   RegisterIndexRoute,
-})
+});
 
 /* prettier-ignore-end */
 
@@ -119,6 +133,7 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/groupDetails/",
         "/grouplist/",
         "/homePage/",
         "/login/",
@@ -128,6 +143,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/groupDetails/": {
+      "filePath": "groupDetails/index.tsx"
     },
     "/grouplist/": {
       "filePath": "grouplist/index.tsx"

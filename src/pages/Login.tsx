@@ -4,7 +4,6 @@ import { OnboardingLayout } from '../layout/OnboardingLayout';
 import { MainTitle } from '../components/MainTitle';
 import { OnboardingCard } from '../components/onboarding/Card';
 import { OnboardingButton } from '../components/onboarding/Button';
-import { useNavigate } from '@tanstack/react-router';
 
 const CustomText = styled(Text)`
   font-family: var(--default-font-family);
@@ -19,20 +18,35 @@ const ProviderList = [
   {
     label: 'Spotify',
     icon: 'mdi:spotify',
-    url: `${import.meta.env.VITE_API_URL}/auth/spotify`,
+    url: `${import.meta.env.VITE_API_URL}/v1/oauth/login/spotify`,
   },
   {
     label: 'Apple Music',
     icon: 'simple-icons:applemusic',
-    url: `${import.meta.env.VITE_API_URL}/auth/apple`,
+    url: `${import.meta.env.VITE_API_URL}/v1/oauth/login/apple`,
   },
 ];
 
 export const LoginPage = () => {
-  const navigate = useNavigate();
+  const handleLogin = (label: string, url: string) => {
+    const width = 600;
+    const height = 700;
+    const left = window.screen.width / 2 - width / 2;
+    const top = window.screen.height / 2 - height / 2;
 
-  const handleClick = () => {
-    navigate({ to: '/register' });
+    const popup = window.open(
+      url,
+      label,
+      `width=${width},height=${height},top=${top},left=${left}`
+    );
+
+    window.addEventListener('message', (event) => {
+      console.log(event);
+      if (event.origin === import.meta.env.VITE_API_URL && popup) {
+        console.log(event.data);
+        popup.close();
+      }
+    });
   };
 
   return (
@@ -48,7 +62,7 @@ export const LoginPage = () => {
               {ProviderList.map((provider, index) => (
                 <Flex key={index} justify={'center'}>
                   <OnboardingButton
-                    onClick={handleClick}
+                    onClick={() => handleLogin(provider.label, provider.url)}
                     label={provider.label}
                     iconStart={provider.icon}
                   />

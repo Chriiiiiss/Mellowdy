@@ -42,11 +42,6 @@ const LoginIndexRoute = LoginIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any);
 
-const PlaylistDetailsIndexRoute = PlaylistDetailsIndexImport.update({
-  path: '/PlaylistDetails/',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const HomePageIndexRoute = HomePageIndexImport.update({
   path: '/homePage/',
   getParentRoute: () => rootRoute,
@@ -56,6 +51,11 @@ const GroupListIndexRoute = GroupListIndexImport.update({
   path: '/groupList/',
   getParentRoute: () => rootRoute,
 } as any);
+
+const PlaylistDetailsIndexRoute = PlaylistDetailsIndexImport.update({
+  path: '/PlaylistDetails/',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const GroupDetailsIndexRoute = GroupDetailsIndexImport.update({
   path: '/groupDetails/',
@@ -145,10 +145,6 @@ export const routeTree = rootRoute.addChildren({
   GroupDetailsIndexRoute,
   GroupListIndexRoute,
   PlaylistDetailsIndexRoute,
-  LoginIndexRoute,
-})
-export const routeTree = rootRoute.addChildren({
-  IndexRoute,
   GrouplistIndexRoute,
   HomePageIndexRoute,
   LoginIndexRoute,
@@ -168,7 +164,6 @@ export const routeTree = rootRoute.addChildren({
         "/groupDetails/",
         "/groupList/",
         "/PlaylistDetails/",
-        "/login/"
         "/grouplist/",
         "/homePage/",
         "/login/",

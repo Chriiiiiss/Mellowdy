@@ -4,6 +4,11 @@ import { OnboardingLayout } from '../layout/OnboardingLayout';
 import { MainTitle } from '../components/MainTitle';
 import { OnboardingCard } from '../components/onboarding/Card';
 import { OnboardingButton } from '../components/onboarding/Button';
+import { useUserState } from '../stores/useUserState';
+import { JwtPayload, TAuthMessage } from '../types/auth';
+import { jwtDecode } from 'jwt-decode';
+import { IUser } from '../interfaces/user';
+import { useNavigate } from '@tanstack/react-router';
 
 const CustomText = styled(Text)`
   font-family: var(--default-font-family);
@@ -28,6 +33,9 @@ const ProviderList = [
 ];
 
 export const LoginPage = () => {
+  const { login } = useUserState();
+  const navigate = useNavigate();
+
   const handleLogin = (label: string, url: string) => {
     const width = 600;
     const height = 700;
@@ -40,13 +48,32 @@ export const LoginPage = () => {
       `width=${width},height=${height},top=${top},left=${left}`
     );
 
-    window.addEventListener('message', (event) => {
-      console.log(event);
+    if (!popup) {
+      console.error('popup could not be opened');
+      return;
+    }
+
+    const handleMessage = (event: MessageEvent) => {
       if (event.origin === import.meta.env.VITE_API_URL && popup) {
-        console.log(event.data);
-        popup.close();
+        const data = event.data as TAuthMessage;
+        popup.close(); // Just in case the popup is still open
+        const decodedToken = jwtDecode<JwtPayload>(data.token);
+        const user: IUser = { username: decodedToken.displayName };
+
+        login(user, data.token, decodedToken.providerID);
+
+        if (data.newUser) navigate({ to: '/register' });
+        else navigate({ to: '/homePage' });
+        window.removeEventListener('message', handleMessage);
       }
-    });
+    };
+
+    window.addEventListener('message', handleMessage);
+
+    return () => {
+      console.log('Removing listener, if not redirected an error occured');
+      window.removeEventListener('message', handleMessage);
+    };
   };
 
   return (

@@ -8,7 +8,7 @@ import './styles/main.css';
 import { ThemeProvider } from './theme.tsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-const router = createRouter({ routeTree });
+const router = createRouter({ routeTree, context: { userState: undefined } });
 
 declare module '@tanstack/react-router' {
   interface Register {
@@ -23,7 +23,7 @@ const InnerApp = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} context={user} />
+      <RouterProvider router={router} context={{ userState: user }} />
     </QueryClientProvider>
   );
 };

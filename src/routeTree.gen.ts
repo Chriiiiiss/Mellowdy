@@ -16,7 +16,6 @@ import { Route as RegisterIndexImport } from './routes/register/index';
 import { Route as OnboardingIndexImport } from './routes/onboarding/index';
 import { Route as LoginIndexImport } from './routes/login/index';
 import { Route as HomePageIndexImport } from './routes/homePage/index';
-import { Route as GrouplistIndexImport } from './routes/grouplist/index';
 import { Route as GroupListIndexImport } from './routes/groupList/index';
 import { Route as GroupDetailsIndexImport } from './routes/groupDetails/index';
 
@@ -44,11 +43,6 @@ const LoginIndexRoute = LoginIndexImport.update({
 
 const HomePageIndexRoute = HomePageIndexImport.update({
   path: '/homePage/',
-  getParentRoute: () => rootRoute,
-} as any);
-
-const GrouplistIndexRoute = GrouplistIndexImport.update({
-  path: '/grouplist/',
   getParentRoute: () => rootRoute,
 } as any);
 
@@ -85,13 +79,6 @@ declare module '@tanstack/react-router' {
       path: '/groupList';
       fullPath: '/groupList';
       preLoaderRoute: typeof GroupListIndexImport;
-      parentRoute: typeof rootRoute;
-    };
-    '/grouplist/': {
-      id: '/grouplist/';
-      path: '/grouplist';
-      fullPath: '/grouplist';
-      preLoaderRoute: typeof GrouplistIndexImport;
       parentRoute: typeof rootRoute;
     };
     '/homePage/': {
@@ -131,7 +118,6 @@ export const routeTree = rootRoute.addChildren({
   IndexRoute,
   GroupDetailsIndexRoute,
   GroupListIndexRoute,
-  GrouplistIndexRoute,
   HomePageIndexRoute,
   LoginIndexRoute,
   OnboardingIndexRoute,
@@ -149,7 +135,6 @@ export const routeTree = rootRoute.addChildren({
         "/",
         "/groupDetails/",
         "/groupList/",
-        "/grouplist/",
         "/homePage/",
         "/login/",
         "/onboarding/",
@@ -164,9 +149,6 @@ export const routeTree = rootRoute.addChildren({
     },
     "/groupList/": {
       "filePath": "groupList/index.tsx"
-    },
-    "/grouplist/": {
-      "filePath": "grouplist/index.tsx"
     },
     "/homePage/": {
       "filePath": "homePage/index.tsx"

@@ -8,7 +8,10 @@ import './styles/main.css';
 import { ThemeProvider } from './theme.tsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-const router = createRouter({ routeTree, context: { userState: undefined } });
+const router = createRouter({
+  routeTree,
+  context: { userState: undefined },
+});
 
 declare module '@tanstack/react-router' {
   interface Register {
@@ -19,11 +22,11 @@ declare module '@tanstack/react-router' {
 // Workaround to access the user hook and pass it to the router context
 const InnerApp = () => {
   const queryClient = new QueryClient();
-  const user = useUserState();
+  const userState = useUserState();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} context={{ userState: user }} />
+      <RouterProvider router={router} context={{ userState }} />
     </QueryClientProvider>
   );
 };

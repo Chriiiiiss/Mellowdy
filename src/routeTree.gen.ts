@@ -17,6 +17,7 @@ import { Route as PlaylistListIndexImport } from './routes/playlistList/index'
 import { Route as OnboardingIndexImport } from './routes/onboarding/index'
 import { Route as LoginIndexImport } from './routes/login/index'
 import { Route as HomePageIndexImport } from './routes/homePage/index'
+import { Route as GroupListIndexImport } from './routes/groupList/index'
 import { Route as GroupDetailsIndexImport } from './routes/groupDetails/index'
 import { Route as PlaylistDetailsIndexImport } from './routes/PlaylistDetails/index'
 
@@ -49,6 +50,11 @@ const LoginIndexRoute = LoginIndexImport.update({
 
 const HomePageIndexRoute = HomePageIndexImport.update({
   path: '/homePage/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const GroupListIndexRoute = GroupListIndexImport.update({
+  path: '/groupList/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -85,6 +91,13 @@ declare module '@tanstack/react-router' {
       path: '/groupDetails'
       fullPath: '/groupDetails'
       preLoaderRoute: typeof GroupDetailsIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/groupList/': {
+      id: '/groupList/'
+      path: '/groupList'
+      fullPath: '/groupList'
+      preLoaderRoute: typeof GroupListIndexImport
       parentRoute: typeof rootRoute
     }
     '/homePage/': {
@@ -131,6 +144,7 @@ export const routeTree = rootRoute.addChildren({
   IndexRoute,
   PlaylistDetailsIndexRoute,
   GroupDetailsIndexRoute,
+  GroupListIndexRoute,
   HomePageIndexRoute,
   LoginIndexRoute,
   OnboardingIndexRoute,
@@ -149,6 +163,7 @@ export const routeTree = rootRoute.addChildren({
         "/",
         "/PlaylistDetails/",
         "/groupDetails/",
+        "/groupList/",
         "/homePage/",
         "/login/",
         "/onboarding/",
@@ -164,6 +179,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/groupDetails/": {
       "filePath": "groupDetails/index.tsx"
+    },
+    "/groupList/": {
+      "filePath": "groupList/index.tsx"
     },
     "/homePage/": {
       "filePath": "homePage/index.tsx"

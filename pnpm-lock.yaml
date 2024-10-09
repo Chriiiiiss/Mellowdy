@@ -101,6 +101,9 @@ importers:
       lint-staged:
         specifier: ^15.2.10
         version: 15.2.10
+      musickit-typescript:
+        specifier: ^1.2.4
+        version: 1.2.4
       typescript:
         specifier: ^5.6.3
         version: 5.6.3
@@ -3659,6 +3662,9 @@ packages:
         integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==,
       }
 
+  musickit-typescript@1.2.4:
+    resolution: {integrity: sha512-3+/20Pi2zOVAHfUFf631LU2NwaC/qEHBBksM+YQzQ/fff4tIMPX5WJ6We/WXmwTHkAkHIOEitJW4cRPnvVAq+A==}
+
   nanoid@3.3.7:
     resolution:
       {
@@ -6965,6 +6971,8 @@ snapshots:
       brace-expansion: 2.0.1
 
   ms@2.1.3: {}
+
+  musickit-typescript@1.2.4: {}
 
   nanoid@3.3.7: {}
 

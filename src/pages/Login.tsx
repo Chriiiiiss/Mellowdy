@@ -9,6 +9,7 @@ import { JwtPayload, TAuthMessage } from '../types/auth';
 import { jwtDecode } from 'jwt-decode';
 import { IUser } from '../interfaces/user';
 import { useNavigate } from '@tanstack/react-router';
+import { PROVIDER } from '../constants/app';
 
 const CustomText = styled(Text)`
   font-family: var(--default-font-family);
@@ -28,7 +29,7 @@ const ProviderList = [
   {
     label: 'Apple Music',
     icon: 'simple-icons:applemusic',
-    url: `${import.meta.env.VITE_API_URL}/v1/oauth/login/apple`,
+    url: `https://hagfish-profound-genuinely.ngrok-free.app/v1/oauth/login/apple`,
   },
 ];
 
@@ -54,10 +55,29 @@ export const LoginPage = () => {
     }
 
     const handleMessage = (event: MessageEvent) => {
-      if (event.origin === import.meta.env.VITE_API_URL && popup) {
+      // Delete the second condition for the production build
+      if (
+        event.origin === import.meta.env.VITE_API_URL ||
+        ('https://hagfish-profound-genuinely.ngrok-free.app' && popup)
+      ) {
         const data = event.data as TAuthMessage;
         popup.close(); // Just in case the popup is still open
         const decodedToken = jwtDecode<JwtPayload>(data.token);
+
+        if (decodedToken.providerID === PROVIDER.apple) {
+          // Apple workaround to retrieve the user token
+          const music = MusicKit.getInstance();
+          music.authorize().then((userToken) => {
+            const user: IUser = {
+              username: decodedToken.displayName,
+              appleMusicToken: userToken,
+            };
+
+            login(user, data.token, decodedToken.providerID);
+            navigate({ to: '/homePage' });
+          });
+        }
+
         const user: IUser = { username: decodedToken.displayName };
 
         login(user, data.token, decodedToken.providerID);

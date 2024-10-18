@@ -11,19 +11,25 @@ export interface User {
   profilePicture?: string;
   expiration?: Date;
   friends?: User[];
-  playlists?: PlaylistDisplayProps[];
+  playlists?: PlaylistData[];
+  groupe?: GroupeData[];
 }
 
-export interface PlaylistDisplayProps {
-  groupeName: string;
+export interface GroupeData {
+  id: string;
+  name: string;
+  cover?: string;
   listeners?: {
     name: string;
     img: string;
   }[];
-  playlist: {
-    cover: string;
-    name: string;
-  }[];
+  playlist: PlaylistData[];
+}
+
+export interface PlaylistData {
+  cover: string;
+  name: string;
+  id: string;
 }
 
 const userData: User = {
@@ -82,9 +88,10 @@ const userData: User = {
   ],
 };
 
-const playlistData: PlaylistDisplayProps[] = [
+const playlistData: GroupeData[] = [
   {
-    groupeName: 'Chill Vibes Collective',
+    id: '1',
+    name: 'Chill Vibes Collective',
     listeners: [
       {
         name: 'Alice',
@@ -111,44 +118,54 @@ const playlistData: PlaylistDisplayProps[] = [
       {
         cover: 'https://picsum.photos/100/100',
         name: 'Morning Relaxation',
+        id: '1',
       },
       {
         cover: 'https://picsum.photos/90/72',
         name: 'Evening Serenity',
+        id: '2',
       },
       {
         cover: 'https://picsum.photos/80/80',
         name: 'Weekend Chillout',
+        id: '3',
       },
       {
         cover: 'https://picsum.photos/72/80',
         name: 'Night Calm',
+        id: '4',
       },
     ],
   },
   {
-    groupeName: 'Workout Beats',
+    id: '2',
+    name: 'Workout Beats',
     playlist: [
       {
         cover: 'https://picsum.photos/150/150',
         name: 'Morning Run',
+        id: '5',
       },
       {
         cover: 'https://picsum.photos/74/80',
         name: 'Afternoon Pump',
+        id: '6',
       },
       {
         cover: 'https://picsum.photos/79/80',
         name: 'Evening Sweat',
+        id: '7',
       },
       {
         cover: 'https://picsum.photos/87/80',
         name: 'Night Grind',
+        id: '8',
       },
     ],
   },
   {
-    groupeName: 'Les collègues',
+    id: '3',
+    name: 'Les collègues',
     listeners: [
       {
         name: 'David',
@@ -175,18 +192,22 @@ const playlistData: PlaylistDisplayProps[] = [
       {
         cover: 'https://picsum.photos/200/150',
         name: 'Morning Relaxation pour se détendre et tout',
+        id: '9',
       },
       {
         cover: 'https://picsum.photos/139/100',
         name: 'Evening Serenity',
+        id: '10',
       },
       {
         cover: 'https://picsum.photos/120/120',
         name: 'Weekend Chillout',
+        id: '11',
       },
       {
         cover: 'https://picsum.photos/140/140',
         name: 'Night Calm',
+        id: '12',
       },
     ],
   },
@@ -207,8 +228,8 @@ export const HomePage = () => {
         <Flex gap="6" direction="column">
           {playlistData.slice(0, 10).map((playlistData) => (
             <PlaylistDisplay
-              key={playlistData.groupeName}
-              groupeName={playlistData.groupeName}
+              key={playlistData.name}
+              name={playlistData.name}
               listeners={playlistData.listeners}
               playlist={playlistData.playlist}
             />

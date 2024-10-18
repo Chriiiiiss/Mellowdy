@@ -3,7 +3,17 @@ import { MainLayout } from '../layout/MainLayout';
 import { Flex, Section, Text } from '@radix-ui/themes';
 import PlaylistInfo from '../components/playlistDetails/PlaylistInfo';
 import PlaylistAction from '../components/playlistDetails/PlaylistAction';
-import SongDialog from '../components/playlistDetails/songDialog/SongDialog';
+
+import styled from 'styled-components';
+import SongContent from '../components/playlistDetails/SongContent';
+
+const SongContainer = styled(Flex)`
+  border-bottom: 1px solid #e5e5e5;
+  padding: 10px;
+  &:last-child {
+    border-bottom: none;
+  }
+`;
 
 export const PlaylistDetails = () => {
   return (
@@ -16,15 +26,12 @@ export const PlaylistDetails = () => {
       <PlaylistAction />
       <Section pt={'0px'} pb={'0px'}>
         <Flex direction={'column'} gap={'1'}>
-          <SongDialog />
-          <SongDialog />
-          <SongDialog />
-          <SongDialog />
-          <SongDialog />
-          <SongDialog />
-          <SongDialog />
-          <SongDialog />
-          <SongDialog />
+          <SongContainer justify={'between'} align={'center'}>
+            <SongContent />
+          </SongContainer>
+          <SongContainer justify={'between'} align={'center'}>
+            <SongContent />
+          </SongContainer>
         </Flex>
       </Section>
     </MainLayout>

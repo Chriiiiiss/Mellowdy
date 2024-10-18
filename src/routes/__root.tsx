@@ -8,6 +8,17 @@ interface RouterContext {
   userState: UserState | undefined;
 }
 
+// TODO: Refacto this or DELETE it
+
+declare global {
+  // eslint-disable-next-line no-var
+  var DebugMode: boolean;
+  function activateDebugMode(): void;
+  function deactivateDebugMode(): void;
+}
+
+const DEBUG_MODE = false;
+
 // Root of the App,
 // It will render everything inside it in every route.
 // Should be used for global layout or configuration
@@ -26,7 +37,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
         >
           <Outlet />
         </Theme>
-        {!import.meta.env.PROD && <TanStackRouterDevtools />}
+        {DEBUG_MODE && <TanStackRouterDevtools />}
       </React.Fragment>
     );
   },

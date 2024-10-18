@@ -56,9 +56,12 @@ export const LoginPage = () => {
 
     const handleMessage = (event: MessageEvent) => {
       // Delete the second condition for the production build
+      // TODO: Refactor this
       if (
-        event.origin === import.meta.env.VITE_API_URL ||
-        ('https://hagfish-profound-genuinely.ngrok-free.app' && popup)
+        (event.origin === import.meta.env.VITE_API_URL ||
+          event.origin ===
+            'https://hagfish-profound-genuinely.ngrok-free.app') &&
+        popup
       ) {
         const data = event.data as TAuthMessage;
         popup.close(); // Just in case the popup is still open

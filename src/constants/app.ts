@@ -1,4 +1,4 @@
 export const PROVIDER = {
-  apple: 2,
-  spotify: 1,
+  apple: 1,
+  spotify: 2,
 } as const;

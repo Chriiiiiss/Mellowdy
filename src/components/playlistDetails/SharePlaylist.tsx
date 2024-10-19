@@ -16,11 +16,8 @@ const SharePlaylist = ({ groupeData, playlistInfo }: SharePlaylistProps) => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    const formData = new FormData(event.currentTarget as HTMLFormElement);
-    const selectedGroups = formData.getAll('groupe');
-
-    console.log('Selected Groups:', selectedGroups);
-    console.log('Playlist Info:', playlistInfo);
+    // const formData = new FormData(event.currentTarget as HTMLFormElement);
+    // const selectedGroups = formData.getAll('groupe');
   };
 
   return (

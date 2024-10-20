@@ -9,4 +9,5 @@ export type JwtPayload = {
   iat: number;
   id: number;
   providerID: number;
+  providerName: 'apple' | 'spotify';
 };

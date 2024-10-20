@@ -1,4 +1,4 @@
-export const PROVIDER = {
-  apple: 1,
-  spotify: 2,
-} as const;
+export enum PROVIDER {
+  APPLE = 'apple',
+  SPOTIFY = 'spotify',
+}

@@ -1,7 +1,7 @@
 import { ArrowRightIcon } from '@radix-ui/react-icons';
 import { Avatar, Flex, Grid, Heading } from '@radix-ui/themes';
 import styled from 'styled-components';
-import { PlaylistDisplayProps } from '../../pages/HomePage';
+import { GroupeData } from '../../pages/HomePage';
 
 const ListenerProfile = styled(Avatar)`
   margin-left: -16px;
@@ -43,16 +43,12 @@ const PlaylistName = styled.span`
   white-space: nowrap;
 `;
 
-const PlaylistDisplay = ({
-  groupeName,
-  listeners,
-  playlist,
-}: PlaylistDisplayProps) => {
+const PlaylistDisplay = ({ name, listeners, playlist }: GroupeData) => {
   return (
     <Flex gap="5" direction="column">
       <Grid columns="70% 30%">
         <Flex align="center" gap="2">
-          <GroupeName>{groupeName}</GroupeName>
+          <GroupeName>{name}</GroupeName>
           <ArrowRightIcon />
         </Flex>
         {listeners && (

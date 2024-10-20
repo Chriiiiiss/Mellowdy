@@ -17,7 +17,6 @@ declare module '@tanstack/react-router' {
 
 // Workaround to access the user hook and pass it to the router context
 const InnerApp = () => {
-  console.log('hello');
   const user = useUserState();
   return <RouterProvider router={router} context={user} />;
 };

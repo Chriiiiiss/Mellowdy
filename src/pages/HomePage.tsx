@@ -16,7 +16,7 @@ export interface User {
 }
 
 export interface GroupeData {
-  id: string;
+  id?: string;
   name: string;
   cover?: string;
   listeners?: {

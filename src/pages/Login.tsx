@@ -66,9 +66,8 @@ export const LoginPage = () => {
         const data = event.data as TAuthMessage;
         popup.close(); // Just in case the popup is still open
         const decodedToken = jwtDecode<JwtPayload>(data.token);
-        console.log(decodedToken);
 
-        if (decodedToken.providerID === PROVIDER.apple) {
+        if (decodedToken.providerName === PROVIDER.APPLE) {
           // Apple workaround to retrieve the user token
           const music = MusicKit.getInstance();
           music.authorize().then((userToken) => {

@@ -16,49 +16,57 @@ import { Route as RegisterIndexImport } from './routes/register/index';
 import { Route as OnboardingIndexImport } from './routes/onboarding/index';
 import { Route as LoginIndexImport } from './routes/login/index';
 import { Route as HomePageIndexImport } from './routes/homePage/index';
-import { Route as GroupListIndexImport } from './routes/groupList/index';
+import { Route as GrouplistIndexImport } from './routes/grouplist/index';
 import { Route as GroupDetailsIndexImport } from './routes/groupDetails/index';
-import { Route as PlaylistDetailsIndexImport } from './routes/PlaylistDetails/index'
+import { Route as PlaylistDetailsIndexImport } from './routes/PlaylistDetails/index';
 
 // Create/Update Routes
 
 const IndexRoute = IndexImport.update({
+  id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
 } as any);
 
 const RegisterIndexRoute = RegisterIndexImport.update({
+  id: '/register/',
   path: '/register/',
   getParentRoute: () => rootRoute,
 } as any);
 
 const OnboardingIndexRoute = OnboardingIndexImport.update({
+  id: '/onboarding/',
   path: '/onboarding/',
   getParentRoute: () => rootRoute,
 } as any);
 
 const LoginIndexRoute = LoginIndexImport.update({
+  id: '/login/',
   path: '/login/',
   getParentRoute: () => rootRoute,
 } as any);
 
 const HomePageIndexRoute = HomePageIndexImport.update({
+  id: '/homePage/',
   path: '/homePage/',
   getParentRoute: () => rootRoute,
 } as any);
 
-const GroupListIndexRoute = GroupListIndexImport.update({
-  path: '/groupList/',
+const GrouplistIndexRoute = GrouplistIndexImport.update({
+  id: '/grouplist/',
+  path: '/grouplist/',
+  getParentRoute: () => rootRoute,
+} as any);
+
+const GroupDetailsIndexRoute = GroupDetailsIndexImport.update({
+  id: '/groupDetails/',
+  path: '/groupDetails/',
   getParentRoute: () => rootRoute,
 } as any);
 
 const PlaylistDetailsIndexRoute = PlaylistDetailsIndexImport.update({
+  id: '/PlaylistDetails/',
   path: '/PlaylistDetails/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const GroupDetailsIndexRoute = GroupDetailsIndexImport.update({
-  path: '/groupDetails/',
   getParentRoute: () => rootRoute,
 } as any);
 
@@ -67,30 +75,17 @@ const GroupDetailsIndexRoute = GroupDetailsIndexImport.update({
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/PlaylistDetails/': {
-      id: '/PlaylistDetails/'
-      path: '/PlaylistDetails'
-      fullPath: '/PlaylistDetails'
-      preLoaderRoute: typeof PlaylistDetailsIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/grouplist/': {
-      id: '/grouplist/'
-      path: '/grouplist'
-      fullPath: '/grouplist'
-      preLoaderRoute: typeof GrouplistIndexImport
-      parentRoute: typeof rootRoute
-    }
       id: '/';
       path: '/';
       fullPath: '/';
       preLoaderRoute: typeof IndexImport;
+      parentRoute: typeof rootRoute;
+    };
+    '/PlaylistDetails/': {
+      id: '/PlaylistDetails/';
+      path: '/PlaylistDetails';
+      fullPath: '/PlaylistDetails';
+      preLoaderRoute: typeof PlaylistDetailsIndexImport;
       parentRoute: typeof rootRoute;
     };
     '/groupDetails/': {
@@ -100,11 +95,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GroupDetailsIndexImport;
       parentRoute: typeof rootRoute;
     };
-    '/groupList/': {
-      id: '/groupList/';
-      path: '/groupList';
-      fullPath: '/groupList';
-      preLoaderRoute: typeof GroupListIndexImport;
+    '/grouplist/': {
+      id: '/grouplist/';
+      path: '/grouplist';
+      fullPath: '/grouplist';
+      preLoaderRoute: typeof GrouplistIndexImport;
       parentRoute: typeof rootRoute;
     };
     '/homePage/': {
@@ -140,17 +135,99 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({
-  IndexRoute,
-  GroupDetailsIndexRoute,
-  GroupListIndexRoute,
-  PlaylistDetailsIndexRoute,
-  GrouplistIndexRoute,
-  HomePageIndexRoute,
-  LoginIndexRoute,
-  OnboardingIndexRoute,
-  RegisterIndexRoute,
-});
+export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute;
+  '/PlaylistDetails': typeof PlaylistDetailsIndexRoute;
+  '/groupDetails': typeof GroupDetailsIndexRoute;
+  '/grouplist': typeof GrouplistIndexRoute;
+  '/homePage': typeof HomePageIndexRoute;
+  '/login': typeof LoginIndexRoute;
+  '/onboarding': typeof OnboardingIndexRoute;
+  '/register': typeof RegisterIndexRoute;
+}
+
+export interface FileRoutesByTo {
+  '/': typeof IndexRoute;
+  '/PlaylistDetails': typeof PlaylistDetailsIndexRoute;
+  '/groupDetails': typeof GroupDetailsIndexRoute;
+  '/grouplist': typeof GrouplistIndexRoute;
+  '/homePage': typeof HomePageIndexRoute;
+  '/login': typeof LoginIndexRoute;
+  '/onboarding': typeof OnboardingIndexRoute;
+  '/register': typeof RegisterIndexRoute;
+}
+
+export interface FileRoutesById {
+  __root__: typeof rootRoute;
+  '/': typeof IndexRoute;
+  '/PlaylistDetails/': typeof PlaylistDetailsIndexRoute;
+  '/groupDetails/': typeof GroupDetailsIndexRoute;
+  '/grouplist/': typeof GrouplistIndexRoute;
+  '/homePage/': typeof HomePageIndexRoute;
+  '/login/': typeof LoginIndexRoute;
+  '/onboarding/': typeof OnboardingIndexRoute;
+  '/register/': typeof RegisterIndexRoute;
+}
+
+export interface FileRouteTypes {
+  fileRoutesByFullPath: FileRoutesByFullPath;
+  fullPaths:
+    | '/'
+    | '/PlaylistDetails'
+    | '/groupDetails'
+    | '/grouplist'
+    | '/homePage'
+    | '/login'
+    | '/onboarding'
+    | '/register';
+  fileRoutesByTo: FileRoutesByTo;
+  to:
+    | '/'
+    | '/PlaylistDetails'
+    | '/groupDetails'
+    | '/grouplist'
+    | '/homePage'
+    | '/login'
+    | '/onboarding'
+    | '/register';
+  id:
+    | '__root__'
+    | '/'
+    | '/PlaylistDetails/'
+    | '/groupDetails/'
+    | '/grouplist/'
+    | '/homePage/'
+    | '/login/'
+    | '/onboarding/'
+    | '/register/';
+  fileRoutesById: FileRoutesById;
+}
+
+export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute;
+  PlaylistDetailsIndexRoute: typeof PlaylistDetailsIndexRoute;
+  GroupDetailsIndexRoute: typeof GroupDetailsIndexRoute;
+  GrouplistIndexRoute: typeof GrouplistIndexRoute;
+  HomePageIndexRoute: typeof HomePageIndexRoute;
+  LoginIndexRoute: typeof LoginIndexRoute;
+  OnboardingIndexRoute: typeof OnboardingIndexRoute;
+  RegisterIndexRoute: typeof RegisterIndexRoute;
+}
+
+const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
+  PlaylistDetailsIndexRoute: PlaylistDetailsIndexRoute,
+  GroupDetailsIndexRoute: GroupDetailsIndexRoute,
+  GrouplistIndexRoute: GrouplistIndexRoute,
+  HomePageIndexRoute: HomePageIndexRoute,
+  LoginIndexRoute: LoginIndexRoute,
+  OnboardingIndexRoute: OnboardingIndexRoute,
+  RegisterIndexRoute: RegisterIndexRoute,
+};
+
+export const routeTree = rootRoute
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>();
 
 /* prettier-ignore-end */
 
@@ -161,9 +238,8 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/groupDetails/",
-        "/groupList/",
         "/PlaylistDetails/",
+        "/groupDetails/",
         "/grouplist/",
         "/homePage/",
         "/login/",
@@ -174,16 +250,14 @@ export const routeTree = rootRoute.addChildren({
     "/": {
       "filePath": "index.tsx"
     },
-    "/groupDetails/": {
-      "filePath": "groupDetails/index.tsx"
     "/PlaylistDetails/": {
       "filePath": "PlaylistDetails/index.tsx"
     },
+    "/groupDetails/": {
+      "filePath": "groupDetails/index.tsx"
+    },
     "/grouplist/": {
       "filePath": "grouplist/index.tsx"
-    },
-    "/groupList/": {
-      "filePath": "groupList/index.tsx"
     },
     "/homePage/": {
       "filePath": "homePage/index.tsx"

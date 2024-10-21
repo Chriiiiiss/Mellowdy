@@ -170,6 +170,7 @@ const PlaylistActionDropDown = () => {
           </DropdownMenu.Content>
         </DropdownMenu.Root>
         <Dialog.Content>
+          <Dialog.Title>Partager la playlist</Dialog.Title>
           <SharePlaylist groupeData={groupeData} playlistInfo={PlaylistInfo} />
         </Dialog.Content>
       </Dialog.Root>

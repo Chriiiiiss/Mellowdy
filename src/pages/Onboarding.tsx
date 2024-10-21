@@ -4,7 +4,7 @@ import { MainTitle } from '../components/MainTitle';
 import { Box, Container, Flex, Grid, Text } from '@radix-ui/themes';
 import { styled } from 'styled-components';
 import { OnboardingStep } from '../components/onboarding/Step';
-import { OnboardingButton } from '../components/onboarding/Button';
+import { MellowdyButton } from '../components/Button';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from '@tanstack/react-router';
@@ -90,7 +90,7 @@ export const OnboardingPage = () => {
                       </Flex>
                     ))}
                     <Flex justify={'center'} align={'center'}>
-                      <OnboardingButton
+                      <MellowdyButton
                         onClick={handleClick}
                         label="Commencer"
                         iconEnd="ic:round-chevron-right"

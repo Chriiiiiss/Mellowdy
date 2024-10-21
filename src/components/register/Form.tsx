@@ -2,9 +2,10 @@ import * as Form from '@radix-ui/react-form';
 import { Avatar, Flex, Grid } from '@radix-ui/themes';
 import { FormEvent, useState } from 'react';
 import { FormField } from './Field';
-import { OnboardingButton } from '../onboarding/Button';
+
 import { useUserState } from '../../stores/useUserState';
 import { useUpdateUser } from '../../hooks/user/updateUser';
+import { MellowdyButton } from '../Button';
 
 export interface RegisterFormData {
   username: string;
@@ -82,7 +83,7 @@ export const RegisterForm = () => {
         </Flex>
 
         <Form.Submit asChild>
-          <OnboardingButton label="Créer mon compte" onClick={() => {}} />
+          <MellowdyButton label="Créer mon compte" onClick={() => {}} />
         </Form.Submit>
       </Grid>
     </Form.Root>

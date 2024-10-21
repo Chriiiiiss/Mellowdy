@@ -30,7 +30,6 @@ export const RegisterForm = () => {
         label="URL image de profil"
         type="url"
         valueMissing="Mising image URL"
-        required
         onChange={(e) => setImageUrl(e.target.value)}
       />
 

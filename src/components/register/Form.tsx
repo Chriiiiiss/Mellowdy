@@ -1,8 +1,7 @@
 import * as Form from '@radix-ui/react-form';
 import { Avatar, Flex, Grid } from '@radix-ui/themes';
 import { FormEvent, useState } from 'react';
-import { FormField } from './Field';
-
+import { FormField } from '../Field';
 import { useUserState } from '../../stores/useUserState';
 import { useUpdateUser } from '../../hooks/user/updateUser';
 import { MellowdyButton } from '../Button';
@@ -61,7 +60,6 @@ export const RegisterForm = () => {
         typeMismatch="Please provide a valid username"
         required
         onChange={(e) => setUsername(e.target.value)}
-        placeholder={user ? user.username : 'Username'}
       />
 
       <FormField

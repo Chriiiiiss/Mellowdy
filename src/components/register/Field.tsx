@@ -5,7 +5,7 @@ interface FormFieldProps {
   type: 'email' | 'text' | 'password' | 'url';
   valueMissing?: string;
   typeMismatch?: string;
-  required: boolean;
+  required?: boolean;
   placeholder?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }

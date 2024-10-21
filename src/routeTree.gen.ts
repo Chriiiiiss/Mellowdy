@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root';
 import { Route as IndexImport } from './routes/index';
 import { Route as RegisterIndexImport } from './routes/register/index';
+import { Route as PlaylistListIndexImport } from './routes/playlistList/index';
 import { Route as OnboardingIndexImport } from './routes/onboarding/index';
 import { Route as LoginIndexImport } from './routes/login/index';
 import { Route as HomePageIndexImport } from './routes/homePage/index';
@@ -31,6 +32,11 @@ const IndexRoute = IndexImport.update({
 const RegisterIndexRoute = RegisterIndexImport.update({
   id: '/register/',
   path: '/register/',
+  getParentRoute: () => rootRoute,
+} as any);
+
+const PlaylistListIndexRoute = PlaylistListIndexImport.update({
+  path: '/playlistList/',
   getParentRoute: () => rootRoute,
 } as any);
 
@@ -121,6 +127,13 @@ declare module '@tanstack/react-router' {
       path: '/onboarding';
       fullPath: '/onboarding';
       preLoaderRoute: typeof OnboardingIndexImport;
+      parentRoute: typeof rootRoute;
+    };
+    '/playlistList/': {
+      id: '/playlistList/';
+      path: '/playlistList';
+      fullPath: '/playlistList';
+      preLoaderRoute: typeof PlaylistListIndexImport;
       parentRoute: typeof rootRoute;
     };
     '/register/': {
@@ -244,6 +257,7 @@ export const routeTree = rootRoute
         "/homePage/",
         "/login/",
         "/onboarding/",
+        "/playlistList/",
         "/register/"
       ]
     },
@@ -267,6 +281,9 @@ export const routeTree = rootRoute
     },
     "/onboarding/": {
       "filePath": "onboarding/index.tsx"
+    },
+    "/playlistList/": {
+      "filePath": "playlistList/index.tsx"
     },
     "/register/": {
       "filePath": "register/index.tsx"

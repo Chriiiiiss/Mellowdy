@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import '@radix-ui/themes/styles.css';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
@@ -23,20 +23,30 @@ declare module '@tanstack/react-router' {
 const InnerApp = () => {
   const queryClient = new QueryClient();
   const userState = useUserState();
+  const [isMusicKitConfigured, setIsMusicKitConfigured] = useState(false);
 
-  document.addEventListener('musickitloaded', async function () {
-    try {
-      await MusicKit.configure({
-        developerToken: import.meta.env.VITE_APPLE_DEV_TOKEN,
-        app: {
-          name: 'Mellowdy',
-          build: '1.0.0',
-        },
-      });
-    } catch (err) {
-      console.error(err);
-    }
-  });
+  useEffect(() => {
+    document.addEventListener('musickitconfigured', handleConfiguration);
+
+    MusicKit.configure({
+      developerToken: import.meta.env.VITE_APPLE_DEV_TOKEN,
+      app: {
+        name: 'Mellowdy',
+        build: '1.0.0',
+      },
+    });
+
+    return () => {
+      document.removeEventListener('musickitconfigured', handleConfiguration);
+    };
+  }, []);
+
+  const handleConfiguration = () => {
+    console.log('MusicKit is configured');
+    setIsMusicKitConfigured(true);
+  };
+
+  if (!isMusicKitConfigured) return <p>Loading...</p>;
 
   return (
     <QueryClientProvider client={queryClient}>

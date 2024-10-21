@@ -54,9 +54,8 @@ export const LoginPage = () => {
       return;
     }
 
-    const handleMessage = (event: MessageEvent) => {
+    const handleMessage = async (event: MessageEvent) => {
       // Delete the second condition for the production build
-      // TODO: Refactor this
       if (
         (event.origin === import.meta.env.VITE_API_URL ||
           event.origin ===
@@ -66,28 +65,28 @@ export const LoginPage = () => {
         const data = event.data as TAuthMessage;
         popup.close(); // Just in case the popup is still open
         const decodedToken = jwtDecode<JwtPayload>(data.token);
+        const user: IUser = {
+          username: decodedToken.displayName,
+        };
 
         if (decodedToken.providerName === PROVIDER.APPLE) {
           // Apple workaround to retrieve the user token
-          const music = MusicKit.getInstance();
-          music.authorize().then((userToken) => {
-            const user: IUser = {
-              username: decodedToken.displayName,
-              appleMusicToken: userToken,
-            };
+          try {
+            const musicKitInstance = MusicKit.getInstance();
+            const userToken = await musicKitInstance.authorize();
 
-            login(user, data.token, decodedToken.providerID);
-            navigate({ to: '/homePage' });
-          });
+            user.appleMusicToken = userToken;
+          } catch (error) {
+            console.error('Error during MusicKit authorization:', error);
+            // TODO: Proc un toast d'erreur
+          }
+        } else {
+          window.removeEventListener('message', handleMessage);
         }
 
-        const user: IUser = { username: decodedToken.displayName };
-
         login(user, data.token, decodedToken.providerID);
-
         if (data.newUser) navigate({ to: '/register' });
         else navigate({ to: '/homePage' });
-        window.removeEventListener('message', handleMessage);
       }
     };
 

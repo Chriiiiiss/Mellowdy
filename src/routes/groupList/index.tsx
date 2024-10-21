@@ -1,11 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router';
-
-import { HomePage } from '../../pages/HomePage';
+import { GroupList } from '../../pages/GroupList';
 import { checkAuth } from '../../utils/routesUtils/authGuard';
 
-export const Route = createFileRoute('/homePage/')({
+export const Route = createFileRoute('/groupList/')({
   beforeLoad: async ({ context }) => {
     checkAuth(context.userState);
   },
-  component: HomePage,
+  component: GroupList,
 });

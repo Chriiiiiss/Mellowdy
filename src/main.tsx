@@ -6,8 +6,12 @@ import { routeTree } from './routeTree.gen.ts';
 import { useUserState } from './stores/useUserState.ts';
 import './styles/main.css';
 import { ThemeProvider } from './theme.tsx';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-const router = createRouter({ routeTree });
+const router = createRouter({
+  routeTree,
+  context: { userState: undefined },
+});
 
 declare module '@tanstack/react-router' {
   interface Register {
@@ -17,8 +21,28 @@ declare module '@tanstack/react-router' {
 
 // Workaround to access the user hook and pass it to the router context
 const InnerApp = () => {
-  const user = useUserState();
-  return <RouterProvider router={router} context={user} />;
+  const queryClient = new QueryClient();
+  const userState = useUserState();
+
+  document.addEventListener('musickitloaded', async function () {
+    try {
+      await MusicKit.configure({
+        developerToken: import.meta.env.VITE_APPLE_DEV_TOKEN,
+        app: {
+          name: 'Mellowdy',
+          build: '1.0.0',
+        },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  });
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} context={{ userState }} />
+    </QueryClientProvider>
+  );
 };
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

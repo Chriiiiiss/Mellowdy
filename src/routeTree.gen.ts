@@ -13,6 +13,10 @@
 import { Route as rootRoute } from './routes/__root';
 import { Route as IndexImport } from './routes/index';
 import { Route as RegisterIndexImport } from './routes/register/index';
+<<<<<<< HEAD
+=======
+import { Route as ProfileIndexImport } from './routes/profile/index';
+>>>>>>> 442796a ([Profile] Add profile page)
 import { Route as PlaylistListIndexImport } from './routes/playlistList/index';
 import { Route as OnboardingIndexImport } from './routes/onboarding/index';
 import { Route as LoginIndexImport } from './routes/login/index';
@@ -35,6 +39,15 @@ const RegisterIndexRoute = RegisterIndexImport.update({
   path: '/register/',
   getParentRoute: () => rootRoute,
 } as any);
+<<<<<<< HEAD
+=======
+
+const ProfileIndexRoute = ProfileIndexImport.update({
+  id: '/profile/',
+  path: '/profile/',
+  getParentRoute: () => rootRoute,
+} as any);
+>>>>>>> 442796a ([Profile] Add profile page)
 
 const PlaylistListIndexRoute = PlaylistListIndexImport.update({
   id: '/playlistList/',
@@ -151,6 +164,16 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlaylistListIndexImport;
       parentRoute: typeof rootRoute;
     };
+<<<<<<< HEAD
+=======
+    '/profile/': {
+      id: '/profile/';
+      path: '/profile';
+      fullPath: '/profile';
+      preLoaderRoute: typeof ProfileIndexImport;
+      parentRoute: typeof rootRoute;
+    };
+>>>>>>> 442796a ([Profile] Add profile page)
     '/register/': {
       id: '/register/';
       path: '/register';
@@ -173,6 +196,10 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginIndexRoute;
   '/onboarding': typeof OnboardingIndexRoute;
   '/playlistList': typeof PlaylistListIndexRoute;
+<<<<<<< HEAD
+=======
+  '/profile': typeof ProfileIndexRoute;
+>>>>>>> 442796a ([Profile] Add profile page)
   '/register': typeof RegisterIndexRoute;
 }
 
@@ -186,6 +213,10 @@ export interface FileRoutesByTo {
   '/login': typeof LoginIndexRoute;
   '/onboarding': typeof OnboardingIndexRoute;
   '/playlistList': typeof PlaylistListIndexRoute;
+<<<<<<< HEAD
+=======
+  '/profile': typeof ProfileIndexRoute;
+>>>>>>> 442796a ([Profile] Add profile page)
   '/register': typeof RegisterIndexRoute;
 }
 
@@ -200,6 +231,10 @@ export interface FileRoutesById {
   '/login/': typeof LoginIndexRoute;
   '/onboarding/': typeof OnboardingIndexRoute;
   '/playlistList/': typeof PlaylistListIndexRoute;
+<<<<<<< HEAD
+=======
+  '/profile/': typeof ProfileIndexRoute;
+>>>>>>> 442796a ([Profile] Add profile page)
   '/register/': typeof RegisterIndexRoute;
 }
 
@@ -215,6 +250,10 @@ export interface FileRouteTypes {
     | '/login'
     | '/onboarding'
     | '/playlistList'
+<<<<<<< HEAD
+=======
+    | '/profile'
+>>>>>>> 442796a ([Profile] Add profile page)
     | '/register';
   fileRoutesByTo: FileRoutesByTo;
   to:
@@ -227,6 +266,10 @@ export interface FileRouteTypes {
     | '/login'
     | '/onboarding'
     | '/playlistList'
+<<<<<<< HEAD
+=======
+    | '/profile'
+>>>>>>> 442796a ([Profile] Add profile page)
     | '/register';
   id:
     | '__root__'
@@ -239,6 +282,10 @@ export interface FileRouteTypes {
     | '/login/'
     | '/onboarding/'
     | '/playlistList/'
+<<<<<<< HEAD
+=======
+    | '/profile/'
+>>>>>>> 442796a ([Profile] Add profile page)
     | '/register/';
   fileRoutesById: FileRoutesById;
 }
@@ -253,6 +300,10 @@ export interface RootRouteChildren {
   LoginIndexRoute: typeof LoginIndexRoute;
   OnboardingIndexRoute: typeof OnboardingIndexRoute;
   PlaylistListIndexRoute: typeof PlaylistListIndexRoute;
+<<<<<<< HEAD
+=======
+  ProfileIndexRoute: typeof ProfileIndexRoute;
+>>>>>>> 442796a ([Profile] Add profile page)
   RegisterIndexRoute: typeof RegisterIndexRoute;
 }
 
@@ -266,6 +317,10 @@ const rootRouteChildren: RootRouteChildren = {
   LoginIndexRoute: LoginIndexRoute,
   OnboardingIndexRoute: OnboardingIndexRoute,
   PlaylistListIndexRoute: PlaylistListIndexRoute,
+<<<<<<< HEAD
+=======
+  ProfileIndexRoute: ProfileIndexRoute,
+>>>>>>> 442796a ([Profile] Add profile page)
   RegisterIndexRoute: RegisterIndexRoute,
 };
 
@@ -290,6 +345,7 @@ export const routeTree = rootRoute
         "/login/",
         "/onboarding/",
         "/playlistList/",
+        "/profile/",
         "/register/"
       ]
     },
@@ -319,6 +375,9 @@ export const routeTree = rootRoute
     },
     "/playlistList/": {
       "filePath": "playlistList/index.tsx"
+    },
+    "/profile/": {
+      "filePath": "profile/index.tsx"
     },
     "/register/": {
       "filePath": "register/index.tsx"

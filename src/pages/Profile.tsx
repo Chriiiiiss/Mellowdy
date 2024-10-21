@@ -128,7 +128,7 @@ export const ProfilePage = () => {
         <Avatar fallback="Aa" radius="full" size="7" />
         <Text>Name Truc</Text>
       </Flex>
-      <Flex direction="column" gap="4">
+      <Flex direction="column" gap="8" mt="4">
         <Flex gap={'5'}>
           <ListCard label="Groupes">
             <Grid

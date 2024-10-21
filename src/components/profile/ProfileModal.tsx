@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Dialog, Heading } from '@radix-ui/themes';
+import { Dialog, Flex, Heading } from '@radix-ui/themes';
 import { Pencil1Icon } from '@radix-ui/react-icons';
 import { RegisterForm } from '../register/Form';
 
@@ -17,7 +17,10 @@ const PlaylistAction = () => {
         </Dialog.Trigger>
       </HeadingIcon>
       <Dialog.Content>
-        <RegisterForm />
+        <Dialog.Title>Modifier votre profil</Dialog.Title>
+        <Flex justify={'center'}>
+          <RegisterForm />
+        </Flex>
       </Dialog.Content>
     </Dialog.Root>
   );

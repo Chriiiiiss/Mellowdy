@@ -4,6 +4,7 @@ interface FormFieldProps {
   label: string;
   type: 'email' | 'text' | 'password' | 'url';
   valueMissing?: string;
+  name?: string;
   typeMismatch?: string;
   required?: boolean;
   placeholder?: string;
@@ -11,6 +12,7 @@ interface FormFieldProps {
 }
 
 export const FormField = ({
+  name,
   label,
   type,
   valueMissing,
@@ -19,15 +21,14 @@ export const FormField = ({
   onChange,
   placeholder,
 }: FormFieldProps) => {
-  const name = label.toLowerCase();
+  const fieldName = name || label.toLowerCase();
   return (
     <Form.Field
       style={{
         display: 'grid',
         marginBottom: '15px',
       }}
-      name={name}
-      aria-placeholder={placeholder}
+      name={fieldName}
     >
       <Form.Label>{label}</Form.Label>
 
@@ -35,10 +36,12 @@ export const FormField = ({
         type={type}
         required={required}
         onChange={onChange}
+        placeholder={placeholder}
         style={{
           height: '25px',
           borderRadius: '8px',
           border: '1px solid var(--mellowdy-orange)',
+          padding: '5px',
         }}
       />
       {valueMissing && (

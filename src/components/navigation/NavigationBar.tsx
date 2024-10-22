@@ -39,7 +39,7 @@ export const NavigationBar = () => {
   const location = useLocation();
   return (
     <Container
-      position={'sticky'}
+      position={'fixed'}
       bottom={'0'}
       left={'0'}
       size="4"

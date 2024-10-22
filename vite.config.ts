@@ -14,6 +14,13 @@ export default defineConfig({
     port: 3001,
     strictPort: true,
     host: true,
-    origin: 'http://0.0.0.0:3001',
+    origin: 'http://localhost:3001',
+    proxy: {
+      '/v1': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/v1/, '/v1'),
+      },
+    },
   },
 });

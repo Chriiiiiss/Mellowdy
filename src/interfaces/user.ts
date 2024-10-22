@@ -1,9 +1,5 @@
 export interface IUser {
-  username?: string | null;
+  username: string | undefined;
   appleMusicToken?: string | null;
+  avatarUrl?: string | null;
 }
-
-export const userMock: IUser = {
-  username: null,
-  appleMusicToken: null,
-};

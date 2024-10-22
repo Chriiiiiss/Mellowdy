@@ -29,7 +29,7 @@ const ProviderList = [
   {
     label: 'Apple Music',
     icon: 'simple-icons:applemusic',
-    url: `https://hagfish-profound-genuinely.ngrok-free.app/v1/oauth/login/apple`,
+    url: `${import.meta.env.VITE_API_URL}/v1/oauth/login/apple`,
   },
 ];
 
@@ -56,12 +56,7 @@ export const LoginPage = () => {
 
     const handleMessage = async (event: MessageEvent) => {
       // Delete the second condition for the production build
-      if (
-        (event.origin === import.meta.env.VITE_API_URL ||
-          event.origin ===
-            'https://hagfish-profound-genuinely.ngrok-free.app') &&
-        popup
-      ) {
+      if (event.origin === import.meta.env.VITE_API_URL && popup) {
         const data = event.data as TAuthMessage;
         popup.close(); // Just in case the popup is still open
         const decodedToken = jwtDecode<JwtPayload>(data.token);
@@ -71,6 +66,7 @@ export const LoginPage = () => {
 
         if (decodedToken.providerName === PROVIDER.APPLE) {
           // Apple workaround to retrieve the user token
+
           try {
             const musicKitInstance = MusicKit.getInstance();
             const userToken = await musicKitInstance.authorize();

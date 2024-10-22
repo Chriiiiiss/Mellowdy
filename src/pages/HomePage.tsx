@@ -3,6 +3,7 @@ import { MainLayout } from '../layout/MainLayout';
 import NotificationCollapse from '../components/homePage/NotificationCollapse';
 import ScrollableProfile from '../components/homePage/ScrollableProfile';
 import PlaylistDisplay from '../components/homePage/PlaylistDisplay';
+import { useUserState } from '../stores/useUserState';
 
 export interface User {
   username: string | null;
@@ -214,11 +215,12 @@ const playlistData: GroupeData[] = [
 ];
 
 export const HomePage = () => {
+  const { user } = useUserState();
   return (
     <MainLayout>
       <Section pt="0" pb="6">
         <Flex gap="6" direction="column">
-          <Heading>Bonjour {userData.username} !</Heading>
+          <Heading>Bonjour {user?.username} !</Heading>
           {userData.friends && <ScrollableProfile friends={userData.friends} />}
 
           <NotificationCollapse />

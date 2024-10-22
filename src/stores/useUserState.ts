@@ -4,12 +4,13 @@ import { persist } from 'zustand/middleware';
 import { isTokenExpired } from '../utils/routesUtils/checkTokens';
 
 export type UserState = {
-  user: IUser | null;
+  user: Partial<IUser> | null;
   providerId: number | null;
   token: string | null;
   isAuth: boolean;
   login: (userData: IUser, token: string, providerId: number) => void;
   logout: () => void;
+  updateUserState: (userData: Partial<IUser>, token: string) => void;
 };
 
 // User state
@@ -26,6 +27,8 @@ export const useUserState = create<UserState>()(
         set({ user: null, isAuth: false, token: null, providerId: null });
         useUserState.persist.clearStorage(); // Clear the localStorage on logout
       },
+      updateUserState: (userData: Partial<IUser>, token: string) =>
+        set({ user: userData, token }),
     }),
     {
       name: 'user-state',

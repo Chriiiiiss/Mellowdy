@@ -2,12 +2,13 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import { Button } from '@radix-ui/themes';
 import styled from 'styled-components';
 
-interface OnboardingButtonProps {
+interface ButtonProps {
   onClick: () => void;
   label: string;
   // use the iconify icon names only for the iconStart and iconEnd props
   iconStart?: string;
   iconEnd?: string;
+  isLoading?: boolean;
 }
 
 const CustomButton = styled(Button)`
@@ -23,14 +24,15 @@ const CustomButton = styled(Button)`
   border-radius: 8px;
 `;
 
-export const OnboardingButton = ({
+export const MellowdyButton = ({
   onClick,
   label,
   iconStart,
   iconEnd,
-}: OnboardingButtonProps) => {
+  isLoading,
+}: ButtonProps) => {
   return (
-    <CustomButton onClick={onClick}>
+    <CustomButton onClick={onClick} loading={isLoading}>
       {iconStart && <Icon icon={iconStart} height="24" />}
       {label}
       {iconEnd && <Icon icon={iconEnd} height="24" />}

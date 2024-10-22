@@ -7,8 +7,8 @@ interface FormFieldProps {
   name?: string;
   typeMismatch?: string;
   required?: boolean;
-  placeholder?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
 }
 
 export const FormField = ({
@@ -18,8 +18,8 @@ export const FormField = ({
   valueMissing,
   typeMismatch,
   required,
-  onChange,
   placeholder,
+  onChange,
 }: FormFieldProps) => {
   const fieldName = name || label.toLowerCase();
   return (

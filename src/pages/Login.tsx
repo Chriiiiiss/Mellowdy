@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { OnboardingLayout } from '../layout/OnboardingLayout';
 import { MainTitle } from '../components/MainTitle';
 import { OnboardingCard } from '../components/onboarding/Card';
-import { OnboardingButton } from '../components/onboarding/Button';
+import { MellowdyButton } from '../components/Button';
 import { useUserState } from '../stores/useUserState';
 import { JwtPayload, TAuthMessage } from '../types/auth';
 import { jwtDecode } from 'jwt-decode';
@@ -106,7 +106,7 @@ export const LoginPage = () => {
               <CustomText>Connectez votre appli de musique préférée</CustomText>
               {ProviderList.map((provider, index) => (
                 <Flex key={index} justify={'center'}>
-                  <OnboardingButton
+                  <MellowdyButton
                     onClick={() => handleLogin(provider.label, provider.url)}
                     label={provider.label}
                     iconStart={provider.icon}

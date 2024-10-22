@@ -92,7 +92,12 @@ export const GroupList = () => {
                   variant="group"
                 />
               ))}
-              <CoverCard title="Créer un groupe" variant="group" link="/" add />
+              <CoverCard
+                title="Créer un groupe"
+                variant="group"
+                link="/groupCreate"
+                add
+              />
             </Grid>
           </ListCard>
         </Flex>

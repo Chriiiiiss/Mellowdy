@@ -31,6 +31,7 @@ export const GroupCreateForm = () => {
         type="text"
         onChange={(e) => setGroupName(e.target.value)}
         valueMissing="Missing group name"
+        placeholder="My new group"
         required
       />
       <FormField

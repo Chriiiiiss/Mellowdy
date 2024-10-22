@@ -8,6 +8,7 @@ interface ButtonProps {
   // use the iconify icon names only for the iconStart and iconEnd props
   iconStart?: string;
   iconEnd?: string;
+  isLoading?: boolean;
 }
 
 const CustomButton = styled(Button)`
@@ -28,9 +29,10 @@ export const MellowdyButton = ({
   label,
   iconStart,
   iconEnd,
+  isLoading,
 }: ButtonProps) => {
   return (
-    <CustomButton onClick={onClick}>
+    <CustomButton onClick={onClick} loading={isLoading}>
       {iconStart && <Icon icon={iconStart} height="24" />}
       {label}
       {iconEnd && <Icon icon={iconEnd} height="24" />}

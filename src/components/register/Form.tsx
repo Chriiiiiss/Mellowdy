@@ -58,6 +58,7 @@ export const RegisterForm = () => {
         type="text"
         valueMissing="Mising username"
         typeMismatch="Please provide a valid username"
+        placeholder={user?.username || 'Username'}
         required
         onChange={(e) => setUsername(e.target.value)}
       />

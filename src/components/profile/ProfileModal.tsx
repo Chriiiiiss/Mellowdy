@@ -8,12 +8,17 @@ const HeadingIcon = styled(Heading)`
   justify-content: right;
 `;
 
+const PencilIcon = styled(Pencil1Icon)`
+  width: 20px;
+  height: 20px;
+`;
+
 const PlaylistAction = () => {
   return (
     <Dialog.Root>
       <HeadingIcon>
         <Dialog.Trigger>
-          <Pencil1Icon />
+          <PencilIcon />
         </Dialog.Trigger>
       </HeadingIcon>
       <Dialog.Content>

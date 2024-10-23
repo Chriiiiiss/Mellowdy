@@ -5,17 +5,25 @@ import { FormField } from '../Field';
 import { useUserState } from '../../stores/useUserState';
 import { useUpdateUser } from '../../hooks/user/updateUser';
 import { MellowdyButton } from '../Button';
+import { useNavigate } from '@tanstack/react-router';
 
 export interface RegisterFormData {
   username: string;
   imageUrl: string;
 }
 
-export const RegisterForm = () => {
+interface RegisterFormProps {
+  setModalOpen?: (open: boolean) => void;
+}
+
+export const RegisterForm = ({ setModalOpen }: RegisterFormProps) => {
   const { user } = useUserState();
   const [imageUrl, setImageUrl] = useState('');
   const [username, setUsername] = useState('');
   const updateUser = useUpdateUser();
+  const { updateUserState } = useUserState();
+  const navigate = useNavigate();
+  const isProfilePage = location.pathname === '/profile';
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
@@ -47,7 +55,27 @@ export const RegisterForm = () => {
     ) as Partial<RegisterFormData>;
 
     // Mutate the user state with the new data
-    updateUser.mutate({ formData: sanitizedData });
+    updateUser.mutate(
+      { formData: sanitizedData },
+      {
+        onSuccess(data) {
+          console.log('User updated successfully: ', data);
+          updateUserState(
+            {
+              username: data.user.Name,
+              avatarUrl: data.user.AvatarURL,
+            },
+            data.jwt
+          );
+
+          // Grace au props setModalOPen est-ce que tu as toujours besoins de isProfilePage ?
+
+          isProfilePage && setModalOpen
+            ? setModalOpen(false)
+            : navigate({ to: '/homePage' });
+        },
+      }
+    );
   };
 
   return (
@@ -80,7 +108,6 @@ export const RegisterForm = () => {
             fallback={username.slice(0, 2).toUpperCase()}
           />
         </Flex>
-
         <Form.Submit asChild>
           <MellowdyButton label="Créer mon compte" onClick={() => {}} />
         </Form.Submit>

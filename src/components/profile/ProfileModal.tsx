@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Dialog, Flex, Heading } from '@radix-ui/themes';
 import { Pencil1Icon } from '@radix-ui/react-icons';
 import { RegisterForm } from '../register/Form';
+import { useState } from 'react';
 
 const HeadingIcon = styled(Heading)`
   display: flex;
@@ -14,8 +15,10 @@ const PencilIcon = styled(Pencil1Icon)`
 `;
 
 const PlaylistAction = () => {
+  const [open, setOpen] = useState(false);
+
   return (
-    <Dialog.Root>
+    <Dialog.Root open={open} onOpenChange={setOpen}>
       <HeadingIcon>
         <Dialog.Trigger>
           <PencilIcon />
@@ -24,7 +27,7 @@ const PlaylistAction = () => {
       <Dialog.Content>
         <Dialog.Title>Modifier votre profil</Dialog.Title>
         <Flex justify={'center'}>
-          <RegisterForm />
+          <RegisterForm setModalOpen={setOpen} />
         </Flex>
       </Dialog.Content>
     </Dialog.Root>

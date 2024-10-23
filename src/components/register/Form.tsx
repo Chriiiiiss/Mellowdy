@@ -109,7 +109,12 @@ export const RegisterForm = ({ setModalOpen }: RegisterFormProps) => {
           />
         </Flex>
         <Form.Submit asChild>
-          <MellowdyButton label="Créer mon compte" onClick={() => {}} />
+          <MellowdyButton
+            label={
+              isProfilePage ? 'Modifier mes informations' : 'Créer mon compte'
+            }
+            onClick={() => {}}
+          />
         </Form.Submit>
       </Grid>
     </Form.Root>

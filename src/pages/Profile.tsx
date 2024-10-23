@@ -2,8 +2,8 @@ import { Avatar, Flex, Grid, Text } from '@radix-ui/themes';
 import { MainLayout } from '../layout/MainLayout';
 import { ListCard } from '../components/list/Container';
 import { CoverCard } from '../components/list/CoverCard';
-import ProfilModal from '../components/profile/ProfileModal';
 import { useUserState } from '../stores/useUserState';
+import ProfileAction from '../components/profile/ProfileAction';
 
 const GroupsList = [
   {
@@ -130,7 +130,7 @@ export const ProfilePage = () => {
   }
   return (
     <MainLayout>
-      <ProfilModal />
+      <ProfileAction />
       <Flex align="center" direction="column" gap="4">
         <Avatar
           src={userState.user.avatarUrl || ''}

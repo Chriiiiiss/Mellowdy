@@ -1,10 +1,10 @@
 import { Container, Flex } from '@radix-ui/themes';
 import { NavigationItem } from './NavigationItem';
 import { FileRoutesByPath, useLocation } from '@tanstack/react-router';
-import HomeIcon from './assets/img/HomeIcon.svg?react';
-import GroupIcon from './assets/img/GroupIcon.svg?react';
-import PlaylistIcon from './assets/img/PlaylistIcon.svg?react';
-import ProfileIcon from './assets/img/ProfileIcon.svg?react';
+import HomeIcon from './assets/img/homeIcon.svg?react';
+import GroupIcon from './assets/img/groupIcon.svg?react';
+import PlaylistIcon from './assets/img/playlistIcon.svg?react';
+import ProfileIcon from './assets/img/profileIcon.svg?react';
 
 type NavigationPossibility = {
   redirectTo: FileRoutesByPath[keyof FileRoutesByPath]['path'];

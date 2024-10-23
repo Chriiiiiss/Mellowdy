@@ -3,6 +3,7 @@ import { MainLayout } from '../layout/MainLayout';
 import { ListCard } from '../components/list/Container';
 import { CoverCard } from '../components/list/CoverCard';
 import ProfilModal from '../components/profile/ProfileModal';
+import { useUserState } from '../stores/useUserState';
 
 const GroupsList = [
   {
@@ -121,12 +122,23 @@ const PlaylistsList = [
 ];
 
 export const ProfilePage = () => {
+  const userState = useUserState();
+  console.log(userState, 'user');
+
+  if (!userState.user || !userState.user.username) {
+    return null;
+  }
   return (
     <MainLayout>
       <ProfilModal />
       <Flex align="center" direction="column" gap="4">
-        <Avatar fallback="Aa" radius="full" size="7" />
-        <Text>Name Truc</Text>
+        <Avatar
+          src={userState.user.avatarUrl || ''}
+          fallback={userState.user.username.slice(0, 2).toUpperCase()}
+          radius="full"
+          size="7"
+        />
+        <Text>{userState.user?.username}</Text>
       </Flex>
       <Flex direction="column" gap="8" mt="4">
         <Flex gap={'5'}>

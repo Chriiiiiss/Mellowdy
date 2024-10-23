@@ -1,15 +1,13 @@
 import { Flex, Heading, Section, Box } from '@radix-ui/themes';
 import { MainLayout } from '../layout/MainLayout';
 import NotificationCollapse from '../components/homePage/NotificationCollapse';
-import ScrollableProfile from '../components/homePage/ScrollableProfile';
-import PlaylistDisplay from '../components/homePage/PlaylistDisplay';
 import { useUserState } from '../stores/useUserState';
-import { useState } from 'react';
+import { EmptyGroupState } from '../components/homePage/EmptyGroupState';
 import {
-  HomePlaylistSkeleton,
-  FriendsSkeleton,
   HomeGroupNameSkeleton,
+  HomePlaylistSkeleton,
 } from '../components/Skeleton';
+import { useState } from 'react';
 
 export interface User {
   username: string | null;
@@ -39,7 +37,7 @@ export interface PlaylistData {
   id: string;
 }
 
-const userData: User = {
+/* const userData: User = {
   username: 'Dark Lord Chris Premier du nom',
   email: 'Chris.truc@gmail.com',
   profilePicture: 'https://placehold.co/60x40/blue/white',
@@ -93,9 +91,9 @@ const userData: User = {
       profilePicture: 'https://picsum.photos/72/65',
     },
   ],
-};
+}; */
 
-const playlistData: GroupeData[] = [
+/* const playlistData: GroupeData[] = [
   {
     id: '1',
     name: 'Chill Vibes Collective',
@@ -218,29 +216,20 @@ const playlistData: GroupeData[] = [
       },
     ],
   },
-];
+]; */
 
 export const HomePage = () => {
   const { user } = useUserState();
-  const [isFriendsLoading] = useState(false); //ajouter le setIsFriendsLoading quand on aura les données
   const [isPlaylistLoading] = useState(false); //ajouter le setIsPlaylistLoading quand on aura les données
+  const userGroup = null;
   return (
     <MainLayout>
       <Section pt="0" pb="6">
         <Flex gap="6" direction="column">
           <Heading>Bonjour {user?.username} !</Heading>
 
-          {isFriendsLoading && (
-            <Flex gap="4">
-              <FriendsSkeleton />
-              <FriendsSkeleton />
-              <FriendsSkeleton />
-            </Flex>
-          )}
-
-          {userData.friends && !isFriendsLoading && (
-            <ScrollableProfile friends={userData.friends} />
-          )}
+          {/* Should we keep friends ? Not enought time tho */}
+          {/* {userData.friends && <ScrollableProfile friends={userData.friends} />} */}
 
           <NotificationCollapse />
         </Flex>
@@ -257,19 +246,7 @@ export const HomePage = () => {
         )}
         {!isPlaylistLoading && (
           <Flex gap="6" direction="column">
-            {playlistData.slice(0, 10).map((playlistData) => (
-              <PlaylistDisplay
-                key={playlistData.name}
-                name={playlistData.name}
-                listeners={playlistData.listeners}
-                playlist={playlistData.playlist}
-              />
-            ))}
-            {playlistData.length > 5 && (
-              <Flex justify="center">
-                <p>Voir plus</p>
-              </Flex>
-            )}
+            {!userGroup && <EmptyGroupState />}
           </Flex>
         )}
       </Section>

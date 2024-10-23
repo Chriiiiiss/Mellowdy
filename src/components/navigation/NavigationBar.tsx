@@ -1,7 +1,10 @@
-import { GroupIcon, HomeIcon, VideoIcon } from '@radix-ui/react-icons';
 import { Container, Flex } from '@radix-ui/themes';
 import { NavigationItem } from './NavigationItem';
-import { FileRoutesByPath } from '@tanstack/react-router';
+import { FileRoutesByPath, useLocation } from '@tanstack/react-router';
+import HomeIcon from './assets/img/homeIcon.svg?react';
+import GroupIcon from './assets/img/groupIcon.svg?react';
+import PlaylistIcon from './assets/img/playlistIcon.svg?react';
+import ProfileIcon from './assets/img/profileIcon.svg?react';
 
 type NavigationPossibility = {
   redirectTo: FileRoutesByPath[keyof FileRoutesByPath]['path'];
@@ -13,24 +16,30 @@ const NAVIGATION_POSSIBILITIES: NavigationPossibility[] = [
   {
     redirectTo: '/homePage',
     icon: <HomeIcon />,
-    label: 'Home',
+    label: 'Accueil',
   },
   {
     redirectTo: '/groupList',
     icon: <GroupIcon />,
-    label: 'Groupe',
+    label: 'Groupes',
   },
   {
-    redirectTo: '/groupDetails',
-    icon: <VideoIcon />,
-    label: 'Groupe Details',
+    redirectTo: '/playlistList',
+    icon: <PlaylistIcon />,
+    label: 'Playlists',
+  },
+  {
+    redirectTo: '/profile',
+    icon: <ProfileIcon />,
+    label: 'Profile',
   },
 ];
 // TODO: Refactor the NavItem component to use the Button component and add the correct props
 export const NavigationBar = () => {
+  const location = useLocation();
   return (
     <Container
-      position={'sticky'}
+      position={'fixed'}
       bottom={'0'}
       left={'0'}
       size="4"
@@ -47,6 +56,7 @@ export const NavigationBar = () => {
             icon={item.icon}
             label={item.label}
             redirectTo={item.redirectTo}
+            isActive={location.pathname === item.redirectTo}
           />
         ))}
       </Flex>

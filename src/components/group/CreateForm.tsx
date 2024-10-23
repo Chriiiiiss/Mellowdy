@@ -40,6 +40,7 @@ export const GroupCreateForm = ({ setOpenDialog }: GroupCreateFormProps) => {
       // Dunnot do anything if the URL is invalid
       // Can send a TOAST message to the user ? maybe
       // TODO: Send a toast message to the user
+      console.error('Invalid URL: ', error);
       return;
     }
   };

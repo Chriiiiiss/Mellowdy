@@ -28,7 +28,10 @@ export const useUserState = create<UserState>()(
         useUserState.persist.clearStorage(); // Clear the localStorage on logout
       },
       updateUserState: (userData: Partial<IUser>, token: string) =>
-        set({ user: userData, token }),
+        set((state) => ({
+          user: { ...state.user, ...userData },
+          token,
+        })),
     }),
     {
       name: 'user-state',

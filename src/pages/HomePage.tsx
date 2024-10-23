@@ -162,7 +162,7 @@ const playlistData: GroupeData[] = [
       },
     ],
   },
-];
+]; */
 
 export const HomePage = () => {
   const { user } = useUserState();

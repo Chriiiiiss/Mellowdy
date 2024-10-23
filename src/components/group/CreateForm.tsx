@@ -1,29 +1,90 @@
 import * as Form from '@radix-ui/react-form';
-import { useNavigate } from '@tanstack/react-router';
 import { Avatar, Flex } from '@radix-ui/themes';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { FormField } from '../Field';
 import { TextArea } from '../TextArea';
 import { MellowdyButton } from '../Button';
+import {
+  CreateOrgaPayload,
+  useCreateOrga,
+} from '../../hooks/organization/createOrga';
+import { useUserState } from '../../stores/useUserState';
+import { jwtDecode } from 'jwt-decode';
+import { JwtPayload } from '../../types/auth';
 
-export const GroupCreateForm = () => {
+export interface CreateGroupFormData {
+  name: string;
+  description: string;
+  image_url: string;
+}
+
+interface GroupCreateFormProps {
+  setOpenDialog: (open: boolean) => void;
+}
+
+export const GroupCreateForm = ({ setOpenDialog }: GroupCreateFormProps) => {
   const [imageUrl, setImageUrl] = useState('');
   const [groupName, setGroupName] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
+  const createOrganization = useCreateOrga();
+  const { token } = useUserState();
+
+  if (!token) return;
+
+  const decodedToken = jwtDecode<JwtPayload>(token);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      const url = new URL(e.target.value);
+      setImageUrl(url.href);
+    } catch (error) {
+      // Dunnot do anything if the URL is invalid
+      // Can send a TOAST message to the user ? maybe
+      // TODO: Send a toast message to the user
+      console.error('Invalid URL: ', error);
+      return;
+    }
+  };
+
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const unSanitizedformData = new FormData(e.currentTarget);
+
+    const sanitizedData = Object.fromEntries(
+      Array.from(unSanitizedformData.entries())
+        .filter(
+          ([, value]) =>
+            value !== null &&
+            value !== undefined &&
+            value.toString().trim() !== ''
+        )
+        .map(([key, value]) => [key, value.toString()])
+    ) as Partial<CreateGroupFormData>;
+
+    if (!sanitizedData.name) {
+      console.error('Missing group name');
+      return;
+    }
+
+    const mutationPayload: CreateOrgaPayload = {
+      name: sanitizedData.name,
+      description: sanitizedData.description,
+      image_url: sanitizedData.image_url,
+      owner_id: decodedToken.id,
+    };
+
+    createOrganization.mutate(mutationPayload, {
+      onSuccess: () => {
+        // TODO: Everything
+        // Should invalidate query here to refresh the data
+        // Should invalide user organization query
+        // Should toast user
+        setOpenDialog(false);
+      },
+    });
+    e.preventDefault();
+  };
+
   return (
-    <Form.Root
-      style={{ width: '250px' }}
-      onSubmit={() => {
-        setIsLoading(true);
-        // Simulate a network request
-        setTimeout(() => {
-          setIsLoading(false);
-          navigate({ to: '/groupDetails' });
-        }, 1000);
-        navigate({ to: '/groupDetails' });
-      }}
-    >
+    <Form.Root style={{ width: '250px' }} onSubmit={handleFormSubmit}>
       <Flex justify={'center'} style={{ marginBottom: '15px' }}>
         <Avatar
           src={imageUrl}
@@ -35,6 +96,7 @@ export const GroupCreateForm = () => {
       </Flex>
       <FormField
         label={'Nom du groupe'}
+        name="name"
         type="text"
         onChange={(e) => setGroupName(e.target.value)}
         valueMissing="Nom du groupe manquant"
@@ -43,8 +105,9 @@ export const GroupCreateForm = () => {
       />
       <FormField
         label={'URL icône du groupe'}
+        name="avatar_url"
         type="url"
-        onChange={(e) => setImageUrl(e.target.value)}
+        onChange={handleImageChange}
         placeholder="https://example.com/icon.png"
       />
       <TextArea label={'Description du groupe'} maxLength={600} />
@@ -52,7 +115,7 @@ export const GroupCreateForm = () => {
         <MellowdyButton
           label="Annuler"
           onClick={() => {
-            navigate({ to: '/groupList' });
+            setOpenDialog(false);
           }}
           variant={'secondary'}
           size="medium"

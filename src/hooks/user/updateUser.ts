@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { RegisterFormData } from '../../components/register/Form';
 import { useUserState } from '../../stores/useUserState';
-import { useNavigate } from '@tanstack/react-router';
 
 interface UpdateUserPayload {
   formData: Partial<RegisterFormData>;
@@ -47,9 +46,7 @@ const updateUser = async ({ formData }: UpdateUserPayload, token: string) => {
 
 export const useUpdateUser = () => {
   const queryClient = useQueryClient();
-  const { updateUserState } = useUserState();
   const { token } = useUserState();
-  const navigate = useNavigate();
 
   if (!token) {
     throw new Error('No token found in the user state');
@@ -59,17 +56,6 @@ export const useUpdateUser = () => {
     {
       mutationKey: ['updateUser'],
       mutationFn: (formData) => updateUser(formData, token),
-      onSuccess: (data) => {
-        updateUserState(
-          {
-            username: data.user.Name,
-            avatarUrl: data.user.AvatarURL,
-          },
-          data.jwt
-        );
-
-        navigate({ to: '/homePage' });
-      },
       onError: (error) => {
         console.error('Error while updating the user :', error);
         //TODO: add toast message

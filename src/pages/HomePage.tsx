@@ -11,6 +11,8 @@ import PlaylistDisplay from '../components/homePage/PlaylistDisplay';
 import { useEffect } from 'react';
 import { CreateGroupDialog } from '../components/homePage/CreateGroupDialog';
 import { useGetAllPlaylistInfo } from '../hooks/playlist/getAllPlaylist';
+// import { useGetPlaylist } from '../hooks/playlist/getPlaylist';
+import { useGetPlaylistFromProvider } from '../hooks/playlist/getPlaylistDetails';
 
 export interface User {
   username: string | null;
@@ -168,11 +170,20 @@ const playlistData: GroupeData[] = [
 export const HomePage = () => {
   const { user } = useUserState();
   const getOrganization = useGetAllOrganization();
-  const getPlaylist = useGetAllPlaylistInfo();
+  const getPlaylistsInfo = useGetAllPlaylistInfo();
+  // const getPlaylist = useGetPlaylist(1);
+  const getPlaylistFromProvider = useGetPlaylistFromProvider(
+    'https://open.spotify.com/playlist/7orLvIOx3HjNASSxJ5UcOt'
+  ).data;
+  // console.log('data', getPlaylist.data);
 
   useEffect(() => {
-    console.log(getPlaylist.data);
-  }, [getPlaylist.data]);
+    console.log('playlist', getPlaylistFromProvider);
+  }, [getPlaylistFromProvider]);
+
+  useEffect(() => {
+    console.log('infos', getPlaylistsInfo.data);
+  }, [getPlaylistsInfo.data]);
 
   useEffect(() => {
     console.log(getOrganization.data);

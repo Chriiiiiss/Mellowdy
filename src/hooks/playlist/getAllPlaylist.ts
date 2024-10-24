@@ -20,9 +20,9 @@ const fetchAllPlaylistInfo = async (
   token: string | null,
   orga: Array<Organization>
 ) => {
-  orga!.map(async (orga) => {
+  const dataPlaylist = orga!.map(async (orgaItem) => {
     const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/v1/organization/${orga.id}/playlists`,
+      `${import.meta.env.VITE_API_URL}/v1/organization/${orgaItem.id}/playlists`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -31,14 +31,14 @@ const fetchAllPlaylistInfo = async (
     );
 
     if (!response.ok) {
-      throw new Error('Failed to fetch playlist');
+      throw new Error('Failed to fetch playlists');
     }
 
     const data: PlaylistResponse = await response.json();
 
-    console.log('data', data);
     return data.playlists;
   });
+  console.log('dataPlaylist', await dataPlaylist);
 };
 
 export const useGetAllPlaylistInfo = () => {
@@ -52,6 +52,7 @@ export const useGetAllPlaylistInfo = () => {
       queryKey: ['getAllPlaylist', token, orga],
       queryFn: () => fetchAllPlaylistInfo(token, orga as Organization[]),
       enabled: !!token,
+      retry: 0,
     },
     queryClient
   );

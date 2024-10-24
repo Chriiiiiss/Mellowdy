@@ -33,7 +33,6 @@ const fetchOrganization = async (token: string | null) => {
 
   const data: OrganizationResponse = await response.json();
 
-  console.log(data);
   return data.organizations;
 };
 

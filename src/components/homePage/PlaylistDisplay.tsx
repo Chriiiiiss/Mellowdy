@@ -2,6 +2,7 @@ import { ArrowRightIcon } from '@radix-ui/react-icons';
 import { Avatar, Flex, Grid, Heading } from '@radix-ui/themes';
 import styled from 'styled-components';
 import { GroupeData } from '../../pages/HomePage';
+import { Link } from '@tanstack/react-router';
 
 const ListenerProfile = styled(Avatar)`
   margin-left: -16px;
@@ -9,6 +10,7 @@ const ListenerProfile = styled(Avatar)`
 
 const GroupeName = styled(Heading)`
   text-overflow: ellipsis;
+  text-decoration: none;
   overflow: hidden;
   white-space: nowrap;
 `;
@@ -43,12 +45,20 @@ const PlaylistName = styled.span`
   white-space: nowrap;
 `;
 
-const PlaylistDisplay = ({ name, listeners, playlist }: GroupeData) => {
+const PlaylistDisplay = ({ name, listeners, playlist, id }: GroupeData) => {
   return (
     <Flex gap="5" direction="column">
       <Grid columns="70% 30%">
         <Flex align="center" gap="2">
-          <GroupeName>{name}</GroupeName>
+          <Link
+            style={{
+              textDecoration: 'none',
+              color: 'black',
+            }}
+            to={`/groupDetails/${id}`}
+          >
+            <GroupeName>{name}</GroupeName>
+          </Link>
           <ArrowRightIcon />
         </Flex>
         {listeners && (

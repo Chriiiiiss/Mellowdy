@@ -1,24 +1,32 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useUserState } from '../../stores/useUserState';
 
-interface OrganizationResponse {
-  organizations: Organization[];
+export interface OrganizationUser {
+  id: number;
+  name: string;
+  avatar_url: string;
 }
 
-interface Organization {
+export interface OrganizationResponse {
   id: number;
   name: string;
   description: string;
   avatar_url: string;
+  owner_id: number;
+  users: OrganizationUser[];
+  created_at: string;
 }
 
-const fetchOrganization = async (token: string | null) => {
+const fetchOrganization = async (
+  organizationId: string,
+  token: string | null
+) => {
   if (!token) {
     throw new Error('No token found in the user state');
   }
 
   const response = await fetch(
-    `${import.meta.env.VITE_API_URL}/v1/user/organizations`,
+    `${import.meta.env.VITE_API_URL}/v1/organization/${organizationId}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -32,18 +40,17 @@ const fetchOrganization = async (token: string | null) => {
 
   const data: OrganizationResponse = await response.json();
 
-  console.log(data);
-  return data.organizations;
+  return data;
 };
 
-export const useGetAllOrganization = () => {
+export const useGetOrganization = (organizationId: string) => {
   const queryClient = useQueryClient();
   const { token } = useUserState();
 
   return useQuery(
     {
-      queryKey: ['getAllOrganization', token],
-      queryFn: () => fetchOrganization(token),
+      queryKey: ['getOrganization', organizationId, token],
+      queryFn: () => fetchOrganization(organizationId, token),
       enabled: !!token,
     },
     queryClient

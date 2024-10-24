@@ -3,13 +3,13 @@ import { Button } from '@radix-ui/themes';
 import styled, { css } from 'styled-components';
 
 interface ButtonProps {
-  onClick: () => void;
+  onClick?: () => void;
   label: string;
   // use the iconify icon names only for the iconStart and iconEnd props
   iconStart?: string;
   iconEnd?: string;
   isLoading?: boolean;
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'soft';
   size?: 'small' | 'medium' | 'large';
 }
 
@@ -24,7 +24,7 @@ const secondaryStyle = css`
 `;
 
 const CustomButton = styled(Button)<{
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'soft';
   size?: 'small' | 'medium' | 'large';
 }>`
   display: flex;

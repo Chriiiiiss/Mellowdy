@@ -13,8 +13,8 @@ import { useGetOrganization } from '../hooks/organization/getOrganization';
 import { useParams } from '@tanstack/react-router';
 import Dropdown from '../components/DropdownMenu';
 import { Pencil1Icon, Share1Icon, TrashIcon } from '@radix-ui/react-icons';
-import { CreateGroupDialog } from '../components/homePage/CreateGroupDialog';
 import { InviteFriendDialog } from '../components/group/InviteFriendDialog';
+import { ImportPlaylistDialog } from '../components/group/ImportPlaylistDialog';
 
 const GroupsList = [
   {
@@ -183,7 +183,7 @@ export const GroupDetails = () => {
                         variant="playlist"
                       />
                     ))}
-                    <CreateGroupDialog isFull />
+                    <ImportPlaylistDialog isFull />
                   </Grid>
                 )}
               </ListCard>

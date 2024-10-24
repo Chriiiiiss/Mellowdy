@@ -5,6 +5,7 @@ import { OrganizationUser } from '../../hooks/organization/getOrganization';
 import { Container, Dialog, TextField } from '@radix-ui/themes';
 import { useSearchUserByEmail } from '../../hooks/user/getUserByEmail';
 import { useDebounce } from '@uidotdev/usehooks';
+import { useAddUserToOrg } from '../../hooks/organization/addUserToOrg';
 
 interface InviteFriendDialogProps {
   open: boolean;
@@ -14,7 +15,7 @@ interface InviteFriendDialogProps {
 
 const DialogContent = styled(Dialog.Content)`
   width: 400px;
-  max-width: 100%;
+  max-width: 90vw;
   padding: 20px;
   background: white;
   border-radius: 8px;
@@ -68,10 +69,31 @@ export const InviteFriendDialog = ({
     OrganizationUser | undefined
   >();
   const [dropdownVisible, setDropdownVisible] = useState(true);
+  const addUserToOrg = useAddUserToOrg();
 
   const handleUserClick = (user: OrganizationUser) => {
     setSelectedUser(user);
     setDropdownVisible(false);
+  };
+
+  const handleSubmit = (selectedUser: OrganizationUser | undefined) => {
+    console.log('selectedUser', selectedUser);
+    if (!selectedUser) {
+      return;
+    }
+
+    addUserToOrg.mutate(
+      {
+        user_id: selectedUser.id,
+        role: 'member',
+        orgId: organizationId,
+      },
+      {
+        onSuccess: () => {
+          setOpen(false);
+        },
+      }
+    );
   };
 
   return (
@@ -113,7 +135,10 @@ export const InviteFriendDialog = ({
             </div>
           )}
         </Dialog.Description>
-        <ConfirmButton onClick={() => console.log('Inviter')}>
+        <ConfirmButton
+          disabled={!selectedUser}
+          onClick={() => handleSubmit(selectedUser)}
+        >
           Confirmer
         </ConfirmButton>
       </DialogContent>

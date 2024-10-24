@@ -5,6 +5,7 @@ import HomeIcon from './assets/img/homeIcon.svg?react';
 import GroupIcon from './assets/img/groupIcon.svg?react';
 import PlaylistIcon from './assets/img/playlistIcon.svg?react';
 import ProfileIcon from './assets/img/profileIcon.svg?react';
+import styled from 'styled-components';
 
 type NavigationPossibility = {
   redirectTo: FileRoutesByPath[keyof FileRoutesByPath]['path'];
@@ -34,20 +35,30 @@ const NAVIGATION_POSSIBILITIES: NavigationPossibility[] = [
     label: 'Profile',
   },
 ];
+
+const NavContainer = styled(Container)`
+  position: fixed;
+  bottom: 24px;
+  left: 0;
+  backdrop-filter: blur(10px);
+  background-color: rgba(170, 170, 170, 0.5);
+  border-radius: 12px 12px;
+  padding: 12px 0;
+  margin: 0 16px;
+  width: calc(100% - 32px);
+
+  svg {
+    width: 25px;
+  }
+`;
+
 // TODO: Refactor the NavItem component to use the Button component and add the correct props
 export const NavigationBar = () => {
   const location = useLocation();
   return (
-    <Container
-      position={'fixed'}
-      bottom={'0'}
-      left={'0'}
+    <NavContainer
       size="4"
-      style={{ backgroundColor: 'var(--mellowdy-white)' }}
-      minWidth={'100vw'}
-      width={'100vw'}
-      minHeight={'96px'}
-      height={'96px'}
+      // style={{ backgroundColor: 'var(--mellowdy-orange)' }}
     >
       <Flex direction={'row'} gap={'1'} align={'center'} height={'inherit'}>
         {NAVIGATION_POSSIBILITIES.map((item) => (
@@ -60,6 +71,6 @@ export const NavigationBar = () => {
           />
         ))}
       </Flex>
-    </Container>
+    </NavContainer>
   );
 };

@@ -9,6 +9,8 @@ import {
   GroupDetailsMetaDescSkeleton,
   PlaylistSkeleton,
 } from '../components/Skeleton';
+import { Pencil1Icon, TrashIcon } from '@radix-ui/react-icons';
+import Dropdown from '../components/DropdownMenu';
 
 const groupDetails = {
   name: 'Hetic friends',
@@ -124,12 +126,30 @@ const GroupsList = [
   },
 ];
 
+const handleEdit = () => console.log('truc');
+const handleLogout = () => console.log('truc');
+
+const options = [
+  {
+    icon: <Pencil1Icon />,
+    label: 'Modifier',
+    onClick: handleEdit,
+  },
+  {
+    icon: <TrashIcon color={'red'} />,
+    label: 'Supprimer',
+    onClick: handleLogout,
+    isRed: true,
+  },
+];
+
 export const GroupDetails = () => {
   const [isGroupMetaLoading] = useState(false); // setIsGroupMetaLoading quand tu as les données
   const [isPlaylistLoading] = useState(false); // setIsPlaylistLoading quand tu as les données
   return (
     <MainLayout>
       <Flex direction={'column'} gap={'4'}>
+        <Dropdown options={options} />
         {isGroupMetaLoading && <GroupDetailsMetaSkeleton />}
         {!isGroupMetaLoading && (
           <Flex

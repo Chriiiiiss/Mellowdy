@@ -1,13 +1,4 @@
-import {
-  Flex,
-  Avatar,
-  Heading,
-  Grid,
-  Text,
-  Section,
-  Dialog,
-  TextField,
-} from '@radix-ui/themes';
+import { Flex, Avatar, Heading, Grid, Text, Section } from '@radix-ui/themes';
 import { MainLayout } from '../layout/MainLayout';
 import ScrollableProfile from '../components/homePage/ScrollableProfile';
 import { ListCard } from '../components/list/Container';
@@ -21,13 +12,9 @@ import {
 import { useGetOrganization } from '../hooks/organization/getOrganization';
 import { useParams } from '@tanstack/react-router';
 import Dropdown from '../components/DropdownMenu';
-import {
-  MagnifyingGlassIcon,
-  Pencil1Icon,
-  Share1Icon,
-  TrashIcon,
-} from '@radix-ui/react-icons';
+import { Pencil1Icon, Share1Icon, TrashIcon } from '@radix-ui/react-icons';
 import { CreateGroupDialog } from '../components/homePage/CreateGroupDialog';
+import { InviteFriendDialog } from '../components/group/InviteFriendDialog';
 
 const GroupsList = [
   {
@@ -90,31 +77,6 @@ const GroupsList = [
 const handleEdit = () => console.log('truc');
 const handleLogout = () => console.log('truc');
 
-interface InviteFriendDialogProps {
-  open: boolean;
-  setOpen: (value: boolean) => void;
-}
-
-export const InviteFriendDialog = ({
-  open,
-  setOpen,
-}: InviteFriendDialogProps) => {
-  return (
-    <Dialog.Root open={open} onOpenChange={setOpen}>
-      <Dialog.Content>
-        <Dialog.Title>Inviter des amis</Dialog.Title>
-        <Dialog.Description>
-          <TextField.Root placeholder="Search the docs…">
-            <TextField.Slot>
-              <MagnifyingGlassIcon height="16" width="16" />
-            </TextField.Slot>
-          </TextField.Root>
-        </Dialog.Description>
-      </Dialog.Content>
-    </Dialog.Root>
-  );
-};
-
 export const GroupDetails = () => {
   const [isPlaylistLoading] = useState(false); // setIsPlaylistLoading quand tu as les données
   const { playlistId } = useParams({ strict: false });
@@ -146,11 +108,19 @@ export const GroupDetails = () => {
   const getOrganization = useGetOrganization(playlistId);
   const organizationData = getOrganization.data?.enriched_organization;
 
+  if (!organizationData) {
+    return;
+  }
+
   return (
     <MainLayout>
       <Flex direction={'column'} gap={'4'}>
         <Dropdown options={options} />
-        <InviteFriendDialog open={open} setOpen={setOpen} />
+        <InviteFriendDialog
+          open={open}
+          setOpen={setOpen}
+          organizationId={organizationData?.id}
+        />
         {getOrganization.isLoading && <GroupDetailsMetaSkeleton />}
         {!getOrganization.isLoading && organizationData && (
           <Flex

@@ -10,9 +10,11 @@ import { useGetAllOrganization } from '../hooks/organization/getAllOrga';
 import PlaylistDisplay from '../components/homePage/PlaylistDisplay';
 import { useEffect } from 'react';
 import { CreateGroupDialog } from '../components/homePage/CreateGroupDialog';
-import { useGetAllPlaylistInfo } from '../hooks/playlist/getAllPlaylist';
+import {
+  Playlist,
+  useGetAllPlaylistInfo,
+} from '../hooks/playlist/getAllPlaylist';
 // import { useGetPlaylist } from '../hooks/playlist/getPlaylist';
-import { useGetPlaylistFromProvider } from '../hooks/playlist/getPlaylistDetails';
 
 export interface User {
   username: string | null;
@@ -33,7 +35,7 @@ export interface GroupeData {
     name: string;
     img: string;
   }[];
-  playlist: PlaylistData[];
+  playlist: Playlist[];
 }
 
 export interface PlaylistData {
@@ -42,152 +44,21 @@ export interface PlaylistData {
   id: number;
 }
 
-const playlistData: GroupeData[] = [
-  {
-    id: 1,
-    name: 'Chill Vibes Collective',
-    listeners: [
-      {
-        name: 'Alice',
-        img: 'https://picsum.photos/72/65',
-      },
-      {
-        name: 'Bob',
-        img: 'https://picsum.photos/72/72',
-      },
-      {
-        name: 'Charlie',
-        img: 'https://picsum.photos/65/65',
-      },
-      {
-        name: 'David',
-        img: 'https://picsum.photos/70/72',
-      },
-      {
-        name: 'Emma',
-        img: 'https://picsum.photos/70/70',
-      },
-    ],
-    playlist: [
-      {
-        cover: 'https://picsum.photos/100/100',
-        name: 'Morning Relaxation',
-        id: 1,
-      },
-      {
-        cover: 'https://picsum.photos/90/72',
-        name: 'Evening Serenity',
-        id: 2,
-      },
-      {
-        cover: 'https://picsum.photos/80/80',
-        name: 'Weekend Chillout',
-        id: 3,
-      },
-      {
-        cover: 'https://picsum.photos/72/80',
-        name: 'Night Calm',
-        id: 4,
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: 'Workout Beats',
-    playlist: [
-      {
-        cover: 'https://picsum.photos/150/150',
-        name: 'Morning Run',
-        id: 5,
-      },
-      {
-        cover: 'https://picsum.photos/74/80',
-        name: 'Afternoon Pump',
-        id: 6,
-      },
-      {
-        cover: 'https://picsum.photos/79/80',
-        name: 'Evening Sweat',
-        id: 7,
-      },
-      {
-        cover: 'https://picsum.photos/87/80',
-        name: 'Night Grind',
-        id: 8,
-      },
-    ],
-  },
-  {
-    id: 3,
-    name: 'Les collègues',
-    listeners: [
-      {
-        name: 'David',
-        img: 'https://picsum.photos/70/72',
-      },
-      {
-        name: 'Emma',
-        img: 'https://picsum.photos/70/70',
-      },
-      {
-        name: 'Alice',
-        img: 'https://picsum.photos/72/65',
-      },
-      {
-        name: 'Bob',
-        img: 'https://picsum.photos/72/72',
-      },
-      {
-        name: 'Charlie',
-        img: 'https://picsum.photos/65/65',
-      },
-    ],
-    playlist: [
-      {
-        cover: 'https://picsum.photos/200/150',
-        name: 'Morning Relaxation pour se détendre et tout',
-        id: 9,
-      },
-      {
-        cover: 'https://picsum.photos/139/100',
-        name: 'Evening Serenity',
-        id: 10,
-      },
-      {
-        cover: 'https://picsum.photos/120/120',
-        name: 'Weekend Chillout',
-        id: 11,
-      },
-      {
-        cover: 'https://picsum.photos/140/140',
-        name: 'Night Calm',
-        id: 12,
-      },
-    ],
-  },
-];
-
 export const HomePage = () => {
   const { user } = useUserState();
   const getOrganization = useGetAllOrganization();
   const getPlaylistsInfo = useGetAllPlaylistInfo();
+  const playlistData = getPlaylistsInfo?.data;
   // const getPlaylist = useGetPlaylist(1);
-  const getPlaylistFromProvider = useGetPlaylistFromProvider(
-    'https://open.spotify.com/playlist/7orLvIOx3HjNASSxJ5UcOt'
-  ).data;
-  // console.log('data', getPlaylist.data);
+  //
 
   useEffect(() => {
-    console.log('playlist', getPlaylistFromProvider);
-  }, [getPlaylistFromProvider]);
+    console.log('getOrganization', getOrganization.data);
+  }, [getPlaylistsInfo?.data]);
 
-  useEffect(() => {
-    console.log('infos', getPlaylistsInfo.data);
-  }, [getPlaylistsInfo.data]);
-
-  useEffect(() => {
-    console.log(getOrganization.data);
-  }, [getOrganization.data]);
+  if (!playlistData) {
+    return;
+  }
 
   return (
     <MainLayout>
@@ -202,7 +73,7 @@ export const HomePage = () => {
         </Flex>
       </Section>
       <Section pt="0" pb="6">
-        {getOrganization?.isLoading ? (
+        {getOrganization?.isLoading || getPlaylistsInfo.isLoading ? (
           <Box style={{ marginTop: '16px' }}>
             <HomeGroupNameSkeleton />
             <Flex gap="2" direction="row">
@@ -215,12 +86,12 @@ export const HomePage = () => {
             {!getOrganization.data ? (
               <EmptyGroupState />
             ) : (
-              getOrganization.data.map((group) => {
+              getOrganization.data.map((group, index) => {
                 return (
                   <PlaylistDisplay
                     key={group.id}
                     name={group.name}
-                    playlist={playlistData[0].playlist}
+                    playlist={playlistData[index]}
                     cover={group.avatar_url}
                     id={group.id}
                   />

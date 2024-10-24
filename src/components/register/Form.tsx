@@ -61,7 +61,6 @@ export const RegisterForm = ({ setModalOpen }: RegisterFormProps) => {
       { formData: sanitizedData },
       {
         onSuccess(data) {
-          console.log('User updated successfully: ', data);
           updateUserState(
             {
               username: data.user.Name,

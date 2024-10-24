@@ -74,8 +74,8 @@ const GroupsList = [
   },
 ];
 
-const handleEdit = () => console.log('truc');
-const handleLogout = () => console.log('truc');
+const handleEdit = () => console.log('Edit');
+const handleLogout = () => console.log('Logout');
 
 export const GroupDetails = () => {
   const [isPlaylistLoading] = useState(false); // setIsPlaylistLoading quand tu as les données

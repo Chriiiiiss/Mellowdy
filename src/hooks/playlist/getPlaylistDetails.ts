@@ -33,7 +33,6 @@ const fetchPlaylistFromProvider = async (
   }
 
   const data: SpotifyPlaylistResponse = await response.json();
-  console.log('data', data);
 
   const name = data.Playlist.spotifyPlaylist.name;
   const imageUrl = data.Playlist.spotifyPlaylist.images[0]?.url;

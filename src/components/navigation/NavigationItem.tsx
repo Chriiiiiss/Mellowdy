@@ -1,4 +1,4 @@
-import { Flex, Text } from '@radix-ui/themes';
+import { Flex } from '@radix-ui/themes';
 import { FileRoutesByPath, Link } from '@tanstack/react-router';
 import { styled } from 'styled-components';
 
@@ -12,16 +12,34 @@ interface NavigationItemProps {
 const NavItem = styled(Link)<{ isActive?: boolean }>`
   width: 100%;
   height: 100%;
-  color: ${(props) =>
-    props.isActive ? 'var(--mellowdy-orange)' : 'var(--mellowdy-black)'};
   text-decoration: none;
   display: flex;
+`;
+
+const IconWrapper = styled.div<{ isActive: boolean }>`
+  position: relative;
+  display: inline-block;
+
+  svg {
+    display: block;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; /* Ajuste la position en fonction de la distance souhaitée */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 2px;
+    background-color: ${({ isActive }) => (isActive ? 'white' : 'transparent')};
+    border-radius: 1px; /* Cela arrondit les extrémités */
+  }
 `;
 
 export const NavigationItem = ({
   redirectTo,
   icon,
-  label,
   isActive,
 }: NavigationItemProps) => {
   return (
@@ -33,10 +51,7 @@ export const NavigationItem = ({
         width="100%"
         height="100%"
       >
-        {icon}
-        <Text weight="medium" align="center">
-          {label}
-        </Text>
+        <IconWrapper isActive={isActive}>{icon}</IconWrapper>
       </Flex>
     </NavItem>
   );

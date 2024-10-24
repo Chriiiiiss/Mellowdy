@@ -39,62 +39,6 @@ export interface PlaylistData {
   id: number;
 }
 
-/* const userData: User = {
-  username: 'Dark Lord Chris Premier du nom',
-  email: 'Chris.truc@gmail.com',
-  profilePicture: 'https://placehold.co/60x40/blue/white',
-  friends: [
-    {
-      username: 'Alice',
-      email: 'truc',
-    },
-    {
-      username: 'Boris',
-      email: 'truc',
-      profilePicture: 'https://picsum.photos/25/25',
-    },
-    {
-      username: 'Alice',
-      email: 'truc',
-      profilePicture: 'https://picsum.photos/60/40',
-    },
-    {
-      username: 'Boris',
-      email: 'truc',
-      profilePicture: 'https://picsum.photos/55/55',
-    },
-    {
-      username: 'Alice',
-      email: 'truc',
-      profilePicture: 'https://picsum.photos/75/60',
-    },
-    {
-      username: 'Boris',
-      email: 'truc',
-    },
-    {
-      username: 'Alice',
-      email: 'truc',
-      profilePicture: 'https://picsum.photos/65/55',
-    },
-    {
-      username: 'Boris',
-      email: 'truc',
-      profilePicture: 'https://picsum.photos/72/67',
-    },
-    {
-      username: 'Alice',
-      email: 'truc',
-      profilePicture: 'https://picsum.photos/72/72',
-    },
-    {
-      username: 'Boris',
-      email: 'truc',
-      profilePicture: 'https://picsum.photos/72/65',
-    },
-  ],
-}; */
-
 const playlistData: GroupeData[] = [
   {
     id: 1,

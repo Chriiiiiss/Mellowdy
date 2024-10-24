@@ -3,6 +3,12 @@ import { MainLayout } from '../layout/MainLayout';
 import ScrollableProfile from '../components/homePage/ScrollableProfile';
 import { ListCard } from '../components/list/Container';
 import { CoverCard } from '../components/list/CoverCard';
+import { useState } from 'react';
+import {
+  GroupDetailsMetaSkeleton,
+  GroupDetailsMetaDescSkeleton,
+  PlaylistSkeleton,
+} from '../components/Skeleton';
 
 const groupDetails = {
   name: 'Hetic friends',
@@ -119,63 +125,81 @@ const GroupsList = [
 ];
 
 export const GroupDetails = () => {
+  const [isGroupMetaLoading] = useState(false); // setIsGroupMetaLoading quand tu as les données
+  const [isPlaylistLoading] = useState(false); // setIsPlaylistLoading quand tu as les données
   return (
     <MainLayout>
       <Flex direction={'column'} gap={'4'}>
-        <Flex
-          direction={'column'}
-          align={'center'}
-          justify={'center'}
-          gap={'1'}
-        >
-          <Avatar
-            src={
-              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-RWYUskdgPnmt6U2_9krSgV-Cffj38hMWRQ&s'
-            }
-            alt={'Avatar'}
-            size={'7'}
-            fallback=""
-            radius="full"
-          />
-          <Heading as={'h2'} size={'7'}>
-            {groupDetails.name}
-          </Heading>
-        </Flex>
-        <Flex direction={'column'} gap={'1'}>
-          <Text>{groupDetails.description}</Text>
-          <ScrollableProfile friends={friends} />
-        </Flex>
+        {isGroupMetaLoading && <GroupDetailsMetaSkeleton />}
+        {!isGroupMetaLoading && (
+          <Flex
+            direction={'column'}
+            align={'center'}
+            justify={'center'}
+            gap={'1'}
+          >
+            <Avatar
+              src={
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-RWYUskdgPnmt6U2_9krSgV-Cffj38hMWRQ&s'
+              }
+              alt={'Avatar'}
+              size={'7'}
+              fallback=""
+              radius="full"
+            />
+            <Heading as={'h2'} size={'7'}>
+              {groupDetails.name}
+            </Heading>
+          </Flex>
+        )}
+        {isGroupMetaLoading && <GroupDetailsMetaDescSkeleton />}
+
+        {!isGroupMetaLoading && (
+          <Flex direction={'column'} gap={'1'}>
+            <Text>{groupDetails.description}</Text>
+            <ScrollableProfile friends={friends} />
+          </Flex>
+        )}
         <Flex direction={'column'}>
           <Section pt={'0'} pb={'6'}>
             <Flex gap={'5'}>
               <ListCard label="Les playlists :">
-                <Grid
-                  gap={'3'}
-                  columns={{
-                    initial: '3',
-                    xs: '5',
-                    sm: '7',
-                    md: '9',
-                    lg: '10',
-                    xl: '12',
-                  }}
-                >
-                  {GroupsList.map((group) => (
+                {isPlaylistLoading && (
+                  <Grid gap={'3'} columns={'3'}>
+                    <PlaylistSkeleton />
+                    <PlaylistSkeleton />
+                    <PlaylistSkeleton />
+                  </Grid>
+                )}
+                {!isPlaylistLoading && (
+                  <Grid
+                    gap={'3'}
+                    columns={{
+                      initial: '3',
+                      xs: '5',
+                      sm: '7',
+                      md: '9',
+                      lg: '10',
+                      xl: '12',
+                    }}
+                  >
+                    {GroupsList.map((group) => (
+                      <CoverCard
+                        key={group.title}
+                        title={group.title}
+                        cover={group.cover}
+                        link={group.link}
+                        variant="playlist"
+                      />
+                    ))}
                     <CoverCard
-                      key={group.title}
-                      title={group.title}
-                      cover={group.cover}
-                      link={group.link}
+                      title="Créer un groupe"
                       variant="playlist"
+                      add
+                      link="/"
                     />
-                  ))}
-                  <CoverCard
-                    title="Créer un groupe"
-                    variant="playlist"
-                    add
-                    link="/"
-                  />
-                </Grid>
+                  </Grid>
+                )}
               </ListCard>
             </Flex>
           </Section>

@@ -20,6 +20,7 @@ export const RegisterForm = ({ setModalOpen }: RegisterFormProps) => {
   const { user } = useUserState();
   const [imageUrl, setImageUrl] = useState('');
   const [username, setUsername] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const updateUser = useUpdateUser();
   const { updateUserState } = useUserState();
   const navigate = useNavigate();
@@ -39,6 +40,7 @@ export const RegisterForm = ({ setModalOpen }: RegisterFormProps) => {
   };
 
   const handleRegisterForm = (e: FormEvent<HTMLFormElement>) => {
+    setIsLoading(true);
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
@@ -72,7 +74,8 @@ export const RegisterForm = ({ setModalOpen }: RegisterFormProps) => {
 
           isProfilePage && setModalOpen
             ? setModalOpen(false)
-            : navigate({ to: '/homePage' });
+            : setIsLoading(false),
+            navigate({ to: '/homePage' });
         },
       }
     );
@@ -114,6 +117,7 @@ export const RegisterForm = ({ setModalOpen }: RegisterFormProps) => {
               isProfilePage ? 'Modifier mes informations' : 'Créer mon compte'
             }
             onClick={() => {}}
+            isLoading={isLoading}
           />
         </Form.Submit>
       </Grid>

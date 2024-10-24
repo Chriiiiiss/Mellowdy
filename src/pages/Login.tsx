@@ -10,6 +10,7 @@ import { jwtDecode } from 'jwt-decode';
 import { IUser } from '../interfaces/user';
 import { useNavigate } from '@tanstack/react-router';
 import { PROVIDER } from '../constants/app';
+import { useState } from 'react';
 
 const CustomText = styled(Text)`
   font-family: var(--default-font-family);
@@ -37,11 +38,15 @@ export const LoginPage = () => {
   const { login } = useUserState();
   const navigate = useNavigate();
 
+  const [loadingButton, setLoading] = useState<{ [key: string]: boolean }>({});
+
   const handleLogin = (label: string, url: string) => {
     const width = 600;
     const height = 700;
     const left = window.screen.width / 2 - width / 2;
     const top = window.screen.height / 2 - height / 2;
+
+    setLoading((prev) => ({ ...prev, [label]: true }));
 
     const popup = window.open(
       url,
@@ -51,6 +56,7 @@ export const LoginPage = () => {
 
     if (!popup) {
       console.error('popup could not be opened');
+      setLoading((prev) => ({ ...prev, [label]: false }));
       return;
     }
 
@@ -81,12 +87,21 @@ export const LoginPage = () => {
         }
 
         login(user, data.token, decodedToken.providerID);
+        setLoading((prev) => ({ ...prev, [label]: false }));
         if (data.newUser) navigate({ to: '/register' });
         else navigate({ to: '/homePage' });
       }
     };
 
     window.addEventListener('message', handleMessage);
+
+    const interval = setInterval(() => {
+      if (popup.closed) {
+        clearInterval(interval);
+        setLoading((prev) => ({ ...prev, [label]: false }));
+        window.removeEventListener('message', handleMessage);
+      }
+    }, 500);
 
     return () => {
       console.log('Removing listener, if not redirected an error occured');
@@ -110,6 +125,7 @@ export const LoginPage = () => {
                     onClick={() => handleLogin(provider.label, provider.url)}
                     label={provider.label}
                     iconStart={provider.icon}
+                    isLoading={loadingButton[provider.label] || false}
                   />
                 </Flex>
               ))}

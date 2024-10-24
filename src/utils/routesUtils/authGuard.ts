@@ -9,8 +9,6 @@ export const checkAuth = (userState: UserState | undefined) => {
     const jwtExpirationTime = decodedToken.exp * 1000;
     const now = Date.now();
 
-    console.log('decode, now', jwtExpirationTime, now);
-
     if (now > jwtExpirationTime) {
       userState.logout();
       throw redirect({ to: '/login' });

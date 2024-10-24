@@ -32,7 +32,7 @@ const PlaylistInfo = () => {
         height="160px"
         alt="Playlist"
       />
-      <h3>Playlist Name</h3>
+      <h3>Nom de la playlist</h3>
       <Flex align="center" gap="2" direction="column" pt="2px">
         <Flex align="center" gap="2">
           <PlaylistOwnerAvatar

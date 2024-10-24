@@ -1,6 +1,5 @@
-import { ChevronLeftIcon } from '@radix-ui/react-icons';
 import { MainLayout } from '../layout/MainLayout';
-import { Flex, Section, Skeleton, Text } from '@radix-ui/themes';
+import { Flex, Section, Skeleton } from '@radix-ui/themes';
 import PlaylistInfo from '../components/playlistDetails/PlaylistInfo';
 import PlaylistAction from '../components/playlistDetails/PlaylistAction';
 
@@ -20,10 +19,6 @@ export const PlaylistDetails = () => {
   const [isPlaylistContentLoading] = useState(false);
   return (
     <MainLayout>
-      <Flex align={'center'} pb={'3'}>
-        <ChevronLeftIcon />
-        <Text>Groupes</Text>
-      </Flex>
       <PlaylistInfo />
       <PlaylistAction />
       <Section pt={'0px'} pb={'0px'}>

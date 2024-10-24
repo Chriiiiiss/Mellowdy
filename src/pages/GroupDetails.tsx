@@ -193,7 +193,7 @@ export const GroupDetails = () => {
                       />
                     ))}
                     <CoverCard
-                      title="Créer un groupe"
+                      title="Créer une playlist"
                       variant="playlist"
                       add
                       link="/"
@@ -208,7 +208,3 @@ export const GroupDetails = () => {
     </MainLayout>
   );
 };
-
-<Grid columns={'1'} gap={'8'} justify={'center'}>
-  <Grid columns={'1'} justify={'center'}></Grid>
-</Grid>;

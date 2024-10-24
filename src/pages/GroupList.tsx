@@ -143,7 +143,6 @@ export const GroupList = () => {
           </ListCard>
         </Flex>
       </Section>
-      {/*  */}
     </MainLayout>
   );
 };

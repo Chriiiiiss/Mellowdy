@@ -61,7 +61,6 @@ export const RegisterForm = ({ setModalOpen }: RegisterFormProps) => {
       { formData: sanitizedData },
       {
         onSuccess(data) {
-          console.log('User updated successfully: ', data);
           updateUserState(
             {
               username: data.user.Name,
@@ -87,9 +86,9 @@ export const RegisterForm = ({ setModalOpen }: RegisterFormProps) => {
         label="Username"
         name="name"
         type="text"
-        valueMissing="Mising username"
-        typeMismatch="Please provide a valid username"
-        placeholder={user?.username || 'Username'}
+        valueMissing="Nom d'utilisateur manquant"
+        typeMismatch="Veuillez entrer un nom d'utilisateur valide"
+        placeholder={user?.username || "Nom d'utilisateur"}
         required
         onChange={(e) => setUsername(e.target.value)}
       />
@@ -98,7 +97,6 @@ export const RegisterForm = ({ setModalOpen }: RegisterFormProps) => {
         label="URL image de profil"
         name="avatar_url"
         type="url"
-        valueMissing="Mising image URL"
         onChange={handleImageChange}
       />
 

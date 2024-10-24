@@ -23,7 +23,7 @@ const SharePlaylist = ({ groupeData, playlistInfo }: SharePlaylistProps) => {
   return (
     <Form.Root onSubmit={handleSubmit}>
       <Dialog.Title>
-        <Text align={'center'}>Share Playlist</Text>
+        <Text align={'center'}>Partager la playlist</Text>
       </Dialog.Title>
       <Flex gap={'6'} direction="column">
         {groupeData.map((groupe) => (
@@ -48,7 +48,7 @@ const SharePlaylist = ({ groupeData, playlistInfo }: SharePlaylistProps) => {
       <Flex gap={'4'} justify={'center'} mt="5">
         <Form.Submit asChild>
           <Dialog.Close>
-            <Button type="submit">Share</Button>
+            <Button type="submit">Partager</Button>
           </Dialog.Close>
         </Form.Submit>
       </Flex>

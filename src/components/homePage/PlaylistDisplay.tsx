@@ -46,6 +46,7 @@ const PlaylistName = styled.span`
 `;
 
 const PlaylistDisplay = ({ name, listeners, playlist, id }: GroupeData) => {
+  console.log('playlist', playlist);
   return (
     <Flex gap="5" direction="column">
       <Grid columns="70% 30%">
@@ -82,18 +83,27 @@ const PlaylistDisplay = ({ name, listeners, playlist, id }: GroupeData) => {
       <PlaylistContainer gap="4">
         {playlist.map((playlist) => (
           <PlaylistInfo direction="column" gap="2" key={playlist.name}>
-            <PlaylistCover
-              key={playlist.name}
-              src={playlist.cover}
-              height="160px"
-              width="160px"
-            />
+            {playlist.cover ? (
+              <PlaylistCover
+                key={playlist.name}
+                src={playlist.cover}
+                height="160px"
+                width="160px"
+              />
+            ) : (
+              <PlaylistCover
+                key={playlist.name}
+                src={`https://picsum.photos/${(Math.random() * 1000).toFixed(0)}`}
+                height="160px"
+                width="160px"
+              />
+            )}
             <PlaylistName>{playlist.name}</PlaylistName>
           </PlaylistInfo>
         ))}
         <PlaylistInfo direction={'column'} gap={'2'}>
           <PlaylistCover
-            src={'https://placehold.co/600x400/green/green'}
+            src={`https://picsum.photos/${(Math.random() * 1000).toFixed(0)}`}
             height="160px"
             width="160px"
           />

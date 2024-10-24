@@ -113,7 +113,7 @@ export const InviteFriendDialog = ({
             </div>
           )}
         </Dialog.Description>
-        <ConfirmButton onClick={() => console.log('Invitation envoyée!')}>
+        <ConfirmButton onClick={() => console.log('Inviter')}>
           Confirmer
         </ConfirmButton>
       </DialogContent>

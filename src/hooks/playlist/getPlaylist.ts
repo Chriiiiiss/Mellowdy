@@ -1,8 +1,11 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { PlaylistResponse } from './getAllPlaylist';
 import { useUserState } from '../../stores/useUserState';
+import { PlaylistResponse } from './getAllPlaylist';
 
-const fetchPlaylist = async (token: string | null, playlistId: number) => {
+export const fetchPlaylist = async (
+  token: string | null,
+  playlistId: number
+) => {
   if (!token) {
     throw new Error('No token found in the user state');
   }
@@ -22,7 +25,7 @@ const fetchPlaylist = async (token: string | null, playlistId: number) => {
 
   const data: PlaylistResponse = await response.json();
 
-  return data.playlists;
+  return data;
 };
 
 export const useGetPlaylist = (playlistId: number) => {

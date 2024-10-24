@@ -1,4 +1,4 @@
-import { Flex, Grid, Heading, Section } from '@radix-ui/themes';
+import { Box, Flex, Grid, Heading, Section, Text } from '@radix-ui/themes';
 import { MainLayout } from '../layout/MainLayout';
 import { ListCard } from '../components/list/Container';
 import { CoverCard } from '../components/list/CoverCard';
@@ -92,26 +92,31 @@ export const GroupList = () => {
                       xl: '12',
                     }}
                   >
-                    {getOrganization.data.map(
-                      (group) =>
-                        !group.is_user_owner && (
-                          <Link
-                            style={{
-                              textDecoration: 'none',
-                              color: 'black',
-                            }}
-                            to={`/groupDetails/${group.id}`}
+                    {getOrganization.data.map((group) =>
+                      !group.is_user_owner ? (
+                        <Link
+                          style={{
+                            textDecoration: 'none',
+                            color: 'black',
+                          }}
+                          to={`/groupDetails/${group.id}`}
+                          key={group.id}
+                        >
+                          <CoverCard
                             key={group.id}
-                          >
-                            <CoverCard
-                              key={group.id}
-                              title={group.name}
-                              cover={group.avatar_url}
-                              link={'/'}
-                              variant="group"
-                            />
-                          </Link>
-                        )
+                            title={group.name}
+                            cover={group.avatar_url}
+                            link={'/'}
+                            variant="group"
+                          />
+                        </Link>
+                      ) : (
+                        <Box key={group.id} gridColumn={'span 12'}>
+                          <Text size={'1'}>
+                            Vous navez aucun groupe partagé avec vous
+                          </Text>
+                        </Box>
+                      )
                     )}
                   </Grid>
                 )}

@@ -41,19 +41,6 @@ const UserItem = styled.div`
   }
 `;
 
-const ConfirmButton = styled.button`
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  &:hover {
-    background-color: #0056b3;
-  }
-`;
-
 export const InviteFriendDialog = ({
   open,
   setOpen,
@@ -100,7 +87,7 @@ export const InviteFriendDialog = ({
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <DialogContent>
         <Dialog.Title>Inviter des amis</Dialog.Title>
-        <Dialog.Description>
+        <Dialog.Description mb="4">
           <TextField.Root
             value={email}
             onChange={(e) => {

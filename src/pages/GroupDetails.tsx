@@ -25,8 +25,9 @@ export const GroupDetails = () => {
   if (!organizationId) return;
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
 
-  const handleEdit = () => console.log('truc');
+  const handleEdit = () => setOpenEdit(true);
   const handleDelete = () => setOpenDelete(true);
 
   if (!playlistId) {
@@ -110,7 +111,7 @@ export const GroupDetails = () => {
         {getOrganization.isLoading && <GroupDetailsMetaDescSkeleton />}
 
         {!getOrganization.isLoading && organizationData && (
-          <Flex direction={'column'} gap={'1'}>
+          <Flex direction={'column'} gap={'3'}>
             <Text>{organizationData.description}</Text>
             <ScrollableProfile friends={organizationData.users} />
           </Flex>
@@ -163,6 +164,11 @@ export const GroupDetails = () => {
       <DeleteModal
         open={openDelete}
         onClose={() => setOpenDelete(false)}
+        id={getOrganization.data?.enriched_organization.id}
+      />
+      <EditGroupModal
+        open={openEdit}
+        onClose={() => setOpenEdit(false)}
         id={getOrganization.data?.enriched_organization.id}
       />
     </MainLayout>

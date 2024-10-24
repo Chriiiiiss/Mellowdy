@@ -104,7 +104,6 @@ export const LoginPage = () => {
     }, 500);
 
     return () => {
-      console.log('Removing listener, if not redirected an error occured');
       window.removeEventListener('message', handleMessage);
     };
   };

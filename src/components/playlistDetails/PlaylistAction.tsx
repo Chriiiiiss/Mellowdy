@@ -12,13 +12,13 @@ const PlayButton = styled(IconButton)`
 //   {
 //     icon: <Text>Modifier</Text>,
 //     label: 'Modifier',
-//     onClick: () => console.log('Modifier'),
+//     onClick: () =>
 //     isRed: false,
 //   },
 //   {
 //     icon: <Text>Supprimer</Text>,
 //     label: 'Supprimer',
-//     onClick: () => console.log('Supprimer'),
+//     onClick: () =>
 //     isRed: true,
 //   },
 // ];

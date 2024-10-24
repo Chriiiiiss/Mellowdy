@@ -123,7 +123,6 @@ const PlaylistsList = [
 
 export const ProfilePage = () => {
   const userState = useUserState();
-  console.log(userState, 'user');
 
   if (!userState.user || !userState.user.username) {
     return null;

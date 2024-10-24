@@ -42,7 +42,6 @@ const InnerApp = () => {
   }, []);
 
   const handleConfiguration = () => {
-    console.log('MusicKit is configured');
     setIsMusicKitConfigured(true);
   };
 

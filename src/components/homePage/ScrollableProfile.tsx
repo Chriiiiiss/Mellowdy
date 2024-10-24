@@ -27,6 +27,7 @@ const ImageStyled = styled(Avatar)`
 `;
 
 const ScrollableProfile = ({ friends }: ScrollableProfileProps) => {
+  if (!friends) return;
   return (
     <ProfilContainer gap="4">
       {friends.map((friend) => (

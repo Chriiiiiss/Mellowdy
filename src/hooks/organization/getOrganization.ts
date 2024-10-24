@@ -7,7 +7,7 @@ export interface OrganizationUser {
   avatar_url: string;
 }
 
-export interface OrganizationResponse {
+export interface EnrichedOrganization {
   id: number;
   name: string;
   description: string;
@@ -15,6 +15,13 @@ export interface OrganizationResponse {
   owner_id: number;
   users: OrganizationUser[];
   created_at: string;
+}
+
+export interface SharedPlaylist {}
+
+export interface OrganizationResponse {
+  enriched_organization: EnrichedOrganization;
+  shared_playlists: SharedPlaylist[];
 }
 
 const fetchOrganization = async (

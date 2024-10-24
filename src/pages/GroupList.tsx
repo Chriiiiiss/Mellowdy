@@ -65,7 +65,7 @@ export const GroupList = () => {
                         )
                     )}
 
-                    <CreateGroupDialog />
+                    <CreateGroupDialog isFull />
                   </Grid>
                 )}
               </ListCard>

@@ -144,9 +144,7 @@ export const GroupDetails = () => {
   }
 
   const getOrganization = useGetOrganization(playlistId);
-  const organizationData = getOrganization.data;
-
-  console.log(getOrganization);
+  const organizationData = getOrganization.data?.enriched_organization;
 
   return (
     <MainLayout>

@@ -36,7 +36,7 @@ const fetchOrganization = async (token: string | null) => {
   return data.organizations;
 };
 
-export const useGetOrganization = () => {
+export const useGetAllOrganization = () => {
   const queryClient = useQueryClient();
   const { token } = useUserState();
 

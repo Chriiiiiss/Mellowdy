@@ -6,7 +6,7 @@ import {
   HomeGroupNameSkeleton,
   HomePlaylistSkeleton,
 } from '../components/Skeleton';
-import { useGetOrganization } from '../hooks/organization/getOrga';
+import { useGetAllOrganization } from '../hooks/organization/getOrga';
 import PlaylistDisplay from '../components/homePage/PlaylistDisplay';
 import { useEffect } from 'react';
 
@@ -221,7 +221,7 @@ const playlistData: GroupeData[] = [
 
 export const HomePage = () => {
   const { user } = useUserState();
-  const getOrganization = useGetOrganization();
+  const getOrganization = useGetAllOrganization();
 
   useEffect(() => {
     console.log(getOrganization.data);

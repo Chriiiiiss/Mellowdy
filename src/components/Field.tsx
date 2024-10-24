@@ -1,4 +1,5 @@
 import * as Form from '@radix-ui/react-form';
+import styled from 'styled-components';
 
 interface FormFieldProps {
   label: string;
@@ -10,6 +11,27 @@ interface FormFieldProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
 }
+
+const FormFieldContainer = styled(Form.Field)`
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  width: 100%;
+  gap: 10px;
+`;
+
+const FormControl = styled(Form.Control)`
+  height: 25px;
+  border-radius: 8px;
+  border: 1px solid var(--mellowdy-orange);
+  padding: 5px;
+`;
+
+const FormMessage = styled(Form.Message)`
+  font-size: 13px;
+  opacity: 0.8;
+  color: var(--mellowdy-red);
+`;
 
 export const FormField = ({
   name,
@@ -23,51 +45,21 @@ export const FormField = ({
 }: FormFieldProps) => {
   const fieldName = name || label.toLowerCase();
   return (
-    <Form.Field
-      style={{
-        display: 'grid',
-        marginBottom: '15px',
-      }}
-      name={fieldName}
-    >
+    <FormFieldContainer name={fieldName}>
       <Form.Label>{label}</Form.Label>
 
-      <Form.Control
+      <FormControl
         type={type}
         required={required}
         onChange={onChange}
         placeholder={placeholder}
-        style={{
-          height: '25px',
-          borderRadius: '8px',
-          border: '1px solid var(--mellowdy-orange)',
-          padding: '5px',
-        }}
       />
       {valueMissing && (
-        <Form.Message
-          match="valueMissing"
-          style={{
-            fontSize: '13px',
-            opacity: '0.8',
-            color: 'var(--mellowdy-red)',
-          }}
-        >
-          {valueMissing}
-        </Form.Message>
+        <FormMessage match="valueMissing">{valueMissing}</FormMessage>
       )}
       {typeMismatch && (
-        <Form.Message
-          match="typeMismatch"
-          style={{
-            fontSize: '13px',
-            opacity: '0.8',
-            color: 'var(--mellowdy-red)',
-          }}
-        >
-          {typeMismatch}
-        </Form.Message>
+        <FormMessage match="typeMismatch">{typeMismatch}</FormMessage>
       )}
-    </Form.Field>
+    </FormFieldContainer>
   );
 };

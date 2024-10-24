@@ -1,4 +1,4 @@
-import { Flex, Heading, Section, Box, Button } from '@radix-ui/themes';
+import { Flex, Heading, Section, Box } from '@radix-ui/themes';
 import { MainLayout } from '../layout/MainLayout';
 import { useUserState } from '../stores/useUserState';
 import { EmptyGroupState } from '../components/homePage/EmptyGroupState';
@@ -212,7 +212,6 @@ export const HomePage = () => {
             )}
             <Flex justify={'between'}>
               <CreateGroupDialog />
-              <Button variant="soft">Rejoindre un groupe</Button>
             </Flex>
           </Flex>
         )}

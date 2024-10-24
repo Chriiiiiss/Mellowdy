@@ -5,7 +5,7 @@ interface OrganizationResponse {
   organizations: Organization[];
 }
 
-interface Organization {
+export interface Organization {
   id: number;
   name: string;
   description: string;

@@ -8,11 +8,27 @@ const PlayButton = styled(IconButton)`
   height: 35px;
 `;
 
+// const options = [
+//   {
+//     icon: <Text>Modifier</Text>,
+//     label: 'Modifier',
+//     onClick: () => console.log('Modifier'),
+//     isRed: false,
+//   },
+//   {
+//     icon: <Text>Supprimer</Text>,
+//     label: 'Supprimer',
+//     onClick: () => console.log('Supprimer'),
+//     isRed: true,
+//   },
+// ];
+
 const PlaylistAction = () => {
   return (
     <Flex align={'center'} justify={'between'} pt={'40px'} pb={'10px'}>
       <Flex align={'center'} gap={'2'}>
         <Text size={'2'}>4 morceaux</Text>
+        {/* <Dropdown options={options} isHorizontalDots /> */}
         <PlaylistActionDropDown />
       </Flex>
       <PlayButton variant="solid" radius="full" color="orange">

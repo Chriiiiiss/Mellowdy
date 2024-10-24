@@ -15,7 +15,7 @@ const DropdownMenuTrigger = styled(IconButton)`
 
 const groupeData: GroupeData[] = [
   {
-    id: '1',
+    id: 1,
     name: 'Chill Vibes Collective',
     listeners: [
       {
@@ -43,53 +43,53 @@ const groupeData: GroupeData[] = [
       {
         cover: 'https://picsum.photos/100/100',
         name: 'Morning Relaxation',
-        id: '1',
+        id: 1,
       },
       {
         cover: 'https://picsum.photos/90/72',
         name: 'Evening Serenity',
-        id: '2',
+        id: 2,
       },
       {
         cover: 'https://picsum.photos/80/80',
         name: 'Weekend Chillout',
-        id: '3',
+        id: 3,
       },
       {
         cover: 'https://picsum.photos/72/80',
         name: 'Night Calm',
-        id: '4',
+        id: 4,
       },
     ],
   },
   {
-    id: '2',
+    id: 2,
     name: 'Workout Beats',
     playlist: [
       {
         cover: 'https://picsum.photos/150/150',
         name: 'Morning Run',
-        id: '5',
+        id: 5,
       },
       {
         cover: 'https://picsum.photos/74/80',
         name: 'Afternoon Pump',
-        id: '6',
+        id: 6,
       },
       {
         cover: 'https://picsum.photos/79/80',
         name: 'Evening Sweat',
-        id: '7',
+        id: 7,
       },
       {
         cover: 'https://picsum.photos/140/140',
         name: 'Night Calm',
-        id: '12',
+        id: 12,
       },
     ],
   },
   {
-    id: '3',
+    id: 3,
     name: 'Les collègues',
     listeners: [
       {
@@ -117,22 +117,22 @@ const groupeData: GroupeData[] = [
       {
         cover: 'https://picsum.photos/200/150',
         name: 'Morning Relaxation pour se détendre et tout',
-        id: '9',
+        id: 9,
       },
       {
         cover: 'https://picsum.photos/139/100',
         name: 'Evening Serenity',
-        id: '10',
+        id: 10,
       },
       {
         cover: 'https://picsum.photos/120/120',
         name: 'Weekend Chillout',
-        id: '11',
+        id: 11,
       },
       {
         cover: 'https://picsum.photos/140/140',
         name: 'Night Calm',
-        id: '12',
+        id: 12,
       },
     ],
   },
@@ -141,7 +141,7 @@ const groupeData: GroupeData[] = [
 const PlaylistInfo: PlaylistData = {
   cover: 'https://picsum.photos/140/140',
   name: 'Night Calm',
-  id: '12',
+  id: 12,
 };
 
 const PlaylistActionDropDown = () => {

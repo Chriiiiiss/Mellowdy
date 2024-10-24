@@ -13,6 +13,7 @@ import { useGetOrganization } from '../hooks/organization/getOrganization';
 import { useParams } from '@tanstack/react-router';
 import Dropdown from '../components/DropdownMenu';
 import { Pencil1Icon, TrashIcon } from '@radix-ui/react-icons';
+import { CreateGroupDialog } from '../components/homePage/CreateGroupDialog';
 
 const GroupsList = [
   {
@@ -168,12 +169,7 @@ export const GroupDetails = () => {
                         variant="playlist"
                       />
                     ))}
-                    <CoverCard
-                      title="Créer un groupe"
-                      variant="playlist"
-                      add
-                      link="/"
-                    />
+                    <CreateGroupDialog isFull />
                   </Grid>
                 )}
               </ListCard>

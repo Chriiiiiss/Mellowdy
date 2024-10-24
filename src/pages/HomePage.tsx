@@ -1,4 +1,4 @@
-import { Flex, Heading, Section, Box } from '@radix-ui/themes';
+import { Flex, Heading, Section, Box, Button } from '@radix-ui/themes';
 import { MainLayout } from '../layout/MainLayout';
 import { useUserState } from '../stores/useUserState';
 import { EmptyGroupState } from '../components/homePage/EmptyGroupState';
@@ -6,9 +6,10 @@ import {
   HomeGroupNameSkeleton,
   HomePlaylistSkeleton,
 } from '../components/Skeleton';
-import { useGetAllOrganization } from '../hooks/organization/getOrga';
+import { useGetAllOrganization } from '../hooks/organization/getAllOrga';
 import PlaylistDisplay from '../components/homePage/PlaylistDisplay';
 import { useEffect } from 'react';
+import { CreateGroupDialog } from '../components/homePage/CreateGroupDialog';
 
 export interface User {
   username: string | null;
@@ -265,6 +266,10 @@ export const HomePage = () => {
                 );
               })
             )}
+            <Flex justify={'between'}>
+              <CreateGroupDialog />
+              <Button variant="soft">Rejoindre un groupe</Button>
+            </Flex>
           </Flex>
         )}
       </Section>

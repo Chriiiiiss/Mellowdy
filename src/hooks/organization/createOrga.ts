@@ -40,6 +40,11 @@ export const useCreateOrga = () => {
     {
       mutationKey: ['createOrga'],
       mutationFn: (formData: CreateOrgaPayload) => createOrga(formData, token),
+      onSuccess() {
+        queryClient.invalidateQueries({
+          queryKey: ['getAllOrganization'],
+        });
+      },
     },
     queryClient
   );

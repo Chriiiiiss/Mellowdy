@@ -11,6 +11,7 @@ interface ButtonProps {
   isLoading?: boolean;
   variant?: 'primary' | 'secondary' | 'soft';
   size?: 'small' | 'medium' | 'large';
+  disabled?: boolean;
 }
 
 const primaryStyle = css`
@@ -53,6 +54,7 @@ export const MellowdyButton = ({
   isLoading,
   variant = 'primary',
   size = 'large',
+  disabled,
 }: ButtonProps) => {
   return (
     <CustomButton
@@ -60,6 +62,7 @@ export const MellowdyButton = ({
       loading={isLoading}
       variant={variant}
       size={size}
+      disabled={disabled}
     >
       {iconStart && <Icon icon={iconStart} height="24" />}
       {label}

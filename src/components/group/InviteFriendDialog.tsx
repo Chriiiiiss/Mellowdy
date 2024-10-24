@@ -6,6 +6,7 @@ import { Container, Dialog, TextField } from '@radix-ui/themes';
 import { useSearchUserByEmail } from '../../hooks/user/getUserByEmail';
 import { useDebounce } from '@uidotdev/usehooks';
 import { useAddUserToOrg } from '../../hooks/organization/addUserToOrg';
+import { MellowdyButton } from '../Button';
 
 interface InviteFriendDialogProps {
   open: boolean;
@@ -122,12 +123,12 @@ export const InviteFriendDialog = ({
             </div>
           )}
         </Dialog.Description>
-        <ConfirmButton
+        <MellowdyButton
           disabled={!selectedUser}
           onClick={() => handleSubmit(selectedUser)}
-        >
-          Confirmer
-        </ConfirmButton>
+          label="Confirmer"
+          size="medium"
+        />
       </DialogContent>
     </Dialog.Root>
   );

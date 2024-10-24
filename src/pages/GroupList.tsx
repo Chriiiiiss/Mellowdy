@@ -2,6 +2,8 @@ import { Flex, Grid, Heading, Section } from '@radix-ui/themes';
 import { MainLayout } from '../layout/MainLayout';
 import { ListCard } from '../components/list/Container';
 import { CoverCard } from '../components/list/CoverCard';
+import { useState } from 'react';
+import { GroupSkeleton } from '../components/Skeleton';
 
 const GroupsList = [
   {
@@ -62,6 +64,7 @@ const GroupsList = [
 ];
 
 export const GroupList = () => {
+  const [isLoading] = useState(false); //ajouter le setIsLoading quand on aura les données
   return (
     <MainLayout>
       <Section pt={'0'} pb={'6'}>
@@ -72,36 +75,47 @@ export const GroupList = () => {
       <Section pt={'0'} pb={'6'}>
         <Flex gap={'5'}>
           <ListCard label="Mes groupes">
-            <Grid
-              gap={'3'}
-              columns={{
-                initial: '3',
-                xs: '5',
-                sm: '7',
-                md: '9',
-                lg: '10',
-                xl: '12',
-              }}
-            >
-              {GroupsList.map((group) => (
+            {isLoading && (
+              <Grid gap={'3'} columns={'3'}>
+                <GroupSkeleton />
+                <GroupSkeleton />
+                <GroupSkeleton />
+              </Grid>
+            )}
+
+            {!isLoading && (
+              <Grid
+                gap={'3'}
+                columns={{
+                  initial: '3',
+                  xs: '5',
+                  sm: '7',
+                  md: '9',
+                  lg: '10',
+                  xl: '12',
+                }}
+              >
+                {GroupsList.map((group) => (
+                  <CoverCard
+                    key={group.title}
+                    title={group.title}
+                    cover={group.cover}
+                    link={group.link}
+                    variant="group"
+                  />
+                ))}
                 <CoverCard
-                  key={group.title}
-                  title={group.title}
-                  cover={group.cover}
-                  link={group.link}
+                  title="Créer un groupe"
                   variant="group"
+                  link="/groupCreate"
+                  add
                 />
-              ))}
-              <CoverCard
-                title="Créer un groupe"
-                variant="group"
-                link="/groupCreate"
-                add
-              />
-            </Grid>
+              </Grid>
+            )}
           </ListCard>
         </Flex>
       </Section>
+      {/*Section peut-être à enlever en fonction de ce qu'on peut récupérer  */}
       <Section pt={'0'} pb={'6'}>
         <Flex gap={'5'}>
           <ListCard label="Partagés avec moi">
@@ -129,6 +143,7 @@ export const GroupList = () => {
           </ListCard>
         </Flex>
       </Section>
+      {/*  */}
     </MainLayout>
   );
 };

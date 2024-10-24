@@ -1,11 +1,12 @@
 import { ChevronLeftIcon } from '@radix-ui/react-icons';
 import { MainLayout } from '../layout/MainLayout';
-import { Flex, Section, Text } from '@radix-ui/themes';
+import { Flex, Section, Skeleton, Text } from '@radix-ui/themes';
 import PlaylistInfo from '../components/playlistDetails/PlaylistInfo';
 import PlaylistAction from '../components/playlistDetails/PlaylistAction';
 
 import styled from 'styled-components';
 import SongContent from '../components/playlistDetails/SongContent';
+import { useState } from 'react';
 
 const SongContainer = styled(Flex)`
   border-bottom: 1px solid #e5e5e5;
@@ -16,6 +17,7 @@ const SongContainer = styled(Flex)`
 `;
 
 export const PlaylistDetails = () => {
+  const [isPlaylistContentLoading] = useState(false);
   return (
     <MainLayout>
       <Flex align={'center'} pb={'3'}>
@@ -26,12 +28,16 @@ export const PlaylistDetails = () => {
       <PlaylistAction />
       <Section pt={'0px'} pb={'0px'}>
         <Flex direction={'column'} gap={'1'}>
-          <SongContainer justify={'between'} align={'center'}>
-            <SongContent />
-          </SongContainer>
-          <SongContainer justify={'between'} align={'center'}>
-            <SongContent />
-          </SongContainer>
+          <Skeleton loading={isPlaylistContentLoading}>
+            <SongContainer justify={'between'} align={'center'}>
+              <SongContent />
+            </SongContainer>
+          </Skeleton>
+          <Skeleton loading={isPlaylistContentLoading}>
+            <SongContainer justify={'between'} align={'center'}>
+              <SongContent />
+            </SongContainer>
+          </Skeleton>
         </Flex>
       </Section>
     </MainLayout>

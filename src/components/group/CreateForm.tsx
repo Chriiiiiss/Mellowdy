@@ -9,11 +9,18 @@ import { MellowdyButton } from '../Button';
 export const GroupCreateForm = () => {
   const [imageUrl, setImageUrl] = useState('');
   const [groupName, setGroupName] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   return (
     <Form.Root
       style={{ width: '250px' }}
       onSubmit={() => {
+        setIsLoading(true);
+        // Simulate a network request
+        setTimeout(() => {
+          setIsLoading(false);
+          navigate({ to: '/groupDetails' });
+        }, 1000);
         navigate({ to: '/groupDetails' });
       }}
     >
@@ -30,23 +37,33 @@ export const GroupCreateForm = () => {
         label={'Nom du groupe'}
         type="text"
         onChange={(e) => setGroupName(e.target.value)}
-        valueMissing="Missing group name"
-        placeholder="My new group"
+        valueMissing="Nom du groupe manquant"
+        placeholder="Mon nouveau groupe"
         required
       />
       <FormField
         label={'URL icône du groupe'}
         type="url"
         onChange={(e) => setImageUrl(e.target.value)}
+        placeholder="https://example.com/icon.png"
       />
-      <TextArea
-        label={'Description du groupe'}
-        valueMissing="Missing group desc"
-        maxLength={600}
-      />
-      <Flex justify={'center'}>
+      <TextArea label={'Description du groupe'} maxLength={600} />
+      <Flex justify={'center'} gapX={'2'}>
+        <MellowdyButton
+          label="Annuler"
+          onClick={() => {
+            navigate({ to: '/groupList' });
+          }}
+          variant={'secondary'}
+          size="medium"
+        />
         <Form.Submit asChild>
-          <MellowdyButton label="Créer le groupe" onClick={() => {}} />
+          <MellowdyButton
+            label="Créer le groupe"
+            onClick={() => {}}
+            isLoading={isLoading}
+            size="medium"
+          />
         </Form.Submit>
       </Flex>
     </Form.Root>

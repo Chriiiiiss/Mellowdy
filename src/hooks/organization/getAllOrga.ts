@@ -10,6 +10,7 @@ interface Organization {
   name: string;
   description: string;
   avatar_url: string;
+  is_user_owner: boolean;
 }
 
 const fetchOrganization = async (token: string | null) => {

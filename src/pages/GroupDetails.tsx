@@ -9,64 +9,12 @@ import {
   GroupDetailsMetaDescSkeleton,
   PlaylistSkeleton,
 } from '../components/Skeleton';
-import { Pencil1Icon, TrashIcon } from '@radix-ui/react-icons';
+import { useGetOrganization } from '../hooks/organization/getOrganization';
+import { useParams } from '@tanstack/react-router';
 import Dropdown from '../components/DropdownMenu';
-
-const groupDetails = {
-  name: 'Hetic friends',
-  description: 'A great playlist with all my friends from Hetic',
-};
-
-const friends = [
-  {
-    username: 'Alice',
-    email: 'truc',
-  },
-  {
-    username: 'Boris',
-    email: 'truc',
-    profilePicture: 'https://picsum.photos/25/25',
-  },
-  {
-    username: 'Alice',
-    email: 'truc',
-    profilePicture: 'https://picsum.photos/60/40',
-  },
-  {
-    username: 'Boris',
-    email: 'truc',
-    profilePicture: 'https://picsum.photos/55/55',
-  },
-  {
-    username: 'Alice',
-    email: 'truc',
-    profilePicture: 'https://picsum.photos/75/60',
-  },
-  {
-    username: 'Boris',
-    email: 'truc',
-  },
-  {
-    username: 'Alice',
-    email: 'truc',
-    profilePicture: 'https://picsum.photos/65/55',
-  },
-  {
-    username: 'Boris',
-    email: 'truc',
-    profilePicture: 'https://picsum.photos/72/67',
-  },
-  {
-    username: 'Alice',
-    email: 'truc',
-    profilePicture: 'https://picsum.photos/72/72',
-  },
-  {
-    username: 'Boris',
-    email: 'truc',
-    profilePicture: 'https://picsum.photos/72/65',
-  },
-];
+import { Pencil1Icon, Share1Icon, TrashIcon } from '@radix-ui/react-icons';
+import { CreateGroupDialog } from '../components/homePage/CreateGroupDialog';
+import { InviteFriendDialog } from '../components/group/InviteFriendDialog';
 
 const GroupsList = [
   {
@@ -126,32 +74,55 @@ const GroupsList = [
   },
 ];
 
-const handleEdit = () => console.log('truc');
-const handleLogout = () => console.log('truc');
-
-const options = [
-  {
-    icon: <Pencil1Icon />,
-    label: 'Modifier',
-    onClick: handleEdit,
-  },
-  {
-    icon: <TrashIcon color={'red'} />,
-    label: 'Supprimer',
-    onClick: handleLogout,
-    isRed: true,
-  },
-];
+const handleEdit = () => console.log('Edit');
+const handleLogout = () => console.log('Logout');
 
 export const GroupDetails = () => {
-  const [isGroupMetaLoading] = useState(false); // setIsGroupMetaLoading quand tu as les données
   const [isPlaylistLoading] = useState(false); // setIsPlaylistLoading quand tu as les données
+  const { playlistId } = useParams({ strict: false });
+  const [open, setOpen] = useState(false);
+
+  const options = [
+    {
+      icon: <Pencil1Icon />,
+      label: 'Modifier',
+      onClick: handleEdit,
+    },
+    {
+      icon: <Share1Icon />,
+      label: 'Inviter des amis',
+      onClick: () => setOpen(true),
+    },
+    {
+      icon: <TrashIcon color={'red'} />,
+      label: 'Supprimer',
+      onClick: handleLogout,
+      isRed: true,
+    },
+  ];
+
+  if (!playlistId) {
+    return;
+  }
+
+  const getOrganization = useGetOrganization(playlistId);
+  const organizationData = getOrganization.data?.enriched_organization;
+
+  if (!organizationData) {
+    return;
+  }
+
   return (
     <MainLayout>
       <Flex direction={'column'} gap={'4'}>
         <Dropdown options={options} />
-        {isGroupMetaLoading && <GroupDetailsMetaSkeleton />}
-        {!isGroupMetaLoading && (
+        <InviteFriendDialog
+          open={open}
+          setOpen={setOpen}
+          organizationId={organizationData?.id}
+        />
+        {getOrganization.isLoading && <GroupDetailsMetaSkeleton />}
+        {!getOrganization.isLoading && organizationData && (
           <Flex
             direction={'column'}
             align={'center'}
@@ -168,16 +139,16 @@ export const GroupDetails = () => {
               radius="full"
             />
             <Heading as={'h2'} size={'7'}>
-              {groupDetails.name}
+              {organizationData.name}
             </Heading>
           </Flex>
         )}
-        {isGroupMetaLoading && <GroupDetailsMetaDescSkeleton />}
+        {getOrganization.isLoading && <GroupDetailsMetaDescSkeleton />}
 
-        {!isGroupMetaLoading && (
+        {!getOrganization.isLoading && organizationData && (
           <Flex direction={'column'} gap={'1'}>
-            <Text>{groupDetails.description}</Text>
-            <ScrollableProfile friends={friends} />
+            <Text>{organizationData.description}</Text>
+            <ScrollableProfile friends={organizationData.users} />
           </Flex>
         )}
         <Flex direction={'column'}>
@@ -212,12 +183,7 @@ export const GroupDetails = () => {
                         variant="playlist"
                       />
                     ))}
-                    <CoverCard
-                      title="Créer un groupe"
-                      variant="playlist"
-                      add
-                      link="/"
-                    />
+                    <CreateGroupDialog isFull />
                   </Grid>
                 )}
               </ListCard>

@@ -1,9 +1,9 @@
 import { Avatar, Flex } from '@radix-ui/themes';
 import styled from 'styled-components';
-import { User } from '../../pages/HomePage';
+import { OrganizationUser } from '../../hooks/organization/getOrganization';
 
 interface ScrollableProfileProps {
-  friends: User[];
+  friends: OrganizationUser[];
 }
 
 const ProfilContainer = styled(Flex)`
@@ -27,15 +27,14 @@ const ImageStyled = styled(Avatar)`
 `;
 
 const ScrollableProfile = ({ friends }: ScrollableProfileProps) => {
+  if (!friends) return;
   return (
     <ProfilContainer gap="4">
       {friends.map((friend) => (
         <ImageStyled
-          key={friend.username}
-          src={friend.profilePicture}
-          fallback={
-            friend.username ? friend.username.slice(0, 2).toUpperCase() : 'A'
-          }
+          key={friend.id}
+          src={friend.avatar_url}
+          fallback={friend.name ? friend.name.slice(0, 2).toUpperCase() : 'A'}
           size="5"
           radius="full"
           color="orange"

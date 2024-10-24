@@ -6,6 +6,7 @@ interface TextAreaProps {
   valueMissing?: string;
   required?: boolean;
   maxLength?: number;
+  name?: string;
 }
 
 export const TextArea = ({
@@ -13,18 +14,21 @@ export const TextArea = ({
   valueMissing,
   required,
   maxLength,
+  name,
 }: TextAreaProps) => {
   const [charCount, setCharCount] = useState(0);
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setCharCount(event.target.value.length);
   };
+
+  const nameField = name ? name : label.toLowerCase();
   return (
     <Form.Field
       style={{
         display: 'grid',
         marginBottom: '15px',
       }}
-      name={label.toLowerCase()}
+      name={nameField}
     >
       <Form.Label>{label}</Form.Label>
       <Form.Control

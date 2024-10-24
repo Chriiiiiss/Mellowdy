@@ -27,6 +27,7 @@ interface UpdateUserError {
   error: string;
 }
 
+// TODO: Try catch error handle errors
 const updateUser = async ({ formData }: UpdateUserPayload, token: string) => {
   const response = await fetch('/v1/user', {
     method: 'PATCH',

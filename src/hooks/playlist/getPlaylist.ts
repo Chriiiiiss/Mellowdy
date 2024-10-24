@@ -8,7 +8,7 @@ const fetchPlaylist = async (token: string | null, playlistId: number) => {
   }
 
   const response = await fetch(
-    `${import.meta.env.VITE_API_URL}/v1/playlist/${playlistId}`,
+    `${import.meta.env.VITE_API_URL}/v1/shared/playlist/${playlistId}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -34,6 +34,7 @@ export const useGetPlaylist = (playlistId: number) => {
       queryKey: ['getPlaylist', token, playlistId],
       queryFn: () => fetchPlaylist(token, playlistId),
       enabled: !!token,
+      retry: 0,
     },
     queryClient
   );

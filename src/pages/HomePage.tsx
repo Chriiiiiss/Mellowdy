@@ -10,6 +10,7 @@ import { useGetAllOrganization } from '../hooks/organization/getAllOrga';
 import PlaylistDisplay from '../components/homePage/PlaylistDisplay';
 import { useEffect } from 'react';
 import { CreateGroupDialog } from '../components/homePage/CreateGroupDialog';
+import { useGetAllPlaylistInfo } from '../hooks/playlist/getAllPlaylist';
 
 export interface User {
   username: string | null;
@@ -167,6 +168,11 @@ const playlistData: GroupeData[] = [
 export const HomePage = () => {
   const { user } = useUserState();
   const getOrganization = useGetAllOrganization();
+  const getPlaylist = useGetAllPlaylistInfo();
+
+  useEffect(() => {
+    console.log(getPlaylist.data);
+  }, [getPlaylist.data]);
 
   useEffect(() => {
     console.log(getOrganization.data);

@@ -123,8 +123,7 @@ export const GroupCreateForm = ({ setOpenDialog }: GroupCreateFormProps) => {
         <Form.Submit asChild>
           <MellowdyButton
             label="Créer le groupe"
-            onClick={() => {}}
-            isLoading={isLoading}
+            onClick={() => setOpenDialog(false)}
             size="medium"
           />
         </Form.Submit>

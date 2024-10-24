@@ -1,13 +1,14 @@
 import { Flex, Heading, Section, Box } from '@radix-ui/themes';
 import { MainLayout } from '../layout/MainLayout';
-import NotificationCollapse from '../components/homePage/NotificationCollapse';
 import { useUserState } from '../stores/useUserState';
 import { EmptyGroupState } from '../components/homePage/EmptyGroupState';
 import {
   HomeGroupNameSkeleton,
   HomePlaylistSkeleton,
 } from '../components/Skeleton';
-import { useState } from 'react';
+import { useGetOrganization } from '../hooks/organization/getOrga';
+import PlaylistDisplay from '../components/homePage/PlaylistDisplay';
+import { useEffect } from 'react';
 
 export interface User {
   username: string | null;
@@ -21,7 +22,7 @@ export interface User {
 }
 
 export interface GroupeData {
-  id?: string;
+  id?: number;
   name: string;
   cover?: string;
   listeners?: {
@@ -34,7 +35,7 @@ export interface GroupeData {
 export interface PlaylistData {
   cover: string;
   name: string;
-  id: string;
+  id: number;
 }
 
 /* const userData: User = {
@@ -93,9 +94,9 @@ export interface PlaylistData {
   ],
 }; */
 
-/* const playlistData: GroupeData[] = [
+const playlistData: GroupeData[] = [
   {
-    id: '1',
+    id: 1,
     name: 'Chill Vibes Collective',
     listeners: [
       {
@@ -123,53 +124,53 @@ export interface PlaylistData {
       {
         cover: 'https://picsum.photos/100/100',
         name: 'Morning Relaxation',
-        id: '1',
+        id: 1,
       },
       {
         cover: 'https://picsum.photos/90/72',
         name: 'Evening Serenity',
-        id: '2',
+        id: 2,
       },
       {
         cover: 'https://picsum.photos/80/80',
         name: 'Weekend Chillout',
-        id: '3',
+        id: 3,
       },
       {
         cover: 'https://picsum.photos/72/80',
         name: 'Night Calm',
-        id: '4',
+        id: 4,
       },
     ],
   },
   {
-    id: '2',
+    id: 2,
     name: 'Workout Beats',
     playlist: [
       {
         cover: 'https://picsum.photos/150/150',
         name: 'Morning Run',
-        id: '5',
+        id: 5,
       },
       {
         cover: 'https://picsum.photos/74/80',
         name: 'Afternoon Pump',
-        id: '6',
+        id: 6,
       },
       {
         cover: 'https://picsum.photos/79/80',
         name: 'Evening Sweat',
-        id: '7',
+        id: 7,
       },
       {
         cover: 'https://picsum.photos/87/80',
         name: 'Night Grind',
-        id: '8',
+        id: 8,
       },
     ],
   },
   {
-    id: '3',
+    id: 3,
     name: 'Les collègues',
     listeners: [
       {
@@ -197,31 +198,35 @@ export interface PlaylistData {
       {
         cover: 'https://picsum.photos/200/150',
         name: 'Morning Relaxation pour se détendre et tout',
-        id: '9',
+        id: 9,
       },
       {
         cover: 'https://picsum.photos/139/100',
         name: 'Evening Serenity',
-        id: '10',
+        id: 10,
       },
       {
         cover: 'https://picsum.photos/120/120',
         name: 'Weekend Chillout',
-        id: '11',
+        id: 11,
       },
       {
         cover: 'https://picsum.photos/140/140',
         name: 'Night Calm',
-        id: '12',
+        id: 12,
       },
     ],
   },
-]; */
+];
 
 export const HomePage = () => {
   const { user } = useUserState();
-  const [isPlaylistLoading] = useState(false); //ajouter le setIsPlaylistLoading quand on aura les données
-  const userGroup = null;
+  const getOrganization = useGetOrganization();
+
+  useEffect(() => {
+    console.log(getOrganization.data);
+  }, [getOrganization.data]);
+
   return (
     <MainLayout>
       <Section pt="0" pb="6">
@@ -231,11 +236,11 @@ export const HomePage = () => {
           {/* Should we keep friends ? Not enought time tho */}
           {/* {userData.friends && <ScrollableProfile friends={userData.friends} />} */}
 
-          <NotificationCollapse />
+          {/* <NotificationCollapse /> */}
         </Flex>
       </Section>
       <Section pt="0" pb="6">
-        {isPlaylistLoading && (
+        {getOrganization?.isLoading ? (
           <Box style={{ marginTop: '16px' }}>
             <HomeGroupNameSkeleton />
             <Flex gap="2" direction="row">
@@ -243,10 +248,23 @@ export const HomePage = () => {
               <HomePlaylistSkeleton />
             </Flex>
           </Box>
-        )}
-        {!isPlaylistLoading && (
+        ) : (
           <Flex gap="6" direction="column">
-            {!userGroup && <EmptyGroupState />}
+            {!getOrganization.data ? (
+              <EmptyGroupState />
+            ) : (
+              getOrganization.data.map((group) => {
+                return (
+                  <PlaylistDisplay
+                    key={group.id}
+                    name={group.name}
+                    playlist={playlistData[0].playlist}
+                    cover={group.avatar_url}
+                    id={group.id}
+                  />
+                );
+              })
+            )}
           </Flex>
         )}
       </Section>

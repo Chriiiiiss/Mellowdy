@@ -12,7 +12,7 @@ const MainContainer = styled(Container)`
 
 export const MainLayout = ({ children }: MainLayoutProps) => {
   return (
-    <MainContainer>
+    <MainContainer pb={'60px'}>
       <Container p={'5'} size={'4'}>
         {children}
       </Container>

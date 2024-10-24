@@ -16,15 +16,32 @@ import { Pencil1Icon, Share1Icon, TrashIcon } from '@radix-ui/react-icons';
 import { InviteFriendDialog } from '../components/group/InviteFriendDialog';
 import { ImportPlaylistDialog } from '../components/group/ImportPlaylistDialog';
 import { useGetPlaylistByOrga } from '../hooks/playlist/getPlayListByOrga';
-
-const handleEdit = () => console.log('Edit');
-const handleLogout = () => console.log('Logout');
+import { useGetAllOrganization } from '../hooks/organization/getAllOrga';
+import DeleteModal from '../components/group/DeleteModal';
 
 export const GroupDetails = () => {
   const [isPlaylistLoading] = useState(false); // setIsPlaylistLoading quand tu as les données
   const { organizationId } = useParams({ strict: false });
   if (!organizationId) return;
   const [open, setOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+
+  const handleEdit = () => console.log('truc');
+  const handleDelete = () => setOpenDelete(true);
+
+  if (!playlistId) {
+    return;
+  }
+
+  const getOrganization = useGetOrganization(playlistId);
+  const organizationData = getOrganization.data?.enriched_organization;
+  const getAllOrganization = useGetAllOrganization();
+
+  const isUserOwner = getAllOrganization.data?.find(
+    (orga) => orga.id === organizationData?.id
+  )?.is_user_owner;
+
+  console.log(organizationData, 'bip boop');
 
   const getPlaylistByOrga = useGetPlaylistByOrga(organizationId);
 
@@ -39,20 +56,21 @@ export const GroupDetails = () => {
       label: 'Inviter des amis',
       onClick: () => setOpen(true),
     },
-    {
-      icon: <TrashIcon color={'red'} />,
-      label: 'Supprimer',
-      onClick: handleLogout,
-      isRed: true,
-    },
+    ...(isUserOwner
+      ? [
+          {
+            icon: <TrashIcon color={'red'} />,
+            label: 'Supprimer',
+            onClick: handleDelete,
+            isRed: true,
+          },
+        ]
+      : []),
   ];
 
   if (!organizationId) {
     return;
   }
-
-  const getOrganization = useGetOrganization(organizationId);
-  const organizationData = getOrganization.data?.enriched_organization;
 
   if (!organizationData) {
     return;
@@ -142,10 +160,11 @@ export const GroupDetails = () => {
           </Section>
         </Flex>
       </Flex>
+      <DeleteModal
+        open={openDelete}
+        onClose={() => setOpenDelete(false)}
+        id={getOrganization.data?.enriched_organization.id}
+      />
     </MainLayout>
   );
 };
-
-<Grid columns={'1'} gap={'8'} justify={'center'}>
-  <Grid columns={'1'} justify={'center'}></Grid>
-</Grid>;

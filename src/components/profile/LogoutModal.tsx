@@ -1,10 +1,11 @@
-import { Button, Dialog, Flex } from '@radix-ui/themes';
+import { Dialog, Flex } from '@radix-ui/themes';
 import { useUserState } from '../../stores/useUserState';
 import { useNavigate } from '@tanstack/react-router';
+import { MellowdyButton } from '../Button';
 
 interface ProfileDialogProps {
   open: boolean;
-  onClose: (open: boolean) => void;
+  onClose: () => void;
 }
 
 const LogoutModal = ({ open, onClose }: ProfileDialogProps) => {
@@ -24,14 +25,15 @@ const LogoutModal = ({ open, onClose }: ProfileDialogProps) => {
         <Dialog.Description>
           Êtes-vous sûr de vouloir vous déconnecter ?
         </Dialog.Description>
-        <Flex justify="between" mt="4" style={{ width: '100%' }}>
-          <Button onClick={handleLogout()} variant="soft" size="3">
-            oui
-          </Button>
+        <Flex justify="center" mt="4" gap={'8'} style={{ width: '100%' }}>
+          <MellowdyButton onClick={handleLogout()} size="medium" label="oui" />
           <Dialog.Close>
-            <Button onClick={() => onClose} size="3">
-              non
-            </Button>
+            <MellowdyButton
+              onClick={onClose}
+              size="medium"
+              label="non"
+              variant="soft"
+            />
           </Dialog.Close>
         </Flex>
       </Dialog.Content>

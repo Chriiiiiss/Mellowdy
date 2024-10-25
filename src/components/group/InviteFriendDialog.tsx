@@ -5,6 +5,8 @@ import { OrganizationUser } from '../../hooks/organization/getOrganization';
 import { Container, Dialog, TextField } from '@radix-ui/themes';
 import { useSearchUserByEmail } from '../../hooks/user/getUserByEmail';
 import { useDebounce } from '@uidotdev/usehooks';
+import { useAddUserToOrg } from '../../hooks/organization/addUserToOrg';
+import { MellowdyButton } from '../Button';
 
 interface InviteFriendDialogProps {
   open: boolean;
@@ -14,7 +16,7 @@ interface InviteFriendDialogProps {
 
 const DialogContent = styled(Dialog.Content)`
   width: 400px;
-  max-width: 100%;
+  max-width: 90vw;
   padding: 20px;
   background: white;
   border-radius: 8px;
@@ -40,19 +42,6 @@ const UserItem = styled.div`
   }
 `;
 
-const ConfirmButton = styled.button`
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  &:hover {
-    background-color: #0056b3;
-  }
-`;
-
 export const InviteFriendDialog = ({
   open,
   setOpen,
@@ -68,17 +57,38 @@ export const InviteFriendDialog = ({
     OrganizationUser | undefined
   >();
   const [dropdownVisible, setDropdownVisible] = useState(true);
+  const addUserToOrg = useAddUserToOrg();
 
   const handleUserClick = (user: OrganizationUser) => {
     setSelectedUser(user);
     setDropdownVisible(false);
   };
 
+  const handleSubmit = (selectedUser: OrganizationUser | undefined) => {
+    console.log('selectedUser', selectedUser);
+    if (!selectedUser) {
+      return;
+    }
+
+    addUserToOrg.mutate(
+      {
+        user_id: selectedUser.id,
+        role: 'member',
+        orgId: organizationId,
+      },
+      {
+        onSuccess: () => {
+          setOpen(false);
+        },
+      }
+    );
+  };
+
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <DialogContent>
         <Dialog.Title>Inviter des amis</Dialog.Title>
-        <Dialog.Description>
+        <Dialog.Description mb="4">
           <TextField.Root
             value={email}
             onChange={(e) => {
@@ -113,9 +123,12 @@ export const InviteFriendDialog = ({
             </div>
           )}
         </Dialog.Description>
-        <ConfirmButton onClick={() => console.log('Inviter')}>
-          Confirmer
-        </ConfirmButton>
+        <MellowdyButton
+          disabled={!selectedUser}
+          onClick={() => handleSubmit(selectedUser)}
+          label="Confirmer"
+          size="medium"
+        />
       </DialogContent>
     </Dialog.Root>
   );

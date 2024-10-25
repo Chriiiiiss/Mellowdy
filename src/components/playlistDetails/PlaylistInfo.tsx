@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Avatar, Flex, Text } from '@radix-ui/themes';
+import { Flex, Text } from '@radix-ui/themes';
 
 const ImageStyled = styled.img`
   border-radius: 8px;
@@ -12,13 +12,17 @@ const PlaylistInfoContainer = styled(Flex)`
   }
 `;
 
-const PlaylistOwnerAvatar = styled(Avatar)`
-  &:not(:first-child) {
-    margin-left: -23px;
-  }
-`;
+interface PlaylistInfoProps {
+  name: string;
+  date: string;
+}
 
-const PlaylistInfo = () => {
+const PlaylistInfo = ({ name, date }: PlaylistInfoProps) => {
+  const parsedDate = new Date(date).toLocaleDateString('fr-FR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
   return (
     <PlaylistInfoContainer
       align="center"
@@ -32,31 +36,11 @@ const PlaylistInfo = () => {
         height="160px"
         alt="Playlist"
       />
-      <h3>Playlist Name</h3>
+      <h3>{name}</h3>
       <Flex align="center" gap="2" direction="column" pt="2px">
-        <Flex align="center" gap="2">
-          <PlaylistOwnerAvatar
-            src="https://picsum.photos/40/40"
-            fallback="A"
-            radius="full"
-            size="2"
-          />
-          <PlaylistOwnerAvatar
-            fallback="AP"
-            radius="full"
-            size="2"
-            variant="solid"
-          />
-          <PlaylistOwnerAvatar
-            fallback="A"
-            radius="full"
-            size="2"
-            variant="solid"
-            color="orange"
-          />
-          <Text>ont créé la playlist</Text>
-        </Flex>
-        <Text>12 juillet 2024</Text>
+        <Text>
+          <strong>Crée le :</strong> {parsedDate}
+        </Text>
       </Flex>
     </PlaylistInfoContainer>
   );

@@ -8,7 +8,6 @@ import {
 } from '../components/Skeleton';
 import { useGetAllOrganization } from '../hooks/organization/getAllOrga';
 import PlaylistDisplay from '../components/homePage/PlaylistDisplay';
-import { useEffect } from 'react';
 import { CreateGroupDialog } from '../components/homePage/CreateGroupDialog';
 import {
   Playlist,
@@ -35,7 +34,7 @@ export interface GroupeData {
     name: string;
     img: string;
   }[];
-  playlist: Playlist[];
+  playlist: (Playlist | undefined)[];
 }
 
 export interface PlaylistData {
@@ -47,18 +46,8 @@ export interface PlaylistData {
 export const HomePage = () => {
   const { user } = useUserState();
   const getOrganization = useGetAllOrganization();
-  const getPlaylistsInfo = useGetAllPlaylistInfo();
+  const getPlaylistsInfo = useGetAllPlaylistInfo(getOrganization?.data);
   const playlistData = getPlaylistsInfo?.data;
-  // const getPlaylist = useGetPlaylist(1);
-  //
-
-  useEffect(() => {
-    console.log('getOrganization', getOrganization.data);
-  }, [getPlaylistsInfo?.data]);
-
-  if (!playlistData) {
-    return;
-  }
 
   return (
     <MainLayout>
@@ -73,7 +62,7 @@ export const HomePage = () => {
         </Flex>
       </Section>
       <Section pt="0" pb="6">
-        {getOrganization?.isLoading || getPlaylistsInfo.isLoading ? (
+        {getOrganization?.isLoading ? (
           <Box style={{ marginTop: '16px' }}>
             <HomeGroupNameSkeleton />
             <Flex gap="2" direction="row">
@@ -86,6 +75,7 @@ export const HomePage = () => {
             {!getOrganization.data ? (
               <EmptyGroupState />
             ) : (
+              playlistData &&
               getOrganization.data.map((group, index) => {
                 return (
                   <PlaylistDisplay

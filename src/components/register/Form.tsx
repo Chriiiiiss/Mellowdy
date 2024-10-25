@@ -6,6 +6,7 @@ import { useUserState } from '../../stores/useUserState';
 import { useUpdateUser } from '../../hooks/user/updateUser';
 import { MellowdyButton } from '../Button';
 import { useNavigate } from '@tanstack/react-router';
+import styled from 'styled-components';
 
 export interface RegisterFormData {
   username: string;
@@ -15,6 +16,14 @@ export interface RegisterFormData {
 interface RegisterFormProps {
   setModalOpen?: (open: boolean) => void;
 }
+
+const FormRoot = styled(Form.Root)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 400px;
+`;
 
 export const RegisterForm = ({ setModalOpen }: RegisterFormProps) => {
   const { user } = useUserState();
@@ -81,7 +90,7 @@ export const RegisterForm = ({ setModalOpen }: RegisterFormProps) => {
   };
 
   return (
-    <Form.Root style={{ width: '200px' }} onSubmit={handleRegisterForm}>
+    <FormRoot onSubmit={handleRegisterForm}>
       <FormField
         label="Username"
         name="name"
@@ -120,6 +129,6 @@ export const RegisterForm = ({ setModalOpen }: RegisterFormProps) => {
           />
         </Form.Submit>
       </Grid>
-    </Form.Root>
+    </FormRoot>
   );
 };

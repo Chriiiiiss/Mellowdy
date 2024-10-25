@@ -1,28 +1,32 @@
-import { Box, Text, Flex, Link, Avatar } from '@radix-ui/themes';
+import { Box, Text, Flex, Avatar } from '@radix-ui/themes';
+import { Link } from '@tanstack/react-router';
+
 import styled from 'styled-components';
 
 interface ListAddCardProps {
   title: string;
   variant: 'group' | 'playlist';
-  link: string;
+  link?: string;
   cover?: string;
+  id: number;
 }
 
 const CardLink = styled(Link)`
   display: flex;
   gap: 8px;
   flex-direction: column;
+  text-decoration: none;
+  color: black;
 `;
 
-export const CoverCard = ({
-  title,
-  variant,
-  link,
-  cover,
-}: ListAddCardProps) => {
+export const CoverCard = ({ title, variant, cover, id }: ListAddCardProps) => {
   return (
     <Box>
-      <CardLink href={link} underline="none">
+      <CardLink
+        to={
+          variant === 'group' ? `/groupDetails/${id}` : `/playlistDetails/${id}`
+        }
+      >
         <Avatar
           src={cover}
           size="7"

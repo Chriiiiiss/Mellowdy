@@ -28,11 +28,7 @@ export const fetchPlaylistInfoByIds = async (
     throw new Error('User not found');
   }
 
-  console.log('playlistIds', playlistIds);
-
   const playlistData = await fetchPlaylistDataByIds(token, user, playlistIds);
-
-  console.log('playlistData', playlistData);
 
   return playlistData;
 };

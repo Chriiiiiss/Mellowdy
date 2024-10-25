@@ -88,9 +88,7 @@ export const HomePage = () => {
                 );
               })
             )}
-            <Flex justify={'between'}>
-              <CreateGroupDialog />
-            </Flex>
+            {playlistData && <CreateGroupDialog />}
           </Flex>
         )}
       </Section>

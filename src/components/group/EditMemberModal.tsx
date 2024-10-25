@@ -59,8 +59,6 @@ const EditMemberModal = ({
     }
   };
 
-  console.log(member, owner, 'test');
-
   return (
     <Dialog.Root open={open} onOpenChange={onClose}>
       <Dialog.Content>

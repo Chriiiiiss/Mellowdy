@@ -12,8 +12,6 @@ export const GroupList = () => {
 
   const notOwner = getOrganization.data?.filter((orga) => !orga.is_user_owner);
 
-  console.log(notOwner, 'notOwner');
-
   return (
     <MainLayout>
       <Section pt={'0'} pb={'6'}>

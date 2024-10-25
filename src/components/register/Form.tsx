@@ -26,12 +26,11 @@ const FormRoot = styled(Form.Root)`
 `;
 
 export const RegisterForm = ({ setModalOpen }: RegisterFormProps) => {
-  const { user } = useUserState();
+  const { user, updateUserState } = useUserState();
   const [imageUrl, setImageUrl] = useState('');
   const [username, setUsername] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const updateUser = useUpdateUser();
-  const { updateUserState } = useUserState();
   const navigate = useNavigate();
   const isProfilePage = location.pathname === '/profile';
 
@@ -72,8 +71,8 @@ export const RegisterForm = ({ setModalOpen }: RegisterFormProps) => {
         onSuccess(data) {
           updateUserState(
             {
-              username: data.user.Name,
-              avatarUrl: data.user.AvatarURL,
+              username: data.user.name,
+              avatarUrl: data.user.avatar_url,
             },
             data.jwt
           );

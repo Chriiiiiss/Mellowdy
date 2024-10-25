@@ -10,56 +10,67 @@ const PlaylistsList = [
     title: 'Summer 2k24',
     cover: 'https://picsum.photos/25/25',
     link: '/',
+    id: 1,
   },
   {
     title: 'Délire',
     cover: 'https://picsum.photos/200/150',
     link: '/',
+    id: 2,
   },
   {
     title: "La plus longue playlist de l'histoire",
     cover: 'https://picsum.photos/139/100',
     link: '/',
+    id: 3,
   },
   {
     title: 'Chill and relax',
     cover: 'https://picsum.photos/55/56',
     link: '/',
+    id: 4,
   },
   {
     title: 'Chill and relax',
     cover: 'https://picsum.photos/55/57',
     link: '/',
+    id: 5,
   },
   {
     title: 'Chill and relax',
     cover: 'https://picsum.photos/55/58',
     link: '/',
+    id: 6,
   },
   {
     title: 'Chill and relax',
     cover: 'https://picsum.photos/55/59',
     link: '/',
+    id: 7,
   },
   {
     title: 'Chill and relax',
     cover: 'https://picsum.photos/55/60',
     link: '/',
+    id: 8,
   },
   {
     title: 'Chill and relax',
     cover: 'https://picsum.photos/55/61',
     link: '/',
+    id: 9,
   },
   {
     title: 'Chill and relax',
     cover: 'https://picsum.photos/55/62',
     link: '/',
+    id: 10,
   },
   {
     title: 'Chill and relax',
     cover: 'https://picsum.photos/55/63',
     link: '/',
+    id: 11,
   },
 ];
 
@@ -102,6 +113,7 @@ export const PlaylistListPage = () => {
                     cover={playlist.cover}
                     link={playlist.link}
                     variant="playlist"
+                    id={playlist.id}
                   />
                 ))}
               </Grid>
@@ -130,6 +142,7 @@ export const PlaylistListPage = () => {
                   cover={playlist.cover}
                   link={playlist.link}
                   variant="playlist"
+                  id={playlist.id}
                 />
               ))}
             </Grid>

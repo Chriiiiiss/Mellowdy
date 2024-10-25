@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { buildHeaders } from '../../utils/routesUtils/buildHeaders';
 import { IUser } from '../../interfaces/user';
 import { useUserState } from '../../stores/useUserState';
+import toast from 'react-hot-toast';
 
 interface SharePlaylistPayload {
   organization_id: number;
@@ -86,6 +87,12 @@ export const useSharePlaylist = () => {
   >(
     {
       mutationFn: (payload) => sharePlaylist(token, user, payload),
+      onMutate: async () => {
+        toast('Partage de la playlist en cours...');
+      },
+      onError: (error) => {
+        toast.error(error.error);
+      },
     },
     queryClient
   );

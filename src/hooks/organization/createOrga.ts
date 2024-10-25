@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useUserState } from '../../stores/useUserState';
+import toast from 'react-hot-toast';
 
 export interface CreateOrgaPayload {
   owner_id: number;
@@ -10,25 +11,27 @@ export interface CreateOrgaPayload {
 
 // TODO: Try catch error, handle errors
 const createOrga = async (formData: CreateOrgaPayload, token: string) => {
-  const response = await fetch(
-    `${import.meta.env.VITE_API_URL}/v1/organization`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(formData),
-    }
-  );
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/v1/organization`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(formData),
+      }
+    );
 
-  const data = await response.json();
+    const data = await response.json();
 
-  if (response.ok) {
     return data;
+  } catch (e) {
+    throw new Error(
+      "Une erreur est survenue lors de la création de l'organisation"
+    );
   }
-
-  return data;
 };
 
 export const useCreateOrga = () => {
@@ -47,6 +50,9 @@ export const useCreateOrga = () => {
         queryClient.invalidateQueries({
           queryKey: ['getAllOrganization'],
         });
+      },
+      onError(error) {
+        toast.error(error.message);
       },
     },
     queryClient

@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useUserState } from '../../stores/useUserState';
+import toast from 'react-hot-toast';
 
 export interface UpdateOrgaPayload {
   new_name: string;
@@ -52,6 +53,7 @@ export const useUpdateOrga = () => {
         id: string;
       }) => updateOrga(formData, id, token),
       onSuccess() {
+        toast.success('Organisation modifiée avec succès');
         queryClient.invalidateQueries({
           queryKey: ['getAllOrganization', 'getOrganization'],
         });

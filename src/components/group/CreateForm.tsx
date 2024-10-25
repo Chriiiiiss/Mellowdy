@@ -11,6 +11,7 @@ import {
 import { useUserState } from '../../stores/useUserState';
 import { jwtDecode } from 'jwt-decode';
 import { JwtPayload } from '../../types/auth';
+import toast from 'react-hot-toast';
 
 export interface CreateGroupFormData {
   name: string;
@@ -73,11 +74,8 @@ export const GroupCreateForm = ({ setOpenDialog }: GroupCreateFormProps) => {
 
     createOrganization.mutate(mutationPayload, {
       onSuccess: () => {
-        // TODO: Everything
-        // Should invalidate query here to refresh the data
-        // Should invalide user organization query
-        // Should toast user
         setOpenDialog(false);
+        toast.success('Groupe créé avec succès');
       },
     });
     e.preventDefault();

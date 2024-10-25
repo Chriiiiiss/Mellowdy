@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useUserState } from '../../stores/useUserState';
+import toast from 'react-hot-toast';
 
 // TODO: Try catch error, handle errors
 const deleteMemberOrga = async (id: string, token: string) => {
@@ -35,6 +36,7 @@ export const useDeleteOrga = () => {
       mutationKey: ['deleteOrga'],
       mutationFn: (id: string) => deleteMemberOrga(id, token),
       onSuccess() {
+        toast.success('Membre supprimé avec succès');
         queryClient.invalidateQueries({
           queryKey: ['getAllOrganization', 'getOrganization'],
         });

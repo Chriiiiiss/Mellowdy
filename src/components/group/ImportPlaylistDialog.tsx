@@ -5,6 +5,7 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import { useGetProviderPlaylist } from '../../hooks/playlists/useGetProviderPlaylist';
 import { useSharePlaylist } from '../../hooks/playlists/useSharePlaylist';
 import { useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 
 const AddButton = styled(Flex)`
   width: 96px;
@@ -45,6 +46,7 @@ export const ImportPlaylistDialog = ({
     };
     sharePlaylist?.mutate(payload, {
       onSuccess: () => {
+        toast.success('Playlist importée avec succès');
         setOpen(false);
         queryClient.invalidateQueries({
           queryKey: ['playlistByOrga'],

@@ -7,6 +7,7 @@ import { useUserState } from './stores/useUserState.ts';
 import './styles/main.css';
 import { ThemeProvider } from './theme.tsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Toaster } from 'react-hot-toast';
 
 const router = createRouter({
   routeTree,
@@ -49,6 +50,7 @@ const InnerApp = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <Toaster />
       <RouterProvider router={router} context={{ userState }} />
     </QueryClientProvider>
   );

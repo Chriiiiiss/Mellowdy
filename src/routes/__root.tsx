@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Outlet, createRootRouteWithContext } from '@tanstack/react-router';
 import { Theme } from '@radix-ui/themes';
-import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 import { UserState } from '../stores/useUserState';
 
 interface RouterContext {
@@ -9,15 +8,6 @@ interface RouterContext {
 }
 
 // TODO: Refacto this or DELETE it
-
-declare global {
-  // eslint-disable-next-line no-var
-  var DebugMode: boolean;
-  function activateDebugMode(): void;
-  function deactivateDebugMode(): void;
-}
-
-const DEBUG_MODE = true;
 
 // Root of the App,
 // It will render everything inside it in every route.
@@ -37,7 +27,6 @@ export const Route = createRootRouteWithContext<RouterContext>()({
         >
           <Outlet />
         </Theme>
-        {DEBUG_MODE && <TanStackRouterDevtools />}
       </React.Fragment>
     );
   },

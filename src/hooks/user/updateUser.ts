@@ -8,17 +8,17 @@ interface UpdateUserPayload {
 
 interface UpdateUserResponse {
   user: {
-    AvatarURL: null;
-    Birthday: null;
-    CreatedAt: null;
-    Email: string;
-    ID: number;
-    LastIP: string;
-    Location: null;
-    Name: string;
-    Password: string;
-    ProviderID: number;
-    ProviderToken: null;
+    avatar_url: null;
+    birthday: null;
+    created_at: null;
+    email: string;
+    id: number;
+    last_ip: string;
+    location: null;
+    name: string;
+    password: string;
+    provider_id: number;
+    provider_token: null;
   };
   jwt: string;
 }
@@ -29,7 +29,7 @@ interface UpdateUserError {
 
 // TODO: Try catch error handle errors
 const updateUser = async ({ formData }: UpdateUserPayload, token: string) => {
-  const response = await fetch('/v1/user', {
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/v1/user`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',

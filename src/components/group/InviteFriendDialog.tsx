@@ -65,7 +65,6 @@ export const InviteFriendDialog = ({
   };
 
   const handleSubmit = (selectedUser: OrganizationUser | undefined) => {
-    console.log('selectedUser', selectedUser);
     if (!selectedUser) {
       return;
     }

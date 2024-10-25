@@ -47,8 +47,6 @@ export const GroupDetails = () => {
     (orga) => orga.id === organizationData?.id
   )?.is_user_owner;
 
-  console.log(organizationData, 'bip boop');
-
   const getPlaylistByOrga = useGetPlaylistByOrga(organizationId);
 
   const options = [

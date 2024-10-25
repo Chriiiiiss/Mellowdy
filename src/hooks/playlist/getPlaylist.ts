@@ -1,21 +1,24 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useUserState } from '../../stores/useUserState';
 import { PlaylistResponse } from './getAllPlaylist';
+import { buildHeaders } from '../../utils/routesUtils/buildHeaders';
+import { IUser } from '../../interfaces/user';
 
 export const fetchPlaylist = async (
   token: string | null,
+  user: Partial<IUser> | undefined,
   playlistId: number
 ) => {
-  if (!token) {
+  if (!token || !user) {
     throw new Error('No token found in the user state');
   }
+
+  const headers = buildHeaders(token, user);
 
   const response = await fetch(
     `${import.meta.env.VITE_API_URL}/v1/shared/playlist/${playlistId}`,
     {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers,
     }
   );
 
@@ -30,13 +33,17 @@ export const fetchPlaylist = async (
 
 export const useGetPlaylist = (playlistId: number) => {
   const queryClient = useQueryClient();
-  const { token } = useUserState();
+  const { token, user } = useUserState();
+
+  if (!token || !user) {
+    throw new Error('No token or user found in the user state');
+  }
 
   return useQuery(
     {
-      queryKey: ['getPlaylist', token, playlistId],
-      queryFn: () => fetchPlaylist(token, playlistId),
-      enabled: !!token,
+      queryKey: ['getPlaylist', token, playlistId, user],
+      queryFn: () => fetchPlaylist(token, user, playlistId),
+      enabled: !!token && !!user,
       retry: 0,
     },
     queryClient

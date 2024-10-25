@@ -12,81 +12,50 @@ import {
 import { useGetOrganization } from '../hooks/organization/getOrganization';
 import { useParams } from '@tanstack/react-router';
 import Dropdown from '../components/DropdownMenu';
-import { Pencil1Icon, Share1Icon, TrashIcon } from '@radix-ui/react-icons';
-import { CreateGroupDialog } from '../components/homePage/CreateGroupDialog';
+import {
+  Pencil1Icon,
+  PersonIcon,
+  Share1Icon,
+  TrashIcon,
+} from '@radix-ui/react-icons';
 import { InviteFriendDialog } from '../components/group/InviteFriendDialog';
-
-const GroupsList = [
-  {
-    title: 'Summer 2k24',
-    cover: 'https://picsum.photos/25/25',
-    link: '/',
-  },
-  {
-    title: 'Délire',
-    cover: 'https://picsum.photos/200/150',
-    link: '/',
-  },
-  {
-    title: "La plus longue playlist de l'histoire",
-    cover: 'https://picsum.photos/139/100',
-    link: '/',
-  },
-  {
-    title: 'Chill and relax',
-    cover: 'https://picsum.photos/55/56',
-    link: '/',
-  },
-  {
-    title: 'Chill and relax',
-    cover: 'https://picsum.photos/55/57',
-    link: '/',
-  },
-  {
-    title: 'Chill and relax',
-    cover: 'https://picsum.photos/55/58',
-    link: '/',
-  },
-  {
-    title: 'Chill and relax',
-    cover: 'https://picsum.photos/55/59',
-    link: '/',
-  },
-  {
-    title: 'Chill and relax',
-    cover: 'https://picsum.photos/55/60',
-    link: '/',
-  },
-  {
-    title: 'Chill and relax',
-    cover: 'https://picsum.photos/55/61',
-    link: '/',
-  },
-  {
-    title: 'Chill and relax',
-    cover: 'https://picsum.photos/55/62',
-    link: '/',
-  },
-  {
-    title: 'Chill and relax',
-    cover: 'https://picsum.photos/55/63',
-    link: '/',
-  },
-];
-
-const handleEdit = () => console.log('Edit');
-const handleLogout = () => console.log('Logout');
+import { ImportPlaylistDialog } from '../components/group/ImportPlaylistDialog';
+import { useGetPlaylistByOrga } from '../hooks/playlist/getPlayListByOrga';
+import { useGetAllOrganization } from '../hooks/organization/getAllOrga';
+import DeleteModal from '../components/group/DeleteModal';
+import EditGroupModal from '../components/group/EditGroupModal';
+import EditMemberModal from '../components/group/EditMemberModal';
 
 export const GroupDetails = () => {
   const [isPlaylistLoading] = useState(false); // setIsPlaylistLoading quand tu as les données
-  const { playlistId } = useParams({ strict: false });
+  const { organizationId } = useParams({ strict: false });
+  if (!organizationId) return;
   const [open, setOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [openEditGroup, setOpenEditGroup] = useState(false);
+  const [openEditMember, setOpenEditMember] = useState(false);
+
+  const handleEditGroup = () => setOpenEditGroup(true);
+  const handleEditMember = () => setOpenEditMember(true);
+  const handleDelete = () => setOpenDelete(true);
+
+  const getOrganization = useGetOrganization(organizationId);
+  const organizationData = getOrganization.data?.enriched_organization;
+  const getAllOrganization = useGetAllOrganization();
+
+  const isUserOwner = getAllOrganization.data?.find(
+    (orga) => orga.id === organizationData?.id
+  )?.is_user_owner;
+
+  console.log(organizationData, 'bip boop');
+
+  const getPlaylistByOrga = useGetPlaylistByOrga(organizationId);
 
   const options = [
     {
       icon: <Pencil1Icon />,
       label: 'Modifier',
-      onClick: handleEdit,
+      onClick: handleEditGroup,
     },
     {
       icon: <Share1Icon />,
@@ -94,19 +63,25 @@ export const GroupDetails = () => {
       onClick: () => setOpen(true),
     },
     {
-      icon: <TrashIcon color={'red'} />,
-      label: 'Supprimer',
-      onClick: handleLogout,
-      isRed: true,
+      icon: <PersonIcon />,
+      label: 'Modifier les membres',
+      onClick: handleEditMember,
     },
+    ...(isUserOwner
+      ? [
+          {
+            icon: <TrashIcon color={'red'} />,
+            label: 'Supprimer',
+            onClick: handleDelete,
+            isRed: true,
+          },
+        ]
+      : []),
   ];
 
-  if (!playlistId) {
+  if (!organizationId) {
     return;
   }
-
-  const getOrganization = useGetOrganization(playlistId);
-  const organizationData = getOrganization.data?.enriched_organization;
 
   if (!organizationData) {
     return;
@@ -130,12 +105,10 @@ export const GroupDetails = () => {
             gap={'1'}
           >
             <Avatar
-              src={
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-RWYUskdgPnmt6U2_9krSgV-Cffj38hMWRQ&s'
-              }
+              src={organizationData.avatar_url}
               alt={'Avatar'}
               size={'7'}
-              fallback=""
+              fallback={organizationData.name.slice(0, 2).toUpperCase()}
               radius="full"
             />
             <Heading as={'h2'} size={'7'}>
@@ -146,7 +119,7 @@ export const GroupDetails = () => {
         {getOrganization.isLoading && <GroupDetailsMetaDescSkeleton />}
 
         {!getOrganization.isLoading && organizationData && (
-          <Flex direction={'column'} gap={'1'}>
+          <Flex direction={'column'} gap={'3'}>
             <Text>{organizationData.description}</Text>
             <ScrollableProfile friends={organizationData.users} />
           </Flex>
@@ -174,16 +147,21 @@ export const GroupDetails = () => {
                       xl: '12',
                     }}
                   >
-                    {GroupsList.map((group) => (
-                      <CoverCard
-                        key={group.title}
-                        title={group.title}
-                        cover={group.cover}
-                        link={group.link}
-                        variant="playlist"
-                      />
-                    ))}
-                    <CreateGroupDialog isFull />
+                    {getPlaylistByOrga &&
+                      getPlaylistByOrga.data &&
+                      getPlaylistByOrga.data.map((playlist) => (
+                        <CoverCard
+                          id={playlist.id}
+                          key={playlist.id}
+                          title={playlist.name}
+                          cover={playlist.cover}
+                          variant="playlist"
+                        />
+                      ))}
+                    <ImportPlaylistDialog
+                      isFull
+                      organizationId={organizationId}
+                    />
                   </Grid>
                 )}
               </ListCard>
@@ -191,10 +169,23 @@ export const GroupDetails = () => {
           </Section>
         </Flex>
       </Flex>
+      <DeleteModal
+        open={openDelete}
+        onClose={() => setOpenDelete(false)}
+        id={getOrganization.data?.enriched_organization.id}
+      />
+      <EditGroupModal
+        open={openEditGroup}
+        onClose={() => setOpenEditGroup(false)}
+        id={getOrganization.data?.enriched_organization.id}
+      />
+      <EditMemberModal
+        open={openEditMember}
+        onClose={() => setOpenEditMember(false)}
+        id={getOrganization.data?.enriched_organization.id}
+        member={organizationData.users}
+        owner={organizationData.owner_id}
+      />
     </MainLayout>
   );
 };
-
-<Grid columns={'1'} gap={'8'} justify={'center'}>
-  <Grid columns={'1'} justify={'center'}></Grid>
-</Grid>;

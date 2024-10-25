@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useUserState } from '../../stores/useUserState';
 import { IUser } from '../../interfaces/user';
 import { buildHeaders } from '../../utils/routesUtils/buildHeaders';
+import toast from 'react-hot-toast';
 
 const translatePlaylist = async (
   playlistId: string,
@@ -41,8 +42,13 @@ export const useTranslatePlaylist = () => {
   return useMutation(
     {
       mutationKey: ['translatePlaylist'],
-      mutationFn: (playlistId: string) =>
-        translatePlaylist(playlistId, token, user),
+      mutationFn: (playlistId: string) => {
+        return toast.promise(translatePlaylist(playlistId, token, user), {
+          loading: 'Transfère de la playlist en cours...',
+          success: 'Playlist transférée avec succès',
+          error: 'Une erreur est survenue lors du transfert de la playlist',
+        });
+      },
     },
     queryClient
   );

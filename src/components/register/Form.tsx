@@ -7,6 +7,7 @@ import { useUpdateUser } from '../../hooks/user/updateUser';
 import { MellowdyButton } from '../Button';
 import { useNavigate } from '@tanstack/react-router';
 import styled from 'styled-components';
+import toast from 'react-hot-toast';
 
 export interface RegisterFormData {
   username: string;
@@ -42,7 +43,7 @@ export const RegisterForm = ({ setModalOpen }: RegisterFormProps) => {
       // Dunnot do anything if the URL is invalid
       // Can send a TOAST message to the user ? maybe
       // TODO: Send a toast message to the user
-      console.error('Invalid URL: ', error);
+      toast.error("URL de l'image invalide");
       return;
     }
   };
@@ -69,6 +70,7 @@ export const RegisterForm = ({ setModalOpen }: RegisterFormProps) => {
       { formData: sanitizedData },
       {
         onSuccess(data) {
+          toast.success('Compte modifié avec succès');
           updateUserState(
             {
               username: data.user.name,

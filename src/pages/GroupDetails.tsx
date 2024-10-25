@@ -3,188 +3,189 @@ import { MainLayout } from '../layout/MainLayout';
 import ScrollableProfile from '../components/homePage/ScrollableProfile';
 import { ListCard } from '../components/list/Container';
 import { CoverCard } from '../components/list/CoverCard';
-
-const groupDetails = {
-  name: 'Hetic friends',
-  description: 'A great playlist with all my friends from Hetic',
-};
-
-const friends = [
-  {
-    username: 'Alice',
-    email: 'truc',
-  },
-  {
-    username: 'Boris',
-    email: 'truc',
-    profilePicture: 'https://picsum.photos/25/25',
-  },
-  {
-    username: 'Alice',
-    email: 'truc',
-    profilePicture: 'https://picsum.photos/60/40',
-  },
-  {
-    username: 'Boris',
-    email: 'truc',
-    profilePicture: 'https://picsum.photos/55/55',
-  },
-  {
-    username: 'Alice',
-    email: 'truc',
-    profilePicture: 'https://picsum.photos/75/60',
-  },
-  {
-    username: 'Boris',
-    email: 'truc',
-  },
-  {
-    username: 'Alice',
-    email: 'truc',
-    profilePicture: 'https://picsum.photos/65/55',
-  },
-  {
-    username: 'Boris',
-    email: 'truc',
-    profilePicture: 'https://picsum.photos/72/67',
-  },
-  {
-    username: 'Alice',
-    email: 'truc',
-    profilePicture: 'https://picsum.photos/72/72',
-  },
-  {
-    username: 'Boris',
-    email: 'truc',
-    profilePicture: 'https://picsum.photos/72/65',
-  },
-];
-
-const GroupsList = [
-  {
-    title: 'Summer 2k24',
-    cover: 'https://picsum.photos/25/25',
-    link: '/',
-  },
-  {
-    title: 'Délire',
-    cover: 'https://picsum.photos/200/150',
-    link: '/',
-  },
-  {
-    title: "La plus longue playlist de l'histoire",
-    cover: 'https://picsum.photos/139/100',
-    link: '/',
-  },
-  {
-    title: 'Chill and relax',
-    cover: 'https://picsum.photos/55/56',
-    link: '/',
-  },
-  {
-    title: 'Chill and relax',
-    cover: 'https://picsum.photos/55/57',
-    link: '/',
-  },
-  {
-    title: 'Chill and relax',
-    cover: 'https://picsum.photos/55/58',
-    link: '/',
-  },
-  {
-    title: 'Chill and relax',
-    cover: 'https://picsum.photos/55/59',
-    link: '/',
-  },
-  {
-    title: 'Chill and relax',
-    cover: 'https://picsum.photos/55/60',
-    link: '/',
-  },
-  {
-    title: 'Chill and relax',
-    cover: 'https://picsum.photos/55/61',
-    link: '/',
-  },
-  {
-    title: 'Chill and relax',
-    cover: 'https://picsum.photos/55/62',
-    link: '/',
-  },
-  {
-    title: 'Chill and relax',
-    cover: 'https://picsum.photos/55/63',
-    link: '/',
-  },
-];
+import { useState } from 'react';
+import {
+  GroupDetailsMetaSkeleton,
+  GroupDetailsMetaDescSkeleton,
+  PlaylistSkeleton,
+} from '../components/Skeleton';
+import { useGetOrganization } from '../hooks/organization/getOrganization';
+import { useParams } from '@tanstack/react-router';
+import Dropdown from '../components/DropdownMenu';
+import {
+  Pencil1Icon,
+  PersonIcon,
+  Share1Icon,
+  TrashIcon,
+} from '@radix-ui/react-icons';
+import { InviteFriendDialog } from '../components/group/InviteFriendDialog';
+import { ImportPlaylistDialog } from '../components/group/ImportPlaylistDialog';
+import { useGetPlaylistByOrga } from '../hooks/playlist/getPlayListByOrga';
+import { useGetAllOrganization } from '../hooks/organization/getAllOrga';
+import DeleteModal from '../components/group/DeleteModal';
+import EditGroupModal from '../components/group/EditGroupModal';
+import EditMemberModal from '../components/group/EditMemberModal';
 
 export const GroupDetails = () => {
+  const [isPlaylistLoading] = useState(false); // setIsPlaylistLoading quand tu as les données
+  const { organizationId } = useParams({ strict: false });
+  if (!organizationId) return;
+  const [open, setOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [openEditGroup, setOpenEditGroup] = useState(false);
+  const [openEditMember, setOpenEditMember] = useState(false);
+
+  const handleEditGroup = () => setOpenEditGroup(true);
+  const handleEditMember = () => setOpenEditMember(true);
+  const handleDelete = () => setOpenDelete(true);
+
+  const getOrganization = useGetOrganization(organizationId);
+  const organizationData = getOrganization.data?.enriched_organization;
+  const getAllOrganization = useGetAllOrganization();
+
+  const isUserOwner = getAllOrganization.data?.find(
+    (orga) => orga.id === organizationData?.id
+  )?.is_user_owner;
+
+  console.log(organizationData, 'bip boop');
+
+  const getPlaylistByOrga = useGetPlaylistByOrga(organizationId);
+
+  const options = [
+    {
+      icon: <Pencil1Icon />,
+      label: 'Modifier',
+      onClick: handleEditGroup,
+    },
+    {
+      icon: <Share1Icon />,
+      label: 'Inviter des amis',
+      onClick: () => setOpen(true),
+    },
+    {
+      icon: <PersonIcon />,
+      label: 'Modifier les membres',
+      onClick: handleEditMember,
+    },
+    ...(isUserOwner
+      ? [
+          {
+            icon: <TrashIcon color={'red'} />,
+            label: 'Supprimer',
+            onClick: handleDelete,
+            isRed: true,
+          },
+        ]
+      : []),
+  ];
+
+  if (!organizationId) {
+    return;
+  }
+
+  if (!organizationData) {
+    return;
+  }
+
   return (
     <MainLayout>
       <Flex direction={'column'} gap={'4'}>
-        <Flex
-          direction={'column'}
-          align={'center'}
-          justify={'center'}
-          gap={'1'}
-        >
-          <Avatar
-            src={
-              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-RWYUskdgPnmt6U2_9krSgV-Cffj38hMWRQ&s'
-            }
-            alt={'Avatar'}
-            size={'7'}
-            fallback=""
-            radius="full"
-          />
-          <Heading as={'h2'} size={'7'}>
-            {groupDetails.name}
-          </Heading>
-        </Flex>
-        <Flex direction={'column'} gap={'1'}>
-          <Text>{groupDetails.description}</Text>
-          <ScrollableProfile friends={friends} />
-        </Flex>
+        <Dropdown options={options} />
+        <InviteFriendDialog
+          open={open}
+          setOpen={setOpen}
+          organizationId={organizationData?.id}
+        />
+        {getOrganization.isLoading && <GroupDetailsMetaSkeleton />}
+        {!getOrganization.isLoading && organizationData && (
+          <Flex
+            direction={'column'}
+            align={'center'}
+            justify={'center'}
+            gap={'1'}
+          >
+            <Avatar
+              src={organizationData.avatar_url}
+              alt={'Avatar'}
+              size={'7'}
+              fallback={organizationData.name.slice(0, 2).toUpperCase()}
+              radius="full"
+            />
+            <Heading as={'h2'} size={'7'}>
+              {organizationData.name}
+            </Heading>
+          </Flex>
+        )}
+        {getOrganization.isLoading && <GroupDetailsMetaDescSkeleton />}
+
+        {!getOrganization.isLoading && organizationData && (
+          <Flex direction={'column'} gap={'3'}>
+            <Text>{organizationData.description}</Text>
+            <ScrollableProfile friends={organizationData.users} />
+          </Flex>
+        )}
         <Flex direction={'column'}>
           <Section pt={'0'} pb={'6'}>
             <Flex gap={'5'}>
               <ListCard label="Les playlists :">
-                <Grid
-                  gap={'3'}
-                  columns={{
-                    initial: '3',
-                    xs: '5',
-                    sm: '7',
-                    md: '9',
-                    lg: '10',
-                    xl: '12',
-                  }}
-                >
-                  {GroupsList.map((group) => (
-                    <CoverCard
-                      key={group.title}
-                      title={group.title}
-                      cover={group.cover}
-                      link={group.link}
-                      variant="playlist"
+                {isPlaylistLoading && (
+                  <Grid gap={'3'} columns={'3'}>
+                    <PlaylistSkeleton />
+                    <PlaylistSkeleton />
+                    <PlaylistSkeleton />
+                  </Grid>
+                )}
+                {!isPlaylistLoading && (
+                  <Grid
+                    gap={'3'}
+                    columns={{
+                      initial: '3',
+                      xs: '5',
+                      sm: '7',
+                      md: '9',
+                      lg: '10',
+                      xl: '12',
+                    }}
+                  >
+                    {getPlaylistByOrga &&
+                      getPlaylistByOrga.data &&
+                      getPlaylistByOrga.data.map((playlist) => (
+                        <CoverCard
+                          id={playlist.id}
+                          key={playlist.id}
+                          title={playlist.name}
+                          cover={playlist.cover}
+                          variant="playlist"
+                        />
+                      ))}
+                    <ImportPlaylistDialog
+                      isFull
+                      organizationId={organizationId}
                     />
-                  ))}
-                  <CoverCard
-                    title="Créer un groupe"
-                    variant="playlist"
-                    add
-                    link="/"
-                  />
-                </Grid>
+                  </Grid>
+                )}
               </ListCard>
             </Flex>
           </Section>
         </Flex>
       </Flex>
+      <DeleteModal
+        open={openDelete}
+        onClose={() => setOpenDelete(false)}
+        id={getOrganization.data?.enriched_organization.id}
+      />
+      <EditGroupModal
+        open={openEditGroup}
+        onClose={() => setOpenEditGroup(false)}
+        id={getOrganization.data?.enriched_organization.id}
+      />
+      <EditMemberModal
+        open={openEditMember}
+        onClose={() => setOpenEditMember(false)}
+        id={getOrganization.data?.enriched_organization.id}
+        member={organizationData.users}
+        owner={organizationData.owner_id}
+      />
     </MainLayout>
   );
 };
-
-<Grid columns={'1'} gap={'8'} justify={'center'}>
-  <Grid columns={'1'} justify={'center'}></Grid>
-</Grid>;

@@ -3,13 +3,16 @@ import { useUserState } from '../../stores/useUserState';
 
 // TODO: Try catch error, handle errors
 const deleteOrga = async (id: string, token: string) => {
-  const response = await fetch(`/v1/organization/${id}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/v1/organization/${id}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
   const data = await response.json();
 

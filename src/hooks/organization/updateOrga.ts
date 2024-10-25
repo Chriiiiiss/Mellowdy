@@ -12,14 +12,17 @@ const updateOrga = async (
   id: string,
   token: string
 ) => {
-  const response = await fetch(`/v1/organization/${id}`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(formData),
-  });
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/v1/organization/${id}`,
+    {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(formData),
+    }
+  );
 
   const data = await response.json();
 

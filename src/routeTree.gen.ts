@@ -13,46 +13,90 @@
 import { Route as rootRoute } from './routes/__root';
 import { Route as IndexImport } from './routes/index';
 import { Route as RegisterIndexImport } from './routes/register/index';
+import { Route as ProfileIndexImport } from './routes/profile/index';
+import { Route as PlaylistListIndexImport } from './routes/playlistList/index';
 import { Route as OnboardingIndexImport } from './routes/onboarding/index';
 import { Route as LoginIndexImport } from './routes/login/index';
 import { Route as HomePageIndexImport } from './routes/homePage/index';
 import { Route as GroupListIndexImport } from './routes/groupList/index';
 import { Route as GroupDetailsIndexImport } from './routes/groupDetails/index';
+import { Route as PlaylistDetailsIndexImport } from './routes/PlaylistDetails/index';
+import { Route as GroupDetailsOrganizationIdImport } from './routes/groupDetails/$organizationId';
+import { Route as PlaylistDetailsPlaylistIdImport } from './routes/PlaylistDetails/$playlistId';
 
 // Create/Update Routes
 
 const IndexRoute = IndexImport.update({
+  id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
 } as any);
 
 const RegisterIndexRoute = RegisterIndexImport.update({
+  id: '/register/',
   path: '/register/',
   getParentRoute: () => rootRoute,
 } as any);
 
+const ProfileIndexRoute = ProfileIndexImport.update({
+  id: '/profile/',
+  path: '/profile/',
+  getParentRoute: () => rootRoute,
+} as any);
+
+const PlaylistListIndexRoute = PlaylistListIndexImport.update({
+  id: '/playlistList/',
+  path: '/playlistList/',
+  getParentRoute: () => rootRoute,
+} as any);
+
 const OnboardingIndexRoute = OnboardingIndexImport.update({
+  id: '/onboarding/',
   path: '/onboarding/',
   getParentRoute: () => rootRoute,
 } as any);
 
 const LoginIndexRoute = LoginIndexImport.update({
+  id: '/login/',
   path: '/login/',
   getParentRoute: () => rootRoute,
 } as any);
 
 const HomePageIndexRoute = HomePageIndexImport.update({
+  id: '/homePage/',
   path: '/homePage/',
   getParentRoute: () => rootRoute,
 } as any);
 
 const GroupListIndexRoute = GroupListIndexImport.update({
+  id: '/groupList/',
   path: '/groupList/',
   getParentRoute: () => rootRoute,
 } as any);
 
 const GroupDetailsIndexRoute = GroupDetailsIndexImport.update({
+  id: '/groupDetails/',
   path: '/groupDetails/',
+  getParentRoute: () => rootRoute,
+} as any);
+
+const PlaylistDetailsIndexRoute = PlaylistDetailsIndexImport.update({
+  id: '/PlaylistDetails/',
+  path: '/PlaylistDetails/',
+  getParentRoute: () => rootRoute,
+} as any);
+
+const GroupDetailsOrganizationIdRoute = GroupDetailsOrganizationIdImport.update(
+  {
+    id: '/groupDetails/$organizationId',
+    path: '/groupDetails/$organizationId',
+    getParentRoute: () => rootRoute,
+  } as any
+);
+
+const PlaylistDetailsPlaylistIdRoute = PlaylistDetailsPlaylistIdImport.update({
+  id: '/PlaylistDetails/$playlistId',
+  path: '/PlaylistDetails/$playlistId',
   getParentRoute: () => rootRoute,
 } as any);
 
@@ -65,6 +109,27 @@ declare module '@tanstack/react-router' {
       path: '/';
       fullPath: '/';
       preLoaderRoute: typeof IndexImport;
+      parentRoute: typeof rootRoute;
+    };
+    '/PlaylistDetails/$playlistId': {
+      id: '/PlaylistDetails/$playlistId';
+      path: '/PlaylistDetails/$playlistId';
+      fullPath: '/PlaylistDetails/$playlistId';
+      preLoaderRoute: typeof PlaylistDetailsPlaylistIdImport;
+      parentRoute: typeof rootRoute;
+    };
+    '/groupDetails/$organizationId': {
+      id: '/groupDetails/$organizationId';
+      path: '/groupDetails/$organizationId';
+      fullPath: '/groupDetails/$organizationId';
+      preLoaderRoute: typeof GroupDetailsOrganizationIdImport;
+      parentRoute: typeof rootRoute;
+    };
+    '/PlaylistDetails/': {
+      id: '/PlaylistDetails/';
+      path: '/PlaylistDetails';
+      fullPath: '/PlaylistDetails';
+      preLoaderRoute: typeof PlaylistDetailsIndexImport;
       parentRoute: typeof rootRoute;
     };
     '/groupDetails/': {
@@ -102,6 +167,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OnboardingIndexImport;
       parentRoute: typeof rootRoute;
     };
+    '/playlistList/': {
+      id: '/playlistList/';
+      path: '/playlistList';
+      fullPath: '/playlistList';
+      preLoaderRoute: typeof PlaylistListIndexImport;
+      parentRoute: typeof rootRoute;
+    };
+    '/profile/': {
+      id: '/profile/';
+      path: '/profile';
+      fullPath: '/profile';
+      preLoaderRoute: typeof ProfileIndexImport;
+      parentRoute: typeof rootRoute;
+    };
     '/register/': {
       id: '/register/';
       path: '/register';
@@ -114,15 +193,131 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({
-  IndexRoute,
-  GroupDetailsIndexRoute,
-  GroupListIndexRoute,
-  HomePageIndexRoute,
-  LoginIndexRoute,
-  OnboardingIndexRoute,
-  RegisterIndexRoute,
-});
+export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute;
+  '/PlaylistDetails/$playlistId': typeof PlaylistDetailsPlaylistIdRoute;
+  '/groupDetails/$organizationId': typeof GroupDetailsOrganizationIdRoute;
+  '/PlaylistDetails': typeof PlaylistDetailsIndexRoute;
+  '/groupDetails': typeof GroupDetailsIndexRoute;
+  '/groupList': typeof GroupListIndexRoute;
+  '/homePage': typeof HomePageIndexRoute;
+  '/login': typeof LoginIndexRoute;
+  '/onboarding': typeof OnboardingIndexRoute;
+  '/playlistList': typeof PlaylistListIndexRoute;
+  '/profile': typeof ProfileIndexRoute;
+  '/register': typeof RegisterIndexRoute;
+}
+
+export interface FileRoutesByTo {
+  '/': typeof IndexRoute;
+  '/PlaylistDetails/$playlistId': typeof PlaylistDetailsPlaylistIdRoute;
+  '/groupDetails/$organizationId': typeof GroupDetailsOrganizationIdRoute;
+  '/PlaylistDetails': typeof PlaylistDetailsIndexRoute;
+  '/groupDetails': typeof GroupDetailsIndexRoute;
+  '/groupList': typeof GroupListIndexRoute;
+  '/homePage': typeof HomePageIndexRoute;
+  '/login': typeof LoginIndexRoute;
+  '/onboarding': typeof OnboardingIndexRoute;
+  '/playlistList': typeof PlaylistListIndexRoute;
+  '/profile': typeof ProfileIndexRoute;
+  '/register': typeof RegisterIndexRoute;
+}
+
+export interface FileRoutesById {
+  __root__: typeof rootRoute;
+  '/': typeof IndexRoute;
+  '/PlaylistDetails/$playlistId': typeof PlaylistDetailsPlaylistIdRoute;
+  '/groupDetails/$organizationId': typeof GroupDetailsOrganizationIdRoute;
+  '/PlaylistDetails/': typeof PlaylistDetailsIndexRoute;
+  '/groupDetails/': typeof GroupDetailsIndexRoute;
+  '/groupList/': typeof GroupListIndexRoute;
+  '/homePage/': typeof HomePageIndexRoute;
+  '/login/': typeof LoginIndexRoute;
+  '/onboarding/': typeof OnboardingIndexRoute;
+  '/playlistList/': typeof PlaylistListIndexRoute;
+  '/profile/': typeof ProfileIndexRoute;
+  '/register/': typeof RegisterIndexRoute;
+}
+
+export interface FileRouteTypes {
+  fileRoutesByFullPath: FileRoutesByFullPath;
+  fullPaths:
+    | '/'
+    | '/PlaylistDetails/$playlistId'
+    | '/groupDetails/$organizationId'
+    | '/PlaylistDetails'
+    | '/groupDetails'
+    | '/groupList'
+    | '/homePage'
+    | '/login'
+    | '/onboarding'
+    | '/playlistList'
+    | '/profile'
+    | '/register';
+  fileRoutesByTo: FileRoutesByTo;
+  to:
+    | '/'
+    | '/PlaylistDetails/$playlistId'
+    | '/groupDetails/$organizationId'
+    | '/PlaylistDetails'
+    | '/groupDetails'
+    | '/groupList'
+    | '/homePage'
+    | '/login'
+    | '/onboarding'
+    | '/playlistList'
+    | '/profile'
+    | '/register';
+  id:
+    | '__root__'
+    | '/'
+    | '/PlaylistDetails/$playlistId'
+    | '/groupDetails/$organizationId'
+    | '/PlaylistDetails/'
+    | '/groupDetails/'
+    | '/groupList/'
+    | '/homePage/'
+    | '/login/'
+    | '/onboarding/'
+    | '/playlistList/'
+    | '/profile/'
+    | '/register/';
+  fileRoutesById: FileRoutesById;
+}
+
+export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute;
+  PlaylistDetailsPlaylistIdRoute: typeof PlaylistDetailsPlaylistIdRoute;
+  GroupDetailsOrganizationIdRoute: typeof GroupDetailsOrganizationIdRoute;
+  PlaylistDetailsIndexRoute: typeof PlaylistDetailsIndexRoute;
+  GroupDetailsIndexRoute: typeof GroupDetailsIndexRoute;
+  GroupListIndexRoute: typeof GroupListIndexRoute;
+  HomePageIndexRoute: typeof HomePageIndexRoute;
+  LoginIndexRoute: typeof LoginIndexRoute;
+  OnboardingIndexRoute: typeof OnboardingIndexRoute;
+  PlaylistListIndexRoute: typeof PlaylistListIndexRoute;
+  ProfileIndexRoute: typeof ProfileIndexRoute;
+  RegisterIndexRoute: typeof RegisterIndexRoute;
+}
+
+const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
+  PlaylistDetailsPlaylistIdRoute: PlaylistDetailsPlaylistIdRoute,
+  GroupDetailsOrganizationIdRoute: GroupDetailsOrganizationIdRoute,
+  PlaylistDetailsIndexRoute: PlaylistDetailsIndexRoute,
+  GroupDetailsIndexRoute: GroupDetailsIndexRoute,
+  GroupListIndexRoute: GroupListIndexRoute,
+  HomePageIndexRoute: HomePageIndexRoute,
+  LoginIndexRoute: LoginIndexRoute,
+  OnboardingIndexRoute: OnboardingIndexRoute,
+  PlaylistListIndexRoute: PlaylistListIndexRoute,
+  ProfileIndexRoute: ProfileIndexRoute,
+  RegisterIndexRoute: RegisterIndexRoute,
+};
+
+export const routeTree = rootRoute
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>();
 
 /* prettier-ignore-end */
 
@@ -133,16 +328,30 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/PlaylistDetails/$playlistId",
+        "/groupDetails/$organizationId",
+        "/PlaylistDetails/",
         "/groupDetails/",
         "/groupList/",
         "/homePage/",
         "/login/",
         "/onboarding/",
+        "/playlistList/",
+        "/profile/",
         "/register/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/PlaylistDetails/$playlistId": {
+      "filePath": "PlaylistDetails/$playlistId.tsx"
+    },
+    "/groupDetails/$organizationId": {
+      "filePath": "groupDetails/$organizationId.tsx"
+    },
+    "/PlaylistDetails/": {
+      "filePath": "PlaylistDetails/index.tsx"
     },
     "/groupDetails/": {
       "filePath": "groupDetails/index.tsx"
@@ -158,6 +367,12 @@ export const routeTree = rootRoute.addChildren({
     },
     "/onboarding/": {
       "filePath": "onboarding/index.tsx"
+    },
+    "/playlistList/": {
+      "filePath": "playlistList/index.tsx"
+    },
+    "/profile/": {
+      "filePath": "profile/index.tsx"
     },
     "/register/": {
       "filePath": "register/index.tsx"

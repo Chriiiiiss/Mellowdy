@@ -10,14 +10,17 @@ export interface CreateOrgaPayload {
 
 // TODO: Try catch error, handle errors
 const createOrga = async (formData: CreateOrgaPayload, token: string) => {
-  const response = await fetch('/v1/organization', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(formData),
-  });
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/v1/organization`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(formData),
+    }
+  );
 
   const data = await response.json();
 

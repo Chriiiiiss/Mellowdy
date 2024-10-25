@@ -53,8 +53,6 @@ export const ImportPlaylistDialog = ({
     });
   };
 
-  console.log('getProviderPlaylist', getProviderPlaylist?.data);
-
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>

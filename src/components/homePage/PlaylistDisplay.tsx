@@ -46,7 +46,6 @@ const PlaylistName = styled.span`
 `;
 
 const PlaylistDisplay = ({ name, listeners, playlist, id }: GroupeData) => {
-  console.log('playlist', playlist);
   return (
     <Flex gap="5" direction="column">
       <Grid columns="70% 30%">
@@ -84,34 +83,36 @@ const PlaylistDisplay = ({ name, listeners, playlist, id }: GroupeData) => {
         {playlist.map(
           (playlist) =>
             playlist && (
-              <PlaylistInfo direction="column" gap="2" key={playlist.name}>
-                {playlist.cover ? (
-                  <PlaylistCover
-                    key={playlist.name}
-                    src={playlist.cover}
-                    height="160px"
-                    width="160px"
-                  />
-                ) : (
-                  <PlaylistCover
-                    key={playlist.name}
-                    src={`https://picsum.photos/${(Math.random() * 1000).toFixed(0)}`}
-                    height="160px"
-                    width="160px"
-                  />
-                )}
-                <PlaylistName>{playlist.name}</PlaylistName>
-              </PlaylistInfo>
+              <Link
+                to={`/PlaylistDetails/${playlist.id}`}
+                key={playlist.id}
+                style={{
+                  textDecoration: 'none',
+                  color: 'black',
+                }}
+              >
+                <PlaylistInfo direction="column" gap="2" key={playlist.name}>
+                  {playlist.cover ? (
+                    <PlaylistCover
+                      key={playlist.name}
+                      src={playlist.cover}
+                      height="160px"
+                      width="160px"
+                    />
+                  ) : (
+                    <PlaylistCover
+                      key={playlist.name}
+                      src={`https://picsum.photos/${(Math.random() * 1000).toFixed(0)}`}
+                      height="160px"
+                      width="160px"
+                    />
+                  )}
+                  <PlaylistName>{playlist.name}</PlaylistName>
+                </PlaylistInfo>
+              </Link>
             )
         )}
-        <PlaylistInfo direction={'column'} gap={'2'}>
-          <PlaylistCover
-            src={`https://picsum.photos/${(Math.random() * 1000).toFixed(0)}`}
-            height="160px"
-            width="160px"
-          />
-          <PlaylistName>{'Ajouter une playlist'}</PlaylistName>
-        </PlaylistInfo>
+        <PlaylistInfo direction={'column'} gap={'2'}></PlaylistInfo>
       </PlaylistContainer>
     </Flex>
   );

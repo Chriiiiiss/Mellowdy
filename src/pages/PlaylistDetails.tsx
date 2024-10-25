@@ -7,7 +7,7 @@ import PlaylistAction from '../components/playlistDetails/PlaylistAction';
 import styled from 'styled-components';
 import SongContent from '../components/playlistDetails/SongContent';
 import { useState } from 'react';
-import { useParams } from '@tanstack/react-router';
+import { useParams, useRouter } from '@tanstack/react-router';
 import { useGetPlaylistInfoById } from '../hooks/playlists/getPlaylistInfoById';
 
 const SongContainer = styled(Flex)`
@@ -21,6 +21,7 @@ const SongContainer = styled(Flex)`
 export const PlaylistDetails = () => {
   const [isPlaylistContentLoading] = useState(false);
   const { playlistId } = useParams({ strict: false });
+  const router = useRouter();
   const getPlaylistById = useGetPlaylistInfoById(Number(playlistId));
   //const getPlaylistSounds = useGetPlaylistSounds(Number(playlistId));
 
@@ -36,7 +37,7 @@ export const PlaylistDetails = () => {
 
   return (
     <MainLayout>
-      <Flex align={'center'} pb={'3'}>
+      <Flex align={'center'} pb={'3'} onClick={() => router.history.go(-1)}>
         <ChevronLeftIcon />
         <Text>Groupes</Text>
       </Flex>

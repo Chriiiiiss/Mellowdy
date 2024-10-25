@@ -24,12 +24,12 @@ const PlaylistActionDropDown = () => {
           <DropdownMenu.Content>
             <Flex justify="center" gap={'3'} direction={'column'}>
               <Dialog.Trigger>
-                <DropdownMenu.Item>
+                <DropdownMenu.Item disabled>
                   <Share2Icon />
                   <Text>Partager la playlist</Text>
                 </DropdownMenu.Item>
               </Dialog.Trigger>
-              <DropdownMenu.Item>
+              <DropdownMenu.Item disabled>
                 <TrashIcon color={'red'} />
                 <Text color={'red'}>Supprimer playlist</Text>
               </DropdownMenu.Item>

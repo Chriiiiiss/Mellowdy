@@ -8,17 +8,20 @@ const editRoleOrga = async (
   role: string,
   token: string
 ) => {
-  const response = await fetch(`/v1/organization/${id}/add-admin`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({
-      userID: userId,
-      role: role, // Le rôle est dynamique ici
-    }),
-  });
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/v1/organization/${id}/add-admin`,
+    {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        userID: userId,
+        role: role, // Le rôle est dynamique ici
+      }),
+    }
+  );
 
   if (!response.ok) {
     const errorData = await response.json();

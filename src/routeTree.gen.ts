@@ -21,7 +21,8 @@ import { Route as HomePageIndexImport } from './routes/homePage/index';
 import { Route as GroupListIndexImport } from './routes/groupList/index';
 import { Route as GroupDetailsIndexImport } from './routes/groupDetails/index';
 import { Route as PlaylistDetailsIndexImport } from './routes/PlaylistDetails/index';
-import { Route as GroupDetailsPlaylistIdImport } from './routes/groupDetails/$playlistId';
+import { Route as GroupDetailsOrganizationIdImport } from './routes/groupDetails/$organizationId';
+import { Route as PlaylistDetailsPlaylistIdImport } from './routes/PlaylistDetails/$playlistId';
 
 // Create/Update Routes
 
@@ -85,9 +86,17 @@ const PlaylistDetailsIndexRoute = PlaylistDetailsIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any);
 
-const GroupDetailsPlaylistIdRoute = GroupDetailsPlaylistIdImport.update({
-  id: '/groupDetails/$playlistId',
-  path: '/groupDetails/$playlistId',
+const GroupDetailsOrganizationIdRoute = GroupDetailsOrganizationIdImport.update(
+  {
+    id: '/groupDetails/$organizationId',
+    path: '/groupDetails/$organizationId',
+    getParentRoute: () => rootRoute,
+  } as any
+);
+
+const PlaylistDetailsPlaylistIdRoute = PlaylistDetailsPlaylistIdImport.update({
+  id: '/PlaylistDetails/$playlistId',
+  path: '/PlaylistDetails/$playlistId',
   getParentRoute: () => rootRoute,
 } as any);
 
@@ -102,11 +111,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport;
       parentRoute: typeof rootRoute;
     };
-    '/groupDetails/$playlistId': {
-      id: '/groupDetails/$playlistId';
-      path: '/groupDetails/$playlistId';
-      fullPath: '/groupDetails/$playlistId';
-      preLoaderRoute: typeof GroupDetailsPlaylistIdImport;
+    '/PlaylistDetails/$playlistId': {
+      id: '/PlaylistDetails/$playlistId';
+      path: '/PlaylistDetails/$playlistId';
+      fullPath: '/PlaylistDetails/$playlistId';
+      preLoaderRoute: typeof PlaylistDetailsPlaylistIdImport;
+      parentRoute: typeof rootRoute;
+    };
+    '/groupDetails/$organizationId': {
+      id: '/groupDetails/$organizationId';
+      path: '/groupDetails/$organizationId';
+      fullPath: '/groupDetails/$organizationId';
+      preLoaderRoute: typeof GroupDetailsOrganizationIdImport;
       parentRoute: typeof rootRoute;
     };
     '/PlaylistDetails/': {
@@ -179,7 +195,8 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute;
-  '/groupDetails/$playlistId': typeof GroupDetailsPlaylistIdRoute;
+  '/PlaylistDetails/$playlistId': typeof PlaylistDetailsPlaylistIdRoute;
+  '/groupDetails/$organizationId': typeof GroupDetailsOrganizationIdRoute;
   '/PlaylistDetails': typeof PlaylistDetailsIndexRoute;
   '/groupDetails': typeof GroupDetailsIndexRoute;
   '/groupList': typeof GroupListIndexRoute;
@@ -193,7 +210,8 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute;
-  '/groupDetails/$playlistId': typeof GroupDetailsPlaylistIdRoute;
+  '/PlaylistDetails/$playlistId': typeof PlaylistDetailsPlaylistIdRoute;
+  '/groupDetails/$organizationId': typeof GroupDetailsOrganizationIdRoute;
   '/PlaylistDetails': typeof PlaylistDetailsIndexRoute;
   '/groupDetails': typeof GroupDetailsIndexRoute;
   '/groupList': typeof GroupListIndexRoute;
@@ -208,7 +226,8 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute;
   '/': typeof IndexRoute;
-  '/groupDetails/$playlistId': typeof GroupDetailsPlaylistIdRoute;
+  '/PlaylistDetails/$playlistId': typeof PlaylistDetailsPlaylistIdRoute;
+  '/groupDetails/$organizationId': typeof GroupDetailsOrganizationIdRoute;
   '/PlaylistDetails/': typeof PlaylistDetailsIndexRoute;
   '/groupDetails/': typeof GroupDetailsIndexRoute;
   '/groupList/': typeof GroupListIndexRoute;
@@ -224,7 +243,8 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
     | '/'
-    | '/groupDetails/$playlistId'
+    | '/PlaylistDetails/$playlistId'
+    | '/groupDetails/$organizationId'
     | '/PlaylistDetails'
     | '/groupDetails'
     | '/groupList'
@@ -237,7 +257,8 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo;
   to:
     | '/'
-    | '/groupDetails/$playlistId'
+    | '/PlaylistDetails/$playlistId'
+    | '/groupDetails/$organizationId'
     | '/PlaylistDetails'
     | '/groupDetails'
     | '/groupList'
@@ -250,7 +271,8 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/groupDetails/$playlistId'
+    | '/PlaylistDetails/$playlistId'
+    | '/groupDetails/$organizationId'
     | '/PlaylistDetails/'
     | '/groupDetails/'
     | '/groupList/'
@@ -265,7 +287,8 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
-  GroupDetailsPlaylistIdRoute: typeof GroupDetailsPlaylistIdRoute;
+  PlaylistDetailsPlaylistIdRoute: typeof PlaylistDetailsPlaylistIdRoute;
+  GroupDetailsOrganizationIdRoute: typeof GroupDetailsOrganizationIdRoute;
   PlaylistDetailsIndexRoute: typeof PlaylistDetailsIndexRoute;
   GroupDetailsIndexRoute: typeof GroupDetailsIndexRoute;
   GroupListIndexRoute: typeof GroupListIndexRoute;
@@ -279,7 +302,8 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  GroupDetailsPlaylistIdRoute: GroupDetailsPlaylistIdRoute,
+  PlaylistDetailsPlaylistIdRoute: PlaylistDetailsPlaylistIdRoute,
+  GroupDetailsOrganizationIdRoute: GroupDetailsOrganizationIdRoute,
   PlaylistDetailsIndexRoute: PlaylistDetailsIndexRoute,
   GroupDetailsIndexRoute: GroupDetailsIndexRoute,
   GroupListIndexRoute: GroupListIndexRoute,
@@ -304,7 +328,8 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/groupDetails/$playlistId",
+        "/PlaylistDetails/$playlistId",
+        "/groupDetails/$organizationId",
         "/PlaylistDetails/",
         "/groupDetails/",
         "/groupList/",
@@ -319,8 +344,11 @@ export const routeTree = rootRoute
     "/": {
       "filePath": "index.tsx"
     },
-    "/groupDetails/$playlistId": {
-      "filePath": "groupDetails/$playlistId.tsx"
+    "/PlaylistDetails/$playlistId": {
+      "filePath": "PlaylistDetails/$playlistId.tsx"
+    },
+    "/groupDetails/$organizationId": {
+      "filePath": "groupDetails/$organizationId.tsx"
     },
     "/PlaylistDetails/": {
       "filePath": "PlaylistDetails/index.tsx"

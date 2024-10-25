@@ -16,6 +16,28 @@ interface SharePlaylistError {
   error: string;
 }
 
+const importPlaylist = async (
+  token: string,
+  user: Partial<IUser>,
+  playlistProviderId: string
+) => {
+  const headers = buildHeaders(token, user);
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/v1/playlist/${playlistProviderId}`,
+    {
+      headers,
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+
+  const responseData = await response.json();
+
+  return responseData;
+};
+
 const sharePlaylist = async (
   token: string,
   user: Partial<IUser>,
@@ -37,7 +59,17 @@ const sharePlaylist = async (
 
   const responseData: SharePlaylistResponse = await response.json();
 
-  return responseData;
+  if (!responseData) {
+    throw new Error('No data returned from the server');
+  }
+
+  const queryImportPlaylist = await importPlaylist(
+    token,
+    user,
+    payload.playlist_provider_id
+  );
+
+  return queryImportPlaylist;
 };
 
 export const useSharePlaylist = () => {

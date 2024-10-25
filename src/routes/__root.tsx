@@ -17,7 +17,7 @@ declare global {
   function deactivateDebugMode(): void;
 }
 
-const DEBUG_MODE = false;
+const DEBUG_MODE = true;
 
 // Root of the App,
 // It will render everything inside it in every route.

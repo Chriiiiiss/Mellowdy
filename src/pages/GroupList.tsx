@@ -56,6 +56,7 @@ export const GroupList = () => {
                           >
                             <CoverCard
                               key={group.id}
+                              id={group.id}
                               title={group.name}
                               cover={group.avatar_url}
                               link={'/'}
@@ -104,6 +105,7 @@ export const GroupList = () => {
                         >
                           <CoverCard
                             key={group.id}
+                            id={group.id}
                             title={group.name}
                             cover={group.avatar_url}
                             link={'/'}

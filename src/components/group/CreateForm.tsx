@@ -112,6 +112,13 @@ export const GroupCreateForm = ({ setOpenDialog }: GroupCreateFormProps) => {
       />
       <TextArea label={'Description du groupe'} maxLength={600} />
       <Flex justify={'center'} gapX={'2'}>
+        <Form.Submit asChild>
+          <MellowdyButton
+            label="Créer le groupe"
+            onClick={() => setOpenDialog(false)}
+            size="medium"
+          />
+        </Form.Submit>
         <MellowdyButton
           label="Annuler"
           onClick={() => {
@@ -120,13 +127,6 @@ export const GroupCreateForm = ({ setOpenDialog }: GroupCreateFormProps) => {
           variant={'secondary'}
           size="medium"
         />
-        <Form.Submit asChild>
-          <MellowdyButton
-            label="Créer le groupe"
-            onClick={() => setOpenDialog(false)}
-            size="medium"
-          />
-        </Form.Submit>
       </Flex>
     </Form.Root>
   );

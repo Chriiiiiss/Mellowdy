@@ -12,12 +12,19 @@ import {
 import { useGetOrganization } from '../hooks/organization/getOrganization';
 import { useParams } from '@tanstack/react-router';
 import Dropdown from '../components/DropdownMenu';
-import { Pencil1Icon, Share1Icon, TrashIcon } from '@radix-ui/react-icons';
+import {
+  Pencil1Icon,
+  PersonIcon,
+  Share1Icon,
+  TrashIcon,
+} from '@radix-ui/react-icons';
 import { InviteFriendDialog } from '../components/group/InviteFriendDialog';
 import { ImportPlaylistDialog } from '../components/group/ImportPlaylistDialog';
 import { useGetPlaylistByOrga } from '../hooks/playlist/getPlayListByOrga';
 import { useGetAllOrganization } from '../hooks/organization/getAllOrga';
 import DeleteModal from '../components/group/DeleteModal';
+import EditGroupModal from '../components/group/EditGroupModal';
+import EditMemberModal from '../components/group/EditMemberModal';
 
 export const GroupDetails = () => {
   const [isPlaylistLoading] = useState(false); // setIsPlaylistLoading quand tu as les données
@@ -25,16 +32,14 @@ export const GroupDetails = () => {
   if (!organizationId) return;
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
-  const [openEdit, setOpenEdit] = useState(false);
+  const [openEditGroup, setOpenEditGroup] = useState(false);
+  const [openEditMember, setOpenEditMember] = useState(false);
 
-  const handleEdit = () => setOpenEdit(true);
+  const handleEditGroup = () => setOpenEditGroup(true);
+  const handleEditMember = () => setOpenEditMember(true);
   const handleDelete = () => setOpenDelete(true);
 
-  if (!playlistId) {
-    return;
-  }
-
-  const getOrganization = useGetOrganization(playlistId);
+  const getOrganization = useGetOrganization(organizationId);
   const organizationData = getOrganization.data?.enriched_organization;
   const getAllOrganization = useGetAllOrganization();
 
@@ -50,12 +55,17 @@ export const GroupDetails = () => {
     {
       icon: <Pencil1Icon />,
       label: 'Modifier',
-      onClick: handleEdit,
+      onClick: handleEditGroup,
     },
     {
       icon: <Share1Icon />,
       label: 'Inviter des amis',
       onClick: () => setOpen(true),
+    },
+    {
+      icon: <PersonIcon />,
+      label: 'Modifier les membres',
+      onClick: handleEditMember,
     },
     ...(isUserOwner
       ? [
@@ -95,12 +105,10 @@ export const GroupDetails = () => {
             gap={'1'}
           >
             <Avatar
-              src={
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-RWYUskdgPnmt6U2_9krSgV-Cffj38hMWRQ&s'
-              }
+              src={organizationData.avatar_url}
               alt={'Avatar'}
               size={'7'}
-              fallback=""
+              fallback={organizationData.name.slice(0, 2).toUpperCase()}
               radius="full"
             />
             <Heading as={'h2'} size={'7'}>
@@ -167,9 +175,16 @@ export const GroupDetails = () => {
         id={getOrganization.data?.enriched_organization.id}
       />
       <EditGroupModal
-        open={openEdit}
-        onClose={() => setOpenEdit(false)}
+        open={openEditGroup}
+        onClose={() => setOpenEditGroup(false)}
         id={getOrganization.data?.enriched_organization.id}
+      />
+      <EditMemberModal
+        open={openEditMember}
+        onClose={() => setOpenEditMember(false)}
+        id={getOrganization.data?.enriched_organization.id}
+        member={organizationData.users}
+        owner={organizationData.owner_id}
       />
     </MainLayout>
   );

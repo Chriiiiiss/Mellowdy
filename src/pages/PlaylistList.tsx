@@ -9,7 +9,6 @@ export const PlaylistListPage = () => {
   const fetchUserPlaylists = useFetchUserPlaylist();
   const data = fetchUserPlaylists.data?.Playlists;
 
-  console.log(fetchUserPlaylists.data?.Playlists);
   return (
     <MainLayout>
       <Section pt={'0'} pb={'6'}>

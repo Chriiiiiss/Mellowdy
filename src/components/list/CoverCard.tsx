@@ -22,7 +22,11 @@ const CardLink = styled(Link)`
 export const CoverCard = ({ title, variant, cover, id }: ListAddCardProps) => {
   return (
     <Box>
-      <CardLink to={`/playlistDetails/${id}`}>
+      <CardLink
+        to={
+          variant === 'group' ? `/groupDetails/${id}` : `/playlistDetails/${id}`
+        }
+      >
         <Avatar
           src={cover}
           size="7"

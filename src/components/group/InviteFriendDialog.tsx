@@ -6,6 +6,7 @@ import { Container, Dialog, TextField } from '@radix-ui/themes';
 import { useSearchUserByEmail } from '../../hooks/user/getUserByEmail';
 import { useDebounce } from '@uidotdev/usehooks';
 import { useAddUserToOrg } from '../../hooks/organization/addUserToOrg';
+import { MellowdyButton } from '../Button';
 
 interface InviteFriendDialogProps {
   open: boolean;
@@ -38,19 +39,6 @@ const UserItem = styled.div`
   cursor: pointer;
   &:hover {
     background-color: #f0f0f0;
-  }
-`;
-
-const ConfirmButton = styled.button`
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  &:hover {
-    background-color: #0056b3;
   }
 `;
 
@@ -100,7 +88,7 @@ export const InviteFriendDialog = ({
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <DialogContent>
         <Dialog.Title>Inviter des amis</Dialog.Title>
-        <Dialog.Description>
+        <Dialog.Description mb="4">
           <TextField.Root
             value={email}
             onChange={(e) => {
@@ -135,12 +123,12 @@ export const InviteFriendDialog = ({
             </div>
           )}
         </Dialog.Description>
-        <ConfirmButton
+        <MellowdyButton
           disabled={!selectedUser}
           onClick={() => handleSubmit(selectedUser)}
-        >
-          Confirmer
-        </ConfirmButton>
+          label="Confirmer"
+          size="medium"
+        />
       </DialogContent>
     </Dialog.Root>
   );

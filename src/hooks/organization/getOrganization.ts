@@ -13,7 +13,7 @@ export interface EnrichedOrganization {
   name: string;
   description: string;
   avatar_url: string;
-  owner_id: number;
+  owner_id: number[];
   users: OrganizationUser[];
   created_at: string;
 }

@@ -10,7 +10,7 @@ interface SharePlaylistProps {
 
 const SharePlaylist = ({ groupeData, playlistInfo }: SharePlaylistProps) => {
   const hasPlaylist = (groupe: GroupeData) => {
-    return groupe.playlist.some((playlist) => playlist.id === playlistInfo.id);
+    return groupe.playlist.some((playlist) => playlist?.id === playlistInfo.id);
   };
 
   const handleSubmit = (event: React.FormEvent) => {

@@ -6,10 +6,13 @@ import { GroupSkeleton } from '../components/Skeleton';
 import { useGetAllOrganization } from '../hooks/organization/getAllOrga';
 import { EmptyGroupState } from '../components/homePage/EmptyGroupState';
 import { CreateGroupDialog } from '../components/homePage/CreateGroupDialog';
-import { Link } from '@tanstack/react-router';
 
 export const GroupList = () => {
   const getOrganization = useGetAllOrganization();
+
+  const notOwner = getOrganization.data?.filter((orga) => !orga.is_user_owner);
+
+  console.log(notOwner, 'notOwner');
 
   return (
     <MainLayout>
@@ -46,23 +49,13 @@ export const GroupList = () => {
                     {getOrganization.data.map(
                       (group) =>
                         group.is_user_owner && (
-                          <Link
-                            style={{
-                              textDecoration: 'none',
-                              color: 'black',
-                            }}
-                            to={`/groupDetails/${group.id}`}
+                          <CoverCard
                             key={group.id}
-                          >
-                            <CoverCard
-                              key={group.id}
-                              id={group.id}
-                              title={group.name}
-                              cover={group.avatar_url}
-                              link={'/'}
-                              variant="group"
-                            />
-                          </Link>
+                            id={group.id}
+                            title={group.name}
+                            cover={group.avatar_url}
+                            variant="group"
+                          />
                         )
                     )}
 
@@ -93,16 +86,9 @@ export const GroupList = () => {
                       xl: '12',
                     }}
                   >
-                    {getOrganization.data.map((group) =>
-                      !group.is_user_owner ? (
-                        <Link
-                          style={{
-                            textDecoration: 'none',
-                            color: 'black',
-                          }}
-                          to={`/groupDetails/${group.id}`}
-                          key={group.id}
-                        >
+                    {getOrganization.data.map(
+                      (group) =>
+                        !group.is_user_owner && (
                           <CoverCard
                             key={group.id}
                             id={group.id}
@@ -111,14 +97,14 @@ export const GroupList = () => {
                             link={'/'}
                             variant="group"
                           />
-                        </Link>
-                      ) : (
-                        <Box key={group.id} gridColumn={'span 12'}>
-                          <Text size={'1'}>
-                            Vous navez aucun groupe partagé avec vous
-                          </Text>
-                        </Box>
-                      )
+                        )
+                    )}
+                    {notOwner?.length === 0 && (
+                      <Box gridColumn={'span 12'}>
+                        <Text size={'1'}>
+                          Vous navez aucun groupe partagé avec vous
+                        </Text>
+                      </Box>
                     )}
                   </Grid>
                 )}

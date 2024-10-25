@@ -50,11 +50,11 @@ export const PlaylistDetails = () => {
               <SongContent />
             </SongContainer>
           </Skeleton>
-          <Skeleton loading={isPlaylistContentLoading}>
+          {/* <Skeleton loading={isPlaylistContentLoading}>
             <SongContainer justify={'between'} align={'center'}>
               <SongContent />
             </SongContainer>
-          </Skeleton>
+          </Skeleton> */}
         </Flex>
       </Section>
     </MainLayout>

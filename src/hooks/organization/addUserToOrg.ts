@@ -16,20 +16,26 @@ interface AddUserToOrgError {
 }
 
 const addUserToOrg = async (token: string, payload: AddUserToOrgPayload) => {
-  const { orgId, ...truePayload } = payload;
-  const response = await fetch(
-    `${import.meta.env.VITE_API_URL}/v1/organization/${orgId}/add`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(truePayload),
-    }
-  );
+  try {
+    const { orgId, ...truePayload } = payload;
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/v1/organization/${orgId}/add`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(truePayload),
+      }
+    );
 
-  return response.json();
+    return response.json();
+  } catch (e) {
+    throw new Error(
+      "Une erreur est survenue lors de l'ajout de l'utilisateur à l'organisation"
+    );
+  }
 };
 
 export const useAddUserToOrg = () => {
@@ -51,6 +57,9 @@ export const useAddUserToOrg = () => {
       query.invalidateQueries({
         queryKey: ['getOrganization'],
       });
+    },
+    onError: (error) => {
+      console.error(error);
     },
   });
 };

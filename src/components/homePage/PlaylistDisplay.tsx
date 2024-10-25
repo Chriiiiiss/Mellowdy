@@ -1,5 +1,5 @@
 import { ArrowRightIcon } from '@radix-ui/react-icons';
-import { Avatar, Flex, Grid, Heading } from '@radix-ui/themes';
+import { Avatar, Flex, Grid, Heading, Text } from '@radix-ui/themes';
 import styled from 'styled-components';
 import { GroupeData } from '../../pages/HomePage';
 import { Link } from '@tanstack/react-router';
@@ -79,6 +79,9 @@ const PlaylistDisplay = ({ name, listeners, playlist, id }: GroupeData) => {
           </Flex>
         )}
       </Grid>
+      {!playlist.length && (
+        <Text align={'center'}>Vous devriez rajouter une playlist...</Text>
+      )}
       <PlaylistContainer gap="4">
         {playlist.map(
           (playlist) =>

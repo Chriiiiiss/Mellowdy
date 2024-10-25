@@ -7,6 +7,7 @@ import { useSearchUserByEmail } from '../../hooks/user/getUserByEmail';
 import { useDebounce } from '@uidotdev/usehooks';
 import { useAddUserToOrg } from '../../hooks/organization/addUserToOrg';
 import { MellowdyButton } from '../Button';
+import toast from 'react-hot-toast';
 
 interface InviteFriendDialogProps {
   open: boolean;
@@ -77,6 +78,7 @@ export const InviteFriendDialog = ({
       },
       {
         onSuccess: () => {
+          toast.success('Utilisateur ajouté avec succès');
           setOpen(false);
         },
       }

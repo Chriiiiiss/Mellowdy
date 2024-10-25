@@ -5,6 +5,7 @@ import * as Form from '@radix-ui/react-form';
 import { FormField } from '../Field';
 import styled from 'styled-components';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 interface ProfileDialogProps {
   id?: number;
@@ -43,6 +44,7 @@ const EditGroupModal = ({ open, onClose, id }: ProfileDialogProps) => {
       onClose();
     } catch (error) {
       console.error('Error while deleting group: ', error);
+      toast.error('Une erreur est survenue lors de la modification du groupe');
     }
   };
   return (

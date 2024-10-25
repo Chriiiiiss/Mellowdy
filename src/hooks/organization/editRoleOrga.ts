@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useUserState } from '../../stores/useUserState';
+import toast from 'react-hot-toast';
 
 // TODO: Try catch error, handle errors
 const editRoleOrga = async (
@@ -18,7 +19,7 @@ const editRoleOrga = async (
       },
       body: JSON.stringify({
         userID: userId,
-        role: role, // Le rôle est dynamique ici
+        role: role,
       }),
     }
   );
@@ -52,6 +53,7 @@ export const useEditRoleOrga = () => {
         role: string;
       }) => editRoleOrga(id, userId, role, token),
       onSuccess() {
+        toast.success('Rôle modifié avec succès');
         queryClient.invalidateQueries({
           queryKey: ['getAllOrganization', 'getOrganization'],
         });

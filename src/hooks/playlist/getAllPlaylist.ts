@@ -1,10 +1,8 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import {
-  Organization,
-  useGetAllOrganization,
-} from '../organization/getAllOrga';
+import { Organization } from '../organization/getAllOrga';
 import { useUserState } from '../../stores/useUserState';
 import { fetchPlaylist } from './getPlaylist';
+import { IUser } from '../../interfaces/user';
 
 export interface Playlist {
   created_at: string;
@@ -26,12 +24,19 @@ export interface PlaylistDataResponse {
   user_id: number;
 }
 
-const getPlaylistsData = async (token: string, playlistIds: number[][]) => {
+export const getPlaylistsData = async (
+  token: string,
+  playlistIds: (number | undefined)[][],
+  user: Partial<IUser> | undefined
+) => {
   return Promise.all(
     playlistIds.map(async (organization) => {
       const playlistData = await Promise.all(
         organization.map(async (playlistId) => {
-          const { playlist } = await fetchPlaylist(token, playlistId);
+          if (!playlistId) {
+            return;
+          }
+          const { playlist } = await fetchPlaylist(token, user, playlistId);
 
           return playlist;
         })
@@ -44,10 +49,15 @@ const getPlaylistsData = async (token: string, playlistIds: number[][]) => {
 
 const fetchAllPlaylistInformation = async (
   token: string,
-  orga: Organization[]
+  orga: Organization[] | undefined,
+  user: Partial<IUser> | undefined
 ) => {
+  if (!orga) {
+    throw new Error('No organization found');
+  }
+
   const playlistIds = await fetchAllPlaylistIds(token, orga);
-  const playlistData = await getPlaylistsData(token, playlistIds);
+  const playlistData = await getPlaylistsData(token, playlistIds, user);
 
   return playlistData;
 };
@@ -72,30 +82,36 @@ const fetchAllPlaylistIds = async (
 
     const data: PlaylistDataResponse[] = await response.json();
 
+    if (!data) {
+      return [];
+    }
+
     const dataPlaylistIds = data.map((playlist) => {
-      return playlist.playlist_id;
+      if (playlist.playlist_id) {
+        return playlist.playlist_id;
+      }
     });
 
-    return dataPlaylistIds;
+    const distinctItems = [...new Set(dataPlaylistIds)];
+
+    return distinctItems;
   });
   const playlistIds = await Promise.all(dataPlaylist);
 
   return playlistIds;
 };
 
-export const useGetAllPlaylistInfo = () => {
-  const orga = useGetAllOrganization().data || [];
-
+export const useGetAllPlaylistInfo = (orga: Organization[] | undefined) => {
   const queryClient = useQueryClient();
-  const { token } = useUserState();
+  const { token, user } = useUserState();
 
-  if (!token) return null;
+  if (!token || !user) return;
 
   return useQuery(
     {
-      queryKey: ['getAllPlaylist', token, orga],
-      queryFn: () => fetchAllPlaylistInformation(token, orga as Organization[]),
-      enabled: !!token,
+      queryKey: ['getAllPlaylist', token, orga, user],
+      queryFn: () => fetchAllPlaylistInformation(token, orga, user),
+      enabled: !!token && !!orga && !!user,
       retry: 0,
     },
     queryClient

@@ -23,10 +23,13 @@ const fetchProviderPlaylistIds = async (
 ) => {
   const headers = buildHeaders(token, user);
 
-  const response = await fetch(`/v1/user/playlists`, {
-    method: 'GET',
-    headers: headers,
-  });
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/v1/user/playlists`,
+    {
+      method: 'GET',
+      headers: headers,
+    }
+  );
 
   if (!response.ok) {
     throw new Error('Network response was not ok');

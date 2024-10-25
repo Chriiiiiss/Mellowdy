@@ -15,7 +15,7 @@ const AddButton = styled(Flex)`
   border-radius: 50%;
 `;
 
-const DialogContent = styled(Dialog.Content)`
+export const DialogContent = styled(Dialog.Content)`
   width: 400px;
   max-width: 90vw;
   padding: 20px;

@@ -1,7 +1,7 @@
-import { Dialog, Flex } from '@radix-ui/themes';
-import { MellowdyButton } from '../Button';
+import { Button, Dialog, Flex } from '@radix-ui/themes';
 import { useDeleteOrga } from '../../hooks/organization/deleteOrga';
 import { useNavigate } from '@tanstack/react-router';
+import { DialogContent } from './ImportPlaylistDialog';
 
 interface ProfileDialogProps {
   id?: number;
@@ -26,23 +26,22 @@ const DeleteModal = ({ open, onClose, id }: ProfileDialogProps) => {
   };
   return (
     <Dialog.Root open={open} onOpenChange={onClose}>
-      <Dialog.Content>
+      <DialogContent>
         <Dialog.Title>Suppression</Dialog.Title>
         <Dialog.Description>
           Êtes-vous sûr de vouloir supprimer ce groupe ?
         </Dialog.Description>
         <Flex justify="center" mt="4" gap={'8'} style={{ width: '100%' }}>
-          <MellowdyButton onClick={handleDelete} size="medium" label="oui" />
+          <Button onClick={handleDelete} size={'4'}>
+            oui
+          </Button>
           <Dialog.Close>
-            <MellowdyButton
-              onClick={() => onClose()}
-              size="medium"
-              label="non"
-              variant="soft"
-            />
+            <Button size={'4'} onClick={() => onClose()} variant="soft">
+              Non
+            </Button>
           </Dialog.Close>
         </Flex>
-      </Dialog.Content>
+      </DialogContent>
     </Dialog.Root>
   );
 };

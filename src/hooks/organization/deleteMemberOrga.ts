@@ -17,7 +17,9 @@ const deleteMemberOrga = async (id: string, token: string) => {
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.message || 'Error while deleting member');
+    throw new Error(
+      errorData.message || 'Erreur lors de la suppression du membre'
+    );
   }
 
   return await response.json();
@@ -40,6 +42,9 @@ export const useDeleteOrga = () => {
         queryClient.invalidateQueries({
           queryKey: ['getAllOrganization', 'getOrganization'],
         });
+      },
+      onError(error) {
+        toast.error(error.message);
       },
     },
     queryClient

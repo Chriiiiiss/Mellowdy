@@ -41,7 +41,7 @@ export const PlaylistDetails = () => {
         <Text>Groupes</Text>
       </Flex>
       <PlaylistInfo date={data.created_at} name={data.name} />
-      <PlaylistAction />
+      <PlaylistAction playlistId={playlistId} />
       <Section pt={'0px'} pb={'0px'}>
         <Flex direction={'column'} gap={'1'}>
           <Skeleton loading={isPlaylistContentLoading}>
